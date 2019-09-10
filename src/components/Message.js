@@ -17,7 +17,7 @@ const Message = props => {
   const { name, icon, text } = props;
 
   return (
-    <ListItem alignItems="flex-start">
+    <ListItem alignItems='flex-start'>
       <ListItemAvatar>
         <Avatar alt={name} src={icon} />
       </ListItemAvatar>
@@ -26,10 +26,10 @@ const Message = props => {
         secondary={
           <React.Fragment>
             <Typography
-              component="span"
-              variant="body2"
+              component='span'
+              variant='body2'
               className={classes.inline}
-              color="textPrimary"
+              color='textPrimary'
             >
               {text}
             </Typography>
