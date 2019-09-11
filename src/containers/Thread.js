@@ -14,10 +14,13 @@ const useStyles = makeStyles(theme => ({
 
 const Thread = props => {
   const classes = useStyles();
-  const replies = props.replies.map(item => (
-    <Message key={item.id} name={item.name} icon='' text={item.text} />
-  ));
-  return <List className={classes.root}>{replies}</List>;
+  return (
+    <List className={classes.root}>
+      {props.replies.map(item => (
+        <Message key={item.id} name={item.name} icon='' text={item.text} />
+      ))}
+    </List>
+  );
 };
 
 // redux関連
