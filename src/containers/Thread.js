@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -11,6 +11,7 @@ import SendIcon from '@material-ui/icons/Send';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 
 import Message from '../components/Message';
+import * as messageModules from '../modules/message';
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -28,11 +29,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Thread = props => {
+  const userName = 'annin'; // これはテストです
   const classes = useStyles();
+  const { replies, addMessage } = props;
+  const [writingText, setWritingText] = useState('');
+
   return (
     <React.Fragment>
       <List className={classes.list}>
-        {props.replies.map(item => (
+        {replies.map(item => (
           <Message key={item.id} name={item.name} icon='' text={item.text} />
         ))}
       </List>
@@ -43,9 +48,20 @@ const Thread = props => {
           </IconButton>
           <InputBase
             className={classes.input}
+            value={writingText}
             placeholder='このスレッドに送信'
+            // アロー関数で書いてあるため毎回生成される可能性があるかも
+            onChange={e => setWritingText(e.target.value)}
           />
-          <IconButton edge='start' color='inherit'>
+          <IconButton
+            edge='start'
+            color='inherit'
+            // アロー関数で書いてあるため毎回生成される可能性があるかも
+            onClick={() => {
+              addMessage(userName, writingText);
+              setWritingText('');
+            }}
+          >
             <SendIcon />
           </IconButton>
         </Toolbar>
@@ -60,4 +76,12 @@ const mapStateToProps = state => {
     replies: state.message.replies
   };
 };
-export default connect(mapStateToProps)(Thread);
+const mapDispatchToProps = dispatch => {
+  return {
+    addMessage: (name, text) => dispatch(messageModules.addMessage(name, text))
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Thread);
