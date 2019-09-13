@@ -16,6 +16,17 @@ const Message = props => {
   const classes = useStyles();
   const { name, icon, text } = props;
 
+  const convertLineFeed = text => {
+    // 改行コード\nを<br />に変換
+    // これを行わないとテキストが改行されない
+    return text.split('\n').map((line, key) => (
+      <span key={key}>
+        {line}
+        <br />
+      </span>
+    ));
+  };
+
   return (
     <ListItem alignItems='flex-start'>
       <ListItemAvatar>
@@ -31,7 +42,7 @@ const Message = props => {
               className={classes.inline}
               color='textPrimary'
             >
-              {text}
+              {convertLineFeed(text)}
             </Typography>
           </React.Fragment>
         }
