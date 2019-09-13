@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import InputBase from '@material-ui/core/InputBase';
+import Input from '@material-ui/core/Input';
 // import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
@@ -55,12 +55,14 @@ const Thread = props => {
         ))}
       </List>
       <AppBar className={classes.footer} color='primary'>
-        <Toolbar>
+        <Toolbar disableGutters={true}>
           <IconButton color='inherit'>
             <PhotoLibraryIcon />
           </IconButton>
-          <InputBase
+          <Input
             className={classes.input}
+            multiline={true}
+            rowsMax={3}
             value={writingText}
             placeholder='このスレッドに送信'
             onChange={writingTextChange}
