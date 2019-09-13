@@ -39,6 +39,10 @@ const Thread = props => {
   };
 
   const SendButtonClick = () => {
+    // 入力欄が空だったりホワイトスペースばっかりだったら送信しない
+    if (writingText.trim() === '') {
+      return;
+    }
     addMessage(userName, writingText);
     setWritingText('');
   };
