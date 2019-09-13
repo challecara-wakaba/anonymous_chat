@@ -34,6 +34,15 @@ const Thread = props => {
   const { replies, addMessage } = props;
   const [writingText, setWritingText] = useState('');
 
+  const writingTextChange = e => {
+    setWritingText(e.target.value);
+  };
+
+  const SendButtonClick = () => {
+    addMessage(userName, writingText);
+    setWritingText('');
+  };
+
   return (
     <React.Fragment>
       <List className={classes.list}>
@@ -50,18 +59,9 @@ const Thread = props => {
             className={classes.input}
             value={writingText}
             placeholder='このスレッドに送信'
-            // アロー関数で書いてあるため毎回生成される可能性があるかも
-            onChange={e => setWritingText(e.target.value)}
+            onChange={writingTextChange}
           />
-          <IconButton
-            edge='start'
-            color='inherit'
-            // アロー関数で書いてあるため毎回生成される可能性があるかも
-            onClick={() => {
-              addMessage(userName, writingText);
-              setWritingText('');
-            }}
-          >
+          <IconButton edge='start' color='inherit' onClick={SendButtonClick}>
             <SendIcon />
           </IconButton>
         </Toolbar>
