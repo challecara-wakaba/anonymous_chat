@@ -16,12 +16,14 @@ import * as messageModules from '../modules/message';
 const useStyles = makeStyles(theme => ({
   list: {
     width: '100%',
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    marginBottom: theme.spacing(8)
   },
   footer: {
     position: 'fixed',
     top: 'auto',
-    bottom: 0
+    bottom: 0,
+    height: theme.spacing(8)
   },
   input: {
     flexGrow: 1
