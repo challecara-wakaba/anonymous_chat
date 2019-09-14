@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
 
 const Thread = props => {
   const userName = 'annin'; // これはテストです
+
   const classes = useStyles();
   const { replies, addMessage } = props;
   const [writingText, setWritingText] = useState('');
@@ -47,6 +48,16 @@ const Thread = props => {
     setWritingText('');
   };
 
+  let messageEnd = null;
+  const scrollBottom = () => {
+    messageEnd.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() =>
+    // render後などの処理など
+    scrollBottom()
+  );
+
   return (
     <React.Fragment>
       <List className={classes.list}>
@@ -54,6 +65,12 @@ const Thread = props => {
           <Message key={item.id} name={item.name} icon='' text={item.text} />
         ))}
       </List>
+      <div
+        // 自動スクロールのためのダミーdiv
+        ref={el => {
+          messageEnd = el;
+        }}
+      ></div>
       <AppBar className={classes.footer} color='primary'>
         <Toolbar disableGutters={true}>
           <IconButton color='inherit'>
