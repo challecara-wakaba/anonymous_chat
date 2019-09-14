@@ -14,7 +14,18 @@ const useStyles = makeStyles(theme => ({
 
 const Message = props => {
   const classes = useStyles();
-  const { name, icon, text } = props;
+  const { name, icon, timeStamp, text } = props;
+
+  const convertDateFormat = date => {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'][date.getDay()];
+
+    return `${year}年${month}月${day}日(${dayOfWeek}) ${hour}:${minute}`;
+  };
 
   const convertLineFeed = text => {
     // 改行コード\nを<br />に変換
@@ -33,7 +44,22 @@ const Message = props => {
         <Avatar alt={name} src={icon} />
       </ListItemAvatar>
       <ListItemText
-        primary={name}
+        primary={
+          <React.Fragment>
+            <Typography component='span' variant='subtitle' className='inline'>
+              {name}
+            </Typography>
+            {'  '}
+            <Typography
+              component='span'
+              variant='caption'
+              className={classes.inline}
+              color='textSecondary'
+            >
+              {convertDateFormat(timeStamp)}
+            </Typography>
+          </React.Fragment>
+        }
         secondary={
           <React.Fragment>
             <Typography

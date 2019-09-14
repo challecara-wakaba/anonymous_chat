@@ -64,7 +64,13 @@ const Thread = props => {
     <React.Fragment>
       <List className={classes.list}>
         {replies.map(item => (
-          <Message key={item.id} name={item.name} icon='' text={item.text} />
+          <Message
+            key={item.id}
+            name={item.name}
+            icon=''
+            text={item.text}
+            timeStamp={item.timeStamp}
+          />
         ))}
       </List>
       <div
