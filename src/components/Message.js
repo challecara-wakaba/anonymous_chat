@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
 
 const Message = props => {
   const classes = useStyles();
+  const { reactWindowStyle } = props; // react-window関連
   const { name, icon, timeStamp, text } = props;
 
   const convertDateFormat = date => {
@@ -39,7 +40,7 @@ const Message = props => {
   };
 
   return (
-    <ListItem alignItems='flex-start'>
+    <ListItem alignItems='flex-start' style={reactWindowStyle}>
       <ListItemAvatar>
         <Avatar alt={name} src={icon} />
       </ListItemAvatar>
