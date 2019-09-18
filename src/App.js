@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 
+import Thread from './containers/Thread';
+
 class App extends Component {
   render() {
     return (
@@ -20,7 +22,7 @@ class App extends Component {
           <Route
             exact
             path='/client/testChannel/testThread'
-            render={() => <h1>testThread</h1>}
+            component={Thread}
           />
           <Route render={() => <p>ページが見つかりません</p>} />
         </Switch>
