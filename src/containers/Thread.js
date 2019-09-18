@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -9,9 +9,7 @@ import * as messageModules from '../modules/message';
 
 const useStyles = makeStyles(theme => ({
   list: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
-    marginBottom: theme.spacing(8)
+    backgroundColor: theme.palette.background.paper
   }
 }));
 
@@ -24,16 +22,6 @@ const Thread = props => {
   const handleDispatch = text => {
     addMessage(userName, text);
   };
-
-  let messageEnd = null;
-  const scrollBottom = () => {
-    messageEnd.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  useEffect(() =>
-    // render後などの処理など
-    scrollBottom()
-  );
 
   return (
     <React.Fragment>
@@ -48,12 +36,6 @@ const Thread = props => {
           />
         ))}
       </List>
-      <div
-        // 自動スクロールのためのダミーdiv
-        ref={el => {
-          messageEnd = el;
-        }}
-      ></div>
       <ThreadFooter onDispatch={handleDispatch} />
     </React.Fragment>
   );
