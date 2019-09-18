@@ -25,7 +25,7 @@ const Thread = props => {
 
   const calculateItemSize = () => {};
 
-  const sendItemKey = (index, data) => {
+  const passItemKey = (index, data) => {
     const item = data[index];
     return item.id;
   };
@@ -58,7 +58,7 @@ const Thread = props => {
         itemSize={LISTHEIGHT / 9} ////////////お試しでハードコーティングしてる
         itemCount={replies.length}
         itemData={replies}
-        itemKey={sendItemKey}
+        itemKey={passItemKey}
       >
         {listItems}
       </FixedSizeList>
