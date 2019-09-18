@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Thread from './containers/Thread';
+import MakeThreadForm from './components/MakeThreadForm';
 
 class App extends Component {
   render() {
@@ -18,6 +19,11 @@ class App extends Component {
             exact
             path='/client/testChannel'
             render={() => <h1>testChannel</h1>}
+          />
+          <Route
+            exact
+            path='/client/testChannel/makeThreadForm'
+            component={MakeThreadForm}
           />
           <Route
             exact
