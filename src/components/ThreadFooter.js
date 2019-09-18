@@ -28,9 +28,8 @@ const useStyle = makeStyles(theme => ({
 const ThreadFooter = props => {
   const classes = useStyle();
   const { onDispatch } = props;
-  console.log(typeof onDispatch);
-  let [writingText, setWritingText] = useState('');
-  let [isInputFocus, setIsInputFoucs] = useState(false);
+  const [writingText, setWritingText] = useState('');
+  const [isInputFocus, setIsInputFoucs] = useState(false);
 
   const handleTextChange = e => {
     setWritingText(e.target.value);

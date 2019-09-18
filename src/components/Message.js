@@ -46,7 +46,7 @@ const Message = props => {
       <ListItemText
         primary={
           <React.Fragment>
-            <Typography component='span' variant='subtitle' className='inline'>
+            <Typography component='span' variant='subtitle1' className='inline'>
               {name}
             </Typography>
             {'  '}
