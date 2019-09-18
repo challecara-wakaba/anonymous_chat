@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Input from '@material-ui/core/Input';
-// import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import SendIcon from '@material-ui/icons/Send';
-import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 
 import Message from '../components/Message';
+import ThreadFooter from '../components/ThreadFooter';
 import * as messageModules from '../modules/message';
 
 const useStyles = makeStyles(theme => ({
@@ -18,15 +12,6 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     backgroundColor: theme.palette.background.paper,
     marginBottom: theme.spacing(8)
-  },
-  footer: {
-    position: 'fixed',
-    top: 'auto',
-    bottom: 0,
-    height: theme.spacing(8)
-  },
-  input: {
-    flexGrow: 1
   }
 }));
 
@@ -35,19 +20,9 @@ const Thread = props => {
 
   const classes = useStyles();
   const { replies, addMessage } = props;
-  const [writingText, setWritingText] = useState('');
 
-  const writingTextChange = e => {
-    setWritingText(e.target.value);
-  };
-
-  const SendButtonClick = () => {
-    // 入力欄が空だったりホワイトスペースばっかりだったら送信しない
-    if (writingText.trim() === '') {
-      return;
-    }
-    addMessage(userName, writingText);
-    setWritingText('');
+  const handleDispatch = text => {
+    addMessage(userName, text);
   };
 
   let messageEnd = null;
@@ -79,24 +54,7 @@ const Thread = props => {
           messageEnd = el;
         }}
       ></div>
-      <AppBar className={classes.footer} color='primary'>
-        <Toolbar disableGutters={true}>
-          <IconButton color='inherit'>
-            <PhotoLibraryIcon />
-          </IconButton>
-          <Input
-            className={classes.input}
-            multiline={true}
-            rowsMax={3}
-            value={writingText}
-            placeholder='このスレッドに送信'
-            onChange={writingTextChange}
-          />
-          <IconButton edge='start' color='inherit' onClick={SendButtonClick}>
-            <SendIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+      <ThreadFooter onDispatch={handleDispatch} />
     </React.Fragment>
   );
 };
