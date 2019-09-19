@@ -48,7 +48,7 @@ const ThreadFooter = props => {
     // stateを変更するため再renderされる
     setIsInputFoucs(true);
 
-  const chageToFixed = () =>
+  const changeToFixed = () =>
     // stateを変更するため再renderされる
     setIsInputFoucs(false);
 
@@ -64,8 +64,8 @@ const ThreadFooter = props => {
         value={writingText}
         placeholder='このスレッドに送信'
         onChange={handleTextChange}
-        onFocus={chageToFixed}
-        onBlur={changeToAbsolute}
+        onFocus={changeToAbsolute}
+        onBlur={changeToFixed}
       />
       <IconButton edge='start' color='inherit' onClick={handleSendButtonClick}>
         <SendIcon />
