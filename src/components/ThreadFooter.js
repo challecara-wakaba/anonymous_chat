@@ -40,7 +40,7 @@ const ThreadFooter = props => {
     if (writingText.trim() === '') {
       return;
     }
-    onDispatch(writingText); // ストアに接続してないため上のコンポーネントに渡す
+    onDispatch(writingText.trim()); // ストアに接続してないため上のコンポーネントに渡す
     setWritingText('');
   };
 
