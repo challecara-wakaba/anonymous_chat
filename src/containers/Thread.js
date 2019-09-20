@@ -1,102 +1,87 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { VariableSizeList } from 'react-window';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Input from '@material-ui/core/Input';
-// import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import SendIcon from '@material-ui/icons/Send';
-import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 
 import Message from '../components/Message';
+import ThreadFooter from '../components/ThreadFooter';
 import * as messageModules from '../modules/message';
 
 const useStyles = makeStyles(theme => ({
   list: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
-    marginBottom: theme.spacing(8)
-  },
-  footer: {
-    position: 'fixed',
-    top: 'auto',
-    bottom: 0,
-    height: theme.spacing(8)
-  },
-  input: {
-    flexGrow: 1
+    backgroundColor: theme.palette.background.paper
   }
 }));
+
+// リストのサイズを動的に変更するとバグるため，最初に決定しておく
+const THEMESPACING = 8; // 初期せってがtheme.spacing == 8px のため
+const LISTHEIGHT = document.documentElement.clientHeight - THEMESPACING * 8;
+const DEFAULTITEMSIZE = THEMESPACING * 12;
 
 const Thread = props => {
   const userName = 'annin'; // これはテストです
 
   const classes = useStyles();
   const { replies, addMessage } = props;
-  const [writingText, setWritingText] = useState('');
+  let listRef = React.createRef();
 
-  const writingTextChange = e => {
-    setWritingText(e.target.value);
-  };
-
-  const SendButtonClick = () => {
-    // 入力欄が空だったりホワイトスペースばっかりだったら送信しない
-    if (writingText.trim() === '') {
-      return;
+  const calculateItemSize = index => {
+    const text = replies[index].text;
+    let textFeedSum = 0;
+    for (let i = 0; i < text.length; ++i) {
+      if (text[i] === '\n') {
+        ++textFeedSum;
+      }
     }
-    addMessage(userName, writingText);
-    setWritingText('');
+    // 改行されるたびにtheme.spacing * 2 だけ高くなる
+    return DEFAULTITEMSIZE + (textFeedSum - 1) * THEMESPACING * 3;
   };
 
-  let messageEnd = null;
-  const scrollBottom = () => {
-    messageEnd.scrollIntoView({ behavior: 'smooth' });
+  const passItemKey = (index, data) => {
+    const item = data[index];
+    return item.id;
   };
 
-  useEffect(() =>
-    // render後などの処理など
-    scrollBottom()
-  );
+  const listItems = ({ data, index, style }) => {
+    // react-windowのFixedSizeListは書きかたが独特であるため
+    //　公式のリファレンスをよく読むべき
+    const item = data[index];
+    return (
+      <Message
+        reactWindowStyle={style}
+        name={item.name}
+        icon=''
+        text={item.text}
+        timeStamp={item.timeStamp}
+      />
+    );
+  };
+
+  const handleDispatch = text => {
+    addMessage(userName, text);
+  };
+
+  useEffect(() => {
+    if (replies.length > 0) {
+      listRef.current.scrollToItem(replies.length);
+    }
+  });
 
   return (
     <React.Fragment>
-      <List className={classes.list}>
-        {replies.map(item => (
-          <Message
-            key={item.id}
-            name={item.name}
-            icon=''
-            text={item.text}
-            timeStamp={item.timeStamp}
-          />
-        ))}
-      </List>
-      <div
-        // 自動スクロールのためのダミーdiv
-        ref={el => {
-          messageEnd = el;
-        }}
-      ></div>
-      <AppBar className={classes.footer} color='primary'>
-        <Toolbar disableGutters={true}>
-          <IconButton color='inherit'>
-            <PhotoLibraryIcon />
-          </IconButton>
-          <Input
-            className={classes.input}
-            multiline={true}
-            rowsMax={3}
-            value={writingText}
-            placeholder='このスレッドに送信'
-            onChange={writingTextChange}
-          />
-          <IconButton edge='start' color='inherit' onClick={SendButtonClick}>
-            <SendIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+      <VariableSizeList
+        className={classes.list}
+        height={LISTHEIGHT}
+        width='100%'
+        itemSize={calculateItemSize}
+        itemCount={replies.length}
+        itemData={replies}
+        itemKey={passItemKey}
+        ref={listRef}
+      >
+        {listItems}
+      </VariableSizeList>
+      <ThreadFooter onDispatch={handleDispatch} />
     </React.Fragment>
   );
 };

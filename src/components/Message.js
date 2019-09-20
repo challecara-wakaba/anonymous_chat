@@ -14,14 +14,15 @@ const useStyles = makeStyles(theme => ({
 
 const Message = props => {
   const classes = useStyles();
+  const { reactWindowStyle } = props; // react-window関連
   const { name, icon, timeStamp, text } = props;
 
   const convertDateFormat = date => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    const hour = date.getHours();
-    const minute = date.getMinutes();
+    const hour = ('0' + date.getHours()).slice(-2); // 一桁の時は0を埋めて2桁にする
+    const minute = ('0' + date.getMinutes()).slice(-2); // 一桁の時は0を埋めて2桁にする
     const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'][date.getDay()];
 
     return `${year}年${month}月${day}日(${dayOfWeek}) ${hour}:${minute}`;
@@ -39,14 +40,14 @@ const Message = props => {
   };
 
   return (
-    <ListItem alignItems='flex-start'>
+    <ListItem alignItems='flex-start' style={reactWindowStyle}>
       <ListItemAvatar>
         <Avatar alt={name} src={icon} />
       </ListItemAvatar>
       <ListItemText
         primary={
           <React.Fragment>
-            <Typography component='span' variant='subtitle' className='inline'>
+            <Typography component='span' variant='subtitle1' className='inline'>
               {name}
             </Typography>
             {'  '}
