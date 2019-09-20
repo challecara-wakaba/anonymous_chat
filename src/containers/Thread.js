@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { VariableSizeList } from 'react-window';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,6 +23,7 @@ const Thread = props => {
 
   const classes = useStyles();
   const { replies, addMessage } = props;
+  let listRef = React.createRef();
 
   const calculateItemSize = index => {
     const text = replies[index].text;
@@ -60,6 +61,12 @@ const Thread = props => {
     addMessage(userName, text);
   };
 
+  useEffect(() => {
+    if (replies.length > 0) {
+      listRef.current.scrollToItem(replies.length);
+    }
+  });
+
   return (
     <React.Fragment>
       <VariableSizeList
@@ -70,6 +77,7 @@ const Thread = props => {
         itemCount={replies.length}
         itemData={replies}
         itemKey={passItemKey}
+        ref={listRef}
       >
         {listItems}
       </VariableSizeList>
