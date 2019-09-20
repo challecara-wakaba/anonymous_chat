@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { animateScroll } from 'react-scroll';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/ToolBar';
@@ -30,6 +31,11 @@ const ThreadFooter = props => {
   const { onDispatch } = props;
   const [writingText, setWritingText] = useState('');
   const [isInputFocus, setIsInputFoucs] = useState(false);
+
+  useEffect(() => {
+    // スマホにおいて予測変換のポップアップで入力欄が塞がれないようにする
+    animateScroll.scrollToBottom();
+  });
 
   const handleTextChange = e => {
     setWritingText(e.target.value);
