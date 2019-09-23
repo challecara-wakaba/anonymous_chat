@@ -29,7 +29,7 @@ export default function OutlinedTextField() {
       />
       <TextField
         multiline
-        id='outline'
+        id='outlined-multilined-static'
         label='質問内容'
         placeholder='(例)この問題の解き方がわかりません'
         rows='6'
