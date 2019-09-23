@@ -19,11 +19,21 @@ export default function OutlinedTextField() {
   return (
     <form className={classes.container} noValidate autoComplete='off'>
       <TextField
-        Required
+        required
         id='outlined-required'
-        label='Title'
-        placeholder='(例)物理 過去問 [2]-(1)'
+        label='題名'
+        placeholder='過去問　[2]-(1) 力のモーメント'
         className={classes.TextField}
+        margin='normal'
+        variant='outlined'
+      />
+      <TextField
+        multiline
+        id='outline'
+        label='質問内容'
+        placeholder='(例)この問題の解き方がわかりません'
+        rows='6'
+        classname={classes.TextField}
         margin='normal'
         variant='outlined'
       />
