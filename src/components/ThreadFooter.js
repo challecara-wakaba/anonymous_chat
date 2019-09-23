@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { animateScroll } from 'react-scroll';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import ToolBar from '@material-ui/core/ToolBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import Input from '@material-ui/core/Input';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
@@ -58,8 +58,8 @@ const ThreadFooter = props => {
     // stateを変更するため再renderされる
     setIsInputFoucs(false);
 
-  const toolBar = (
-    <ToolBar disableGutters={true}>
+  const toolbar = (
+    <Toolbar disableGutters={true}>
       <IconButton color='inherit'>
         <PhotoLibraryIcon />
       </IconButton>
@@ -76,7 +76,7 @@ const ThreadFooter = props => {
       <IconButton edge='start' color='inherit' onClick={handleSendButtonClick}>
         <SendIcon />
       </IconButton>
-    </ToolBar>
+    </Toolbar>
   );
   return (
     // position: fixedでフッターを固定すると入力時にバグるため，
@@ -84,11 +84,11 @@ const ThreadFooter = props => {
     <React.Fragment>
       {isInputFocus ? (
         <AppBar className={classes.footerAtFocus} color='primary'>
-          {toolBar}
+          {toolbar}
         </AppBar>
       ) : (
         <AppBar className={classes.footerNormal} color='primary'>
-          {toolBar}
+          {toolbar}
         </AppBar>
       )}
     </React.Fragment>
