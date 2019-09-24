@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import { spacing } from '@material-ui/system';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
@@ -11,10 +11,13 @@ const useStyles = makeStyles(theme => ({
   TextField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1)
+  },
+  fab: {
+    margin: theme.spacing(1)
   }
 }));
 
-export default function OutlinedTextField() {
+function TextFields() {
   const classes = useStyles();
   return (
     <form className={classes.container} noValidate autoComplete='off'>
@@ -38,5 +41,24 @@ export default function OutlinedTextField() {
         variant='outlined'
       />
     </form>
+  );
+}
+function RegisterButton() {
+  const classes = useStyles();
+  return (
+    <div>
+      <Fab color='primary' aria-label='add' className={classes.fab}>
+        <AddIcon />
+      </Fab>
+    </div>
+  );
+}
+
+export default function MakeThreadForm() {
+  return (
+    <div>
+      <TextFields />
+      <RegisterButton />
+    </div>
   );
 }
