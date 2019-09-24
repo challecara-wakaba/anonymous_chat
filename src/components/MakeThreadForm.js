@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
+import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 const useStyles = makeStyles(theme => ({
   container: {
@@ -43,6 +44,7 @@ function TextFields() {
     </form>
   );
 }
+
 function RegisterButton() {
   const classes = useStyles();
   return (
@@ -54,11 +56,28 @@ function RegisterButton() {
   );
 }
 
+function ImageButton() {
+  const classes = useStyles();
+
+  return (
+    <div>
+      <Button
+        variant='contained'
+        size='medium'
+        color='primary'
+        className={classes.margin}
+      >
+        画像を追加
+      </Button>
+    </div>
+  );
+}
 export default function MakeThreadForm() {
   return (
     <div>
       <TextFields />
       <RegisterButton />
+      <ImageButton />
     </div>
   );
 }
