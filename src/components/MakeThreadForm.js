@@ -4,15 +4,18 @@ import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap'
   },
+
   TextField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1)
   },
+
   fab: {
     margin: theme.spacing(1)
   }
@@ -20,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 
 function TextFields() {
   const classes = useStyles();
+
   return (
     <form className={classes.container} noValidate autoComplete='off'>
       <TextField
@@ -47,6 +51,7 @@ function TextFields() {
 
 function RegisterButton() {
   const classes = useStyles();
+
   return (
     <div>
       <Fab color='primary' aria-label='add' className={classes.fab}>
@@ -72,6 +77,7 @@ function ImageButton() {
     </div>
   );
 }
+
 export default function MakeThreadForm() {
   return (
     <div>
