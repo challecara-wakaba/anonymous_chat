@@ -54,19 +54,6 @@ function TextFields() {
   );
 }
 
-function RegisterButton() {
-  const classes = useStyles();
-
-  return (
-    <div>
-      <Button variant='contained' color='primary' className={classes.button}>
-        送信
-        <SendIcon className={classes.Left}></SendIcon>
-      </Button>
-    </div>
-  );
-}
-
 function ImageButton() {
   const classes = useStyles();
 
@@ -92,12 +79,25 @@ function ImageButton() {
   );
 }
 
+function RegisterButton() {
+  const classes = useStyles();
+
+  return (
+    <div>
+      <Button variant='contained' color='primary' className={classes.button}>
+        送信
+        <SendIcon className={classes.Left}></SendIcon>
+      </Button>
+    </div>
+  );
+}
+
 export default function MakeThreadForm() {
   return (
     <div>
       <TextFields />
-      <RegisterButton />
       <ImageButton />
+      <RegisterButton />
     </div>
   );
 }
