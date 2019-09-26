@@ -10,19 +10,15 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
     flexDirection: 'column'
   },
-  Right: {
+  LeftRight: {
+    marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1)
   },
-
   Left: {
     marginLeft: theme.spacing(1)
   },
-  Top: {
-    marginTop: theme.spacing(1)
-  },
-
-  Bottom: {
-    marginBottom: theme.spacing(1)
+  Margin: {
+    margin: theme.spacing(1)
   }
 }));
 
@@ -36,7 +32,7 @@ function TextFields() {
         id='outlined-required'
         label='題名'
         placeholder='過去問　[2]-(1) 力のモーメント'
-        className={classes.Left + '' + classes.Right}
+        className={classes.LeftRight}
         margin='normal'
         variant='outlined'
       />
@@ -46,7 +42,7 @@ function TextFields() {
         label='質問内容'
         placeholder='(例)この問題の解き方がわかりません'
         rows='6'
-        classname={classes.Left + '' + classes.Right}
+        classname={classes.LeftRight}
         margin='normal'
         variant='outlined'
       />
@@ -54,7 +50,7 @@ function TextFields() {
   );
 }
 
-function ImageButton() {
+function Buttons() {
   const classes = useStyles();
 
   return (
@@ -62,28 +58,19 @@ function ImageButton() {
       <Button
         variant='contained'
         size='medium'
-        color='primary'
-        className={
-          classes.Top +
-          '' +
-          classes.Bottom +
-          '' +
-          classes.Right +
-          '' +
-          classes.Left
-        }
+        color='secondary'
+        className={classes.Margin}
       >
         画像を追加
       </Button>
-    </div>
-  );
-}
-
-function RegisterButton() {
-  const classes = useStyles();
-
-  return (
-    <div>
+      <Button
+        variant='contained'
+        size='medium'
+        color='primary'
+        className={classes.Margin}
+      >
+        キャンセル
+      </Button>
       <Button variant='contained' color='primary' className={classes.button}>
         送信
         <SendIcon className={classes.Left}></SendIcon>
@@ -96,8 +83,7 @@ export default function MakeThreadForm() {
   return (
     <div>
       <TextFields />
-      <ImageButton />
-      <RegisterButton />
+      <Buttons />
     </div>
   );
 }
