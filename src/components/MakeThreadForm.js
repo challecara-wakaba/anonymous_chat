@@ -11,12 +11,11 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column'
   },
 
-  TextField: {
-    marginLeft: theme.spacing(1),
+  Right: {
     marginRight: theme.spacing(1)
   },
 
-  IconLeft: {
+  Left: {
     marginLeft: theme.spacing(1)
   }
 }));
@@ -31,7 +30,7 @@ function TextFields() {
         id='outlined-required'
         label='題名'
         placeholder='過去問　[2]-(1) 力のモーメント'
-        className={classes.TextField}
+        className={classes.Right + '' + classes.Left}
         margin='normal'
         variant='outlined'
       />
@@ -41,7 +40,7 @@ function TextFields() {
         label='質問内容'
         placeholder='(例)この問題の解き方がわかりません'
         rows='6'
-        classname={classes.TextField}
+        classname={classes.Right + '' + classes.Left}
         margin='normal'
         variant='outlined'
       />
@@ -56,7 +55,7 @@ function RegisterButton() {
     <div>
       <Button variant='contained' color='primary' className={classes.button}>
         送信
-        <SendIcon className={classes.IconLeft}></SendIcon>
+        <SendIcon className={classes.Left}></SendIcon>
       </Button>
     </div>
   );
