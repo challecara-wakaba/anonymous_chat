@@ -1,14 +1,14 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
+import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    flexDirection: 'column'
   },
 
   TextField: {
@@ -16,8 +16,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1)
   },
 
-  fab: {
-    margin: theme.spacing(1)
+  IconLeft: {
+    marginLeft: theme.spacing(1)
   }
 }));
 
@@ -54,9 +54,10 @@ function RegisterButton() {
 
   return (
     <div>
-      <Fab color='primary' aria-label='add' className={classes.fab}>
-        <AddIcon />
-      </Fab>
+      <Button variant='contained' color='primary' className={classes.button}>
+        送信
+        <SendIcon className={classes.IconLeft}></SendIcon>
+      </Button>
     </div>
   );
 }
