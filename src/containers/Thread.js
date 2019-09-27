@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Message from '../components/Message';
 import ThreadFooter from '../components/ThreadFooter';
-import * as messageModules from '../modules/message';
+import * as threadActions from '../modules/threadModule';
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -89,12 +89,12 @@ const Thread = props => {
 // redux関連
 const mapStateToProps = state => {
   return {
-    replies: state.message.replies
+    replies: state.thread.replies
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    addMessage: (name, text) => dispatch(messageModules.addMessage(name, text))
+    addMessage: (name, text) => dispatch(threadActions.addMessage(name, text))
   };
 };
 export default connect(
