@@ -3,7 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
-
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CheckBox from '@material-ui/core/Checkbox';
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
@@ -80,11 +82,57 @@ function Buttons() {
   );
 }
 
+function Checkbox() {
+  const classes = useStyles();
+
+  return (
+    <FormGroup row>
+      <FormControlLabel
+        control={<CheckBox value='checkedA' color='primary' />}
+        label='#１年'
+      />
+      <FormControlLabel
+        control={<CheckBox value='checkedA' color='primary' />}
+        label='#２年'
+      />
+      <FormControlLabel
+        control={<CheckBox value='checkedA' color='primary' />}
+        label='#３年'
+      />
+      <FormControlLabel
+        control={<CheckBox value='checkedA' color='primary' />}
+        label='#４年'
+      />
+      <FormControlLabel
+        control={<CheckBox value='checkedA' color='primary' />}
+        label='#５年'
+      />
+      <FormControlLabel
+        control={<CheckBox value='checkedA' color='primary' />}
+        label='#前期中間'
+      />
+      <FormControlLabel
+        control={<CheckBox value='checkedA' color='primary' />}
+        label='#前期期末'
+      />
+      <FormControlLabel
+        control={<CheckBox value='checkedA' color='primary' />}
+        label='#後期中間'
+      />
+      <FormControlLabel
+        control={<CheckBox value='checkedA' color='primary' />}
+        label='#年度末'
+      />
+    </FormGroup>
+  );
+}
+
 export default function MakeThreadForm() {
   return (
     <div>
       <TextFields />
       <Buttons />
+      <Checkbox />
     </div>
   );
 }
