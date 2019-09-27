@@ -41,7 +41,7 @@ function TextFields() {
         id='outlined-multilined-static'
         label='質問内容'
         placeholder='(例)この問題の解き方がわかりません'
-        rows='6'
+        rows='4'
         classname={classes.LeftRight}
         margin='normal'
         variant='outlined'
@@ -58,7 +58,8 @@ function Buttons() {
       <Button
         variant='contained'
         size='medium'
-        color='secondary'
+        color='primary'
+        helperText='1枚追加できます'
         className={classes.Margin}
       >
         画像を追加
@@ -66,7 +67,7 @@ function Buttons() {
       <Button
         variant='contained'
         size='medium'
-        color='primary'
+        color='secondary'
         className={classes.Margin}
       >
         キャンセル
