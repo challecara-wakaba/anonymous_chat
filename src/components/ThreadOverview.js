@@ -9,13 +9,17 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginBottom: theme.spacing(1)
+    marginLeft: 'auto',
+    marginBottom: theme.spacing(1),
+    marginRight: 'auto',
+    maxWidth: theme.breakpoints.values.md
   },
   image: {
     marginRight: 'auto',
     marginBottom: theme.spacing(3),
     marginLeft: 'auto',
-    maxHeight: 200
+    maxHeight: 180,
+    maxWidth: 320
   },
   divider: {
     height: 1
@@ -25,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 // テスト用
 const TITLE = '過去問　2-1';
 const DETEAL = 'この問題の解き方教えてください';
-const PICURL = 'https://placehold.jp/120x600.png';
+const PICURL = 'http://img-cdn.jg.jugem.jp/993/154735/20101224_1438937.jpg';
 const PICTURENAME = 'demo';
 const NOTIS = '2件の返信';
 
