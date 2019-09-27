@@ -86,7 +86,8 @@ function Checkbox() {
   const classes = useStyles();
 
   return (
-    <FormGroup row>
+    <FormGroup column>
+      <h3>タグを選択してください</h3>
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#１年'
