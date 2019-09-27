@@ -7,10 +7,14 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CheckBox from '@material-ui/core/Checkbox';
 const useStyles = makeStyles(theme => ({
-  container: {
+  maincontainer: {
     display: 'flex',
-    flexWrap: 'wrap',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    flexWrap: 'wrap'
+  },
+  subcontainer: {
+    display: 'flex',
+    justifyContent: 'space-around'
   },
   LeftRight: {
     marginLeft: theme.spacing(1),
@@ -20,7 +24,13 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1)
   },
   Margin: {
-    margin: theme.spacing(1)
+    padding: '0 10px'
+  },
+  selectForm: {
+    marginLeft: theme.spacing(5),
+    marginRight: theme.spacing(5),
+    marginBottom: theme.spacing(4),
+    backgroundColor: 'pink'
   }
 }));
 
@@ -28,7 +38,7 @@ function TextFields() {
   const classes = useStyles();
 
   return (
-    <form className={classes.container} noValidate autoComplete='off'>
+    <form className={classes.maincontainer} noValidate autoComplete='off'>
       <TextField
         required
         id='outlined-required'
@@ -52,31 +62,18 @@ function TextFields() {
   );
 }
 
-function Buttons() {
+function ImageButton() {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.Margin}>
       <Button
         variant='contained'
         size='medium'
         color='primary'
         helperText='1枚追加できます'
-        className={classes.Margin}
       >
         画像を追加
-      </Button>
-      <Button
-        variant='contained'
-        size='medium'
-        color='secondary'
-        className={classes.Margin}
-      >
-        キャンセル
-      </Button>
-      <Button variant='contained' color='primary' className={classes.button}>
-        送信
-        <SendIcon className={classes.Left}></SendIcon>
       </Button>
     </div>
   );
@@ -86,7 +83,7 @@ function Checkbox() {
   const classes = useStyles();
 
   return (
-    <FormGroup column>
+    <FormGroup column className={classes.selectForm}>
       <h3>タグを選択してください</h3>
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
@@ -128,12 +125,33 @@ function Checkbox() {
   );
 }
 
+function OtherButtons() {
+  const classes = useStyles();
+  return (
+    <div className={classes.subcontainer}>
+      <Button
+        variant='contained'
+        size='medium'
+        color='secondary'
+        className={classes.Margin}
+      >
+        キャンセル
+      </Button>
+      <Button variant='contained' color='primary' className={classes.button}>
+        送信
+        <SendIcon className={classes.Left}></SendIcon>
+      </Button>
+    </div>
+  );
+}
+
 export default function MakeThreadForm() {
   return (
     <div>
       <TextFields />
-      <Buttons />
+      <ImageButton />
       <Checkbox />
+      <OtherButtons />
     </div>
   );
 }
