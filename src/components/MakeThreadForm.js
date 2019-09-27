@@ -27,9 +27,7 @@ const useStyles = makeStyles(theme => ({
     padding: '0 10px'
   },
   selectForm: {
-    marginLeft: theme.spacing(5),
-    marginRight: theme.spacing(5),
-    marginBottom: theme.spacing(4),
+    margin: theme.spacing(4),
     backgroundColor: 'pink'
   }
 }));
