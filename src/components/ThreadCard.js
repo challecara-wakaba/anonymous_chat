@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 const PICTURENAME = 'demo';
 const NOTIS = '2件の返信';
 
-const ThreadOverview = props => {
+const ThreadCard = props => {
   const classes = useStyles();
   const { title, details, pictureURL } = props;
 
@@ -68,4 +68,4 @@ const ThreadOverview = props => {
   );
 };
 
-export default ThreadOverview;
+export default ThreadCard;

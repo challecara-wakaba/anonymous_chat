@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ThreadOverview from '../components/ThreadOverview';
+import ThreadCard from '../components/ThreadCard';
 function Channel(props) {
   const { threads } = props;
   return (
-    <ThreadOverview
+    <ThreadCard
       key={threads[0].id}
       title={threads[0].title}
       details={threads[0].details}
