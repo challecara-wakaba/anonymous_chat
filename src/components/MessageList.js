@@ -5,7 +5,7 @@ import Message from './Message';
 
 // リストのサイズを動的に変更するとバグるため，最初に決定しておく
 const THEMESPACING = 8; // 初期せってがtheme.spacing == 8px のため
-const LISTHEIGHT = document.documentElement.clientHeight - THEMESPACING * 8;
+const LISTHEIGHT = document.documentElement.clientHeight - THEMESPACING * 8; //　フッター分高さをマイナス
 const DEFAULTITEMSIZE = THEMESPACING * 12;
 
 export default function MessageList(props) {
