@@ -27,21 +27,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 // テスト用
-const TITLE = '過去問　2-1';
-const DETEAL = 'この問題の解き方教えてください';
-const PICURL = 'http://img-cdn.jg.jugem.jp/993/154735/20101224_1438937.jpg';
 const PICTURENAME = 'demo';
 const NOTIS = '2件の返信';
 
 const ThreadOverview = props => {
   const classes = useStyles();
+  const { title, details, pictureURL } = props;
+
   return (
     <Card className={classes.root} elevation={1} square>
       <Divider className={classes.divider} />
       <CardActionArea>
         <CardContent>
           <Typography variant='h5' components='h2' gutterBottom>
-            {TITLE}
+            {title}
           </Typography>
           <Typography
             variant='body1'
@@ -49,14 +48,14 @@ const ThreadOverview = props => {
             color='textSecondary'
             gutterBottom
           >
-            {DETEAL}
+            {details}
           </Typography>
         </CardContent>
         <CardMedia
           className={classes.image}
           component='img'
           alt={PICTURENAME}
-          image={PICURL}
+          image={pictureURL}
           title={PICTURENAME}
         />
         <Divider />
