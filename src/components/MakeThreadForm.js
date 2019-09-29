@@ -16,6 +16,18 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-around'
   },
+  thirdcontainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    paddingTop: theme.spacing(1)
+  },
+  forthcontainer: {
+    marginLeft: theme.spacing(1),
+    marginTop: theme.spacing(0),
+    marginBottom: theme.spacing(0),
+    display: 'flex',
+    alignItems: 'center'
+  },
   LeftRight: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1)
@@ -23,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   Left: {
     marginLeft: theme.spacing(1)
   },
-  Margin: {
+  Padding: {
     padding: '0 10px'
   },
   selectForm: {
@@ -42,7 +54,6 @@ function TextFields() {
         id='outlined-required'
         label='題名'
         placeholder='過去問　[2]-(1) 力のモーメント'
-        className={classes.LeftRight}
         margin='normal'
         variant='outlined'
       />
@@ -64,15 +75,11 @@ function ImageButton() {
   const classes = useStyles();
 
   return (
-    <div className={classes.Margin}>
-      <Button
-        variant='contained'
-        size='medium'
-        color='primary'
-        helperText='1枚追加できます'
-      >
+    <div className={classes.thirdcontainer}>
+      <Button variant='contained' size='medium' color='primary'>
         画像を追加
       </Button>
+      <h5 className={classes.forthcontainer}>1枚追加できます</h5>
     </div>
   );
 }
@@ -82,7 +89,7 @@ function Checkbox() {
 
   return (
     <FormGroup column className={classes.selectForm}>
-      <h3>タグを選択してください</h3>
+      <h2>タグを選択してください</h2>
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#１年'
@@ -131,7 +138,7 @@ function OtherButtons() {
         variant='contained'
         size='medium'
         color='secondary'
-        className={classes.Margin}
+        className={classes.Padding}
       >
         キャンセル
       </Button>
