@@ -10,27 +10,26 @@ const useStyles = makeStyles(theme => ({
   maincontainer: {
     display: 'flex',
     flexDirection: 'column',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    padding: '0 8px'
   },
   subcontainer: {
     display: 'flex',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    paddingBottom: theme.spacing(1)
   },
   thirdcontainer: {
     display: 'flex',
     justifyContent: 'flex-start',
-    paddingTop: theme.spacing(1)
+    padding: '8px 0 8px 8px'
   },
   forthcontainer: {
-    marginLeft: theme.spacing(1),
-    marginTop: theme.spacing(0),
-    marginBottom: theme.spacing(0),
+    margin: '0 8px',
     display: 'flex',
     alignItems: 'center'
   },
   LeftRight: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1)
+    margin: '0 8px'
   },
   Left: {
     marginLeft: theme.spacing(1)
