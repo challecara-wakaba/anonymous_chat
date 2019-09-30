@@ -93,38 +93,47 @@ function Checkbox() {
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#１年'
+        labelPlacement='start'
       />
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#２年'
+        labelPlacement='start'
       />
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#３年'
+        labelPlacement='start'
       />
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#４年'
+        labelPlacement='start'
       />
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#５年'
+        labelPlacement='start'
       />
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#前期中間'
+        labelPlacement='start'
       />
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#前期期末'
+        labelPlacement='start'
       />
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#後期中間'
+        labelPlacement='start'
       />
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#年度末'
+        labelPlacement='start'
       />
     </FormGroup>
   );
