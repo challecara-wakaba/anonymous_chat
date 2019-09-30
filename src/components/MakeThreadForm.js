@@ -38,6 +38,8 @@ const useStyles = makeStyles(theme => ({
     padding: '0 12px'
   },
   selectForm: {
+    display: 'flex',
+    flexDirection: 'column',
     margin: theme.spacing(1),
     backgroundColor: 'pink'
   }
@@ -62,7 +64,6 @@ function TextFields() {
         label='質問内容'
         placeholder='(例)この問題の解き方がわかりません'
         rows='4'
-        classname={classes.LeftRight}
         margin='normal'
         variant='outlined'
       />
@@ -87,7 +88,7 @@ function Checkbox() {
   const classes = useStyles();
 
   return (
-    <FormGroup required column className={classes.selectForm}>
+    <FormGroup required className={classes.selectForm}>
       <h2>タグを選択してください</h2>
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
