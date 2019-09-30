@@ -7,26 +7,32 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CheckBox from '@material-ui/core/Checkbox';
 import SendIcon from '@material-ui/icons/Send';
 const useStyles = makeStyles(theme => ({
-  maincontainer: {
+  firstbox: {
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
     padding: '0 8px'
   },
-  subcontainer: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    paddingBottom: theme.spacing(1)
-  },
-  thirdcontainer: {
+  secondbox: {
     display: 'flex',
     justifyContent: 'flex-start',
     padding: '8px 0 8px 8px'
   },
-  forthcontainer: {
+  thirdbox: {
     margin: '0 8px',
     display: 'flex',
     alignItems: 'center'
+  },
+  forthbox: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: theme.spacing(1),
+    backgroundColor: 'pink'
+  },
+  fifthbox: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    paddingBottom: theme.spacing(1)
   },
   LeftRight: {
     margin: '0 8px'
@@ -36,12 +42,6 @@ const useStyles = makeStyles(theme => ({
   },
   Padding: {
     padding: '0 12px'
-  },
-  selectForm: {
-    display: 'flex',
-    flexDirection: 'column',
-    margin: theme.spacing(1),
-    backgroundColor: 'pink'
   }
 }));
 
@@ -49,7 +49,7 @@ function TextFields() {
   const classes = useStyles();
 
   return (
-    <form className={classes.maincontainer} noValidate autoComplete='off'>
+    <form className={classes.firstbox} noValidate autoComplete='off'>
       <TextField
         required
         id='outlined-required'
@@ -66,7 +66,6 @@ function TextFields() {
         rows='4'
         margin='normal'
         variant='outlined'
-        className={classes.LeftRight}
       />
     </form>
   );
@@ -76,11 +75,11 @@ function ImageButton() {
   const classes = useStyles();
 
   return (
-    <div className={classes.thirdcontainer}>
+    <div className={classes.secondbox}>
       <Button variant='contained' size='medium' color='primary'>
         画像を追加
       </Button>
-      <h5 className={classes.forthcontainer}>1枚追加できます</h5>
+      <h5 className={classes.thirdbox}>1枚追加できます</h5>
     </div>
   );
 }
@@ -89,17 +88,15 @@ function Checkbox() {
   const classes = useStyles();
 
   return (
-    <FormGroup required className={classes.selectForm}>
+    <FormGroup required className={classes.forthbox}>
       <h2>タグを選択してください</h2>
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#１年'
-        labelPlacement='start'
       />
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#２年'
-        labelPlacement='start'
       />
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
@@ -136,7 +133,7 @@ function Checkbox() {
 function OtherButtons() {
   const classes = useStyles();
   return (
-    <div className={classes.subcontainer}>
+    <div className={classes.fifthbox}>
       <Button
         variant='contained'
         size='medium'
