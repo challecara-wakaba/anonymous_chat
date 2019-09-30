@@ -2,10 +2,10 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import SendIcon from '@material-ui/icons/Send';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CheckBox from '@material-ui/core/Checkbox';
+import SendIcon from '@material-ui/icons/Send';
 const useStyles = makeStyles(theme => ({
   maincontainer: {
     display: 'flex',
@@ -35,10 +35,10 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1)
   },
   Padding: {
-    padding: '0 10px'
+    padding: '0 12px'
   },
   selectForm: {
-    margin: theme.spacing(4),
+    margin: theme.spacing(1),
     backgroundColor: 'pink'
   }
 }));
@@ -87,15 +87,17 @@ function Checkbox() {
   const classes = useStyles();
 
   return (
-    <FormGroup column className={classes.selectForm} required>
+    <FormGroup required column className={classes.selectForm}>
       <h2>タグを選択してください</h2>
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#１年'
+        labelPlacement='start'
       />
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
         label='#２年'
+        labelPlacement='start'
       />
       <FormControlLabel
         control={<CheckBox value='checkedA' color='primary' />}
