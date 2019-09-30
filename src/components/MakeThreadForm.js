@@ -66,6 +66,7 @@ function TextFields() {
         rows='4'
         margin='normal'
         variant='outlined'
+        className={classes.LeftRight}
       />
     </form>
   );
