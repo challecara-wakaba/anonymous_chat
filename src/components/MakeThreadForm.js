@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   secondbox: {
     display: 'flex',
     justifyContent: 'flex-start',
-    padding: '8px 0 8px 8px'
+    padding: '16px 8px'
   },
   thirdbox: {
     margin: '0 8px',
@@ -27,23 +27,17 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     margin: theme.spacing(1),
-    padding: '0 8px 8px 16px',
+    padding: '0 16px 64px 16px',
     backgroundColor: 'pink'
   },
   fifthbox: {
     display: 'flex',
     justifyContent: 'space-around',
-    marginTop: theme.spacing(2),
-    paddingBottom: theme.spacing(1)
-  },
-  LeftRight: {
-    margin: '0 8px'
+    margin: '48px 0',
+    padding: '0 16px'
   },
   Left: {
-    marginLeft: theme.spacing(1)
-  },
-  Padding: {
-    padding: '0 12px'
+    marginLeft: theme.spacing(2)
   }
 }));
 
@@ -145,12 +139,7 @@ function OtherButtons() {
   const classes = useStyles();
   return (
     <div className={classes.fifthbox}>
-      <Button
-        variant='contained'
-        size='medium'
-        color='secondary'
-        className={classes.Padding}
-      >
+      <Button variant='contained' size='medium' color='secondary'>
         キャンセル
       </Button>
       <Button variant='contained' color='primary' className={classes.button}>
