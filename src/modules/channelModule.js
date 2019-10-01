@@ -1,4 +1,8 @@
 import shortid from 'shortid';
+
+// action type
+const ADD_THREAD = 'ADD_THREAD';
+
 const initialState = {
   threads: [
     {
@@ -9,10 +13,33 @@ const initialState = {
     }
   ]
 };
+
 // reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case ADD_THREAD:
+      const newThread = {
+        id: action.id,
+        title: action.title,
+        details: action.details,
+        pictureURL: action.pictureURL
+      };
+      return Object.assign({}, state, {
+        threads: [...state.threads, newThread]
+      });
+
     default:
       return state;
   }
+}
+
+// Action Creators
+export function addThread(title, details, pictureURL) {
+  return {
+    type: ADD_THREAD,
+    id: shortid.generate(),
+    title: title,
+    details: details,
+    pictureURL: pictureURL
+  };
 }
