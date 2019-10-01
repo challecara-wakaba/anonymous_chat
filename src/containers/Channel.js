@@ -1,17 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ThreadCard from '../components/ThreadCard';
+import ThreadCardList from '../components/ThreadCardList';
+
 function Channel(props) {
   const { threads } = props;
-  return (
-    <ThreadCard
-      key={threads[0].id}
-      title={threads[0].title}
-      details={threads[0].details}
-      pictureURL={threads[0].pictureURL}
-    />
-  );
+  return <ThreadCardList threads={threads} />;
 }
 
 function mapStateToProps(state) {
