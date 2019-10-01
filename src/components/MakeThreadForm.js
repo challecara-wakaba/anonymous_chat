@@ -27,11 +27,13 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     margin: theme.spacing(1),
+    padding: '0 8px 8px 16px',
     backgroundColor: 'pink'
   },
   fifthbox: {
     display: 'flex',
     justifyContent: 'space-around',
+    marginTop: theme.spacing(2),
     paddingBottom: theme.spacing(1)
   },
   LeftRight: {
@@ -101,37 +103,37 @@ function Checkbox() {
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedA' color='primary' />}
+        control={<CheckBox value='checkedB' color='primary' />}
         label='#３年'
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedA' color='primary' />}
+        control={<CheckBox value='checkedC' color='primary' />}
         label='#４年'
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedA' color='primary' />}
+        control={<CheckBox value='checkedD' color='primary' />}
         label='#５年'
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedA' color='primary' />}
+        control={<CheckBox value='checkedE' color='primary' />}
         label='#前期中間'
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedA' color='primary' />}
+        control={<CheckBox value='checkedF' color='primary' />}
         label='#前期期末'
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedA' color='primary' />}
+        control={<CheckBox value='checkedG' color='primary' />}
         label='#後期中間'
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedA' color='primary' />}
+        control={<CheckBox value='checkedH' color='primary' />}
         label='#年度末'
         labelPlacement='start'
       />
