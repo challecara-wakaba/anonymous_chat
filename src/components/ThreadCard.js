@@ -27,7 +27,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 // テスト用
-const PICTURENAME = 'demo';
 const NOTIS = '2件の返信';
 
 const ThreadCard = props => {
@@ -51,13 +50,14 @@ const ThreadCard = props => {
             {details}
           </Typography>
         </CardContent>
-        <CardMedia
-          className={classes.image}
-          component='img'
-          alt={PICTURENAME}
-          image={pictureURL}
-          title={PICTURENAME}
-        />
+        {pictureURL && (
+          // urlが空だったら表示しない
+          <CardMedia
+            className={classes.image}
+            component='img'
+            image={pictureURL}
+          />
+        )}
         <Divider />
         <CardContent>
           <Typography variant='body1'>{NOTIS}</Typography>
