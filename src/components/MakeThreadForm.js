@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     margin: theme.spacing(1),
-    padding: '0 16px 64px 16px',
+    padding: '0 64px 64px 16px',
     backgroundColor: 'pink'
   },
   fifthbox: {
