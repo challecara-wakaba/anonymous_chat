@@ -36,7 +36,16 @@ const useStyles = makeStyles(theme => ({
     margin: '48px 0',
     padding: '0 16px'
   },
-  Left: {
+  firstLeft: {
+    marginLeft: theme.spacing(11)
+  },
+  secondLeft: {
+    marginLeft: theme.spacing(7)
+  },
+  thirdLeft: {
+    marginLeft: theme.spacing(9)
+  },
+  forthLeft: {
     marginLeft: theme.spacing(2)
   }
 }));
@@ -87,47 +96,101 @@ function Checkbox() {
     <FormGroup required className={classes.forthbox}>
       <h2>タグを選択してください</h2>
       <FormControlLabel
-        control={<CheckBox value='checkedA' color='primary' />}
+        control={
+          <CheckBox
+            value='checkedA'
+            color='primary'
+            className={classes.firstLeft}
+          />
+        }
         label='#１年'
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedA' color='primary' />}
+        control={
+          <CheckBox
+            value='checkedA'
+            color='primary'
+            className={classes.firstLeft}
+          />
+        }
         label='#２年'
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedB' color='primary' />}
+        control={
+          <CheckBox
+            value='checkedB'
+            color='primary'
+            className={classes.firstLeft}
+          />
+        }
         label='#３年'
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedC' color='primary' />}
+        control={
+          <CheckBox
+            value='checkedC'
+            color='primary'
+            className={classes.firstLeft}
+          />
+        }
         label='#４年'
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedD' color='primary' />}
+        control={
+          <CheckBox
+            value='checkedD'
+            color='primary'
+            className={classes.firstLeft}
+          />
+        }
         label='#５年'
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedE' color='primary' />}
+        control={
+          <CheckBox
+            value='checkedE'
+            color='primary'
+            className={classes.secondLeft}
+          />
+        }
         label='#前期中間'
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedF' color='primary' />}
+        control={
+          <CheckBox
+            value='checkedF'
+            color='primary'
+            className={classes.secondLeft}
+          />
+        }
         label='#前期期末'
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedG' color='primary' />}
+        control={
+          <CheckBox
+            value='checkedG'
+            color='primary'
+            className={classes.secondLeft}
+          />
+        }
         label='#後期中間'
         labelPlacement='start'
       />
       <FormControlLabel
-        control={<CheckBox value='checkedH' color='primary' />}
+        control={
+          <CheckBox
+            value='checkedH'
+            color='primary'
+            className={classes.thirdLeft}
+          />
+        }
         label='#年度末'
         labelPlacement='start'
       />
@@ -144,7 +207,7 @@ function OtherButtons() {
       </Button>
       <Button variant='contained' color='primary' className={classes.button}>
         送信
-        <SendIcon className={classes.Left}></SendIcon>
+        <SendIcon className={classes.forthLeft}></SendIcon>
       </Button>
     </div>
   );
