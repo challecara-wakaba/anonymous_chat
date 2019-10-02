@@ -7,7 +7,7 @@ import ThreadCard from './ThreadCard';
 const useStyles = makeStyles(theme => ({
   root: {
     height: document.documentElement.clientHeight,
-    width: document.documentElement.clientWidth
+    width: '100%'
   }
 }));
 
