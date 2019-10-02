@@ -51,7 +51,7 @@ const ThreadCard = props => {
           </Typography>
         </CardContent>
         {pictureURL && (
-          // urlが空だったら表示しない
+          // urlがundefinedだったら表示しない
           <CardMedia
             className={classes.image}
             component='img'
