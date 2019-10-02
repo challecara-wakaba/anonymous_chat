@@ -14,6 +14,11 @@ const useStyles = makeStyles(theme => ({
     marginRight: 'auto',
     maxWidth: theme.breakpoints.values.md
   },
+  upperPairContainer: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between'
+  },
   image: {
     marginRight: 'auto',
     marginBottom: theme.spacing(3),
@@ -31,16 +36,36 @@ const NOTIS = '2件の返信';
 
 const ThreadCard = props => {
   const classes = useStyles();
-  const { title, details, pictureURL } = props;
+  const { timeStamp, title, details, pictureURL } = props;
+
+  const convertDateFormat = date => {
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hour = ('0' + date.getHours()).slice(-2); // 一桁の時は0を埋めて2桁にする
+    const minute = ('0' + date.getMinutes()).slice(-2); // 一桁の時は0を埋めて2桁にする
+    const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'][date.getDay()];
+
+    return `${month}月${day}日(${dayOfWeek}) ${hour}:${minute}`;
+  };
 
   return (
     <Card className={classes.root} elevation={1} square>
       <Divider className={classes.divider} />
       <CardActionArea>
         <CardContent>
-          <Typography variant='h5' components='h2' gutterBottom>
-            {title}
-          </Typography>
+          <div className={classes.upperPairContainer}>
+            <Typography variant='h5' components='h2' gutterBottom>
+              {title}
+            </Typography>
+            <Typography
+              variant='body1'
+              components='span'
+              color='textSecondary'
+              gutterBottom
+            >
+              {convertDateFormat(timeStamp)}
+            </Typography>
+          </div>
           <Typography
             variant='body1'
             components='p'

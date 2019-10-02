@@ -18,6 +18,7 @@ export default function ThreadCardList(props) {
   function generateItem(index) {
     return (
       <ThreadCard
+        timeStamp={threads[index].timeStamp}
         title={threads[index].title}
         details={threads[index].details}
         pictureURL={threads[index].pictureURL}
