@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Thread from './containers/Thread';
 import MakeThreadForm from './components/MakeThreadForm';
+import Channel from './containers/Channel';
 
 class App extends Component {
   render() {
@@ -15,11 +16,7 @@ class App extends Component {
           {/* URLをブラウザに直打ちすると移動できます */}
           <Route exact path='/' render={() => <h1>Home</h1>} />
           <Route exact path='/login' render={() => <h1>Login</h1>} />
-          <Route
-            exact
-            path='/client/testChannel'
-            render={() => <h1>testChannel</h1>}
-          />
+          <Route exact path='/client/testChannel' component={Channel} />
           <Route
             exact
             path='/client/testChannel/makeThreadForm'

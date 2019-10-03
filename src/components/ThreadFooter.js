@@ -28,7 +28,7 @@ const useStyle = makeStyles(theme => ({
 
 const ThreadFooter = props => {
   const classes = useStyle();
-  const { onDispatch } = props;
+  const { onSubmit } = props;
   const [writingText, setWritingText] = useState('');
   const [isInputFocus, setIsInputFoucs] = useState(false);
 
@@ -46,7 +46,7 @@ const ThreadFooter = props => {
     if (writingText.trim() === '') {
       return;
     }
-    onDispatch(writingText.trim()); // ストアに接続してないため上のコンポーネントに渡す
+    onSubmit(writingText.trim()); // ストアに接続してないため上のコンポーネントに渡す
     setWritingText('');
   };
 
