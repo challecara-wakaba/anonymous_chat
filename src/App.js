@@ -6,6 +6,8 @@ import Thread from './containers/Thread';
 import MakeThreadForm from './components/MakeThreadForm';
 import Channel from './containers/Channel';
 
+import LoginForm from './components/LoginForm';
+
 class App extends Component {
   render() {
     return (
@@ -15,8 +17,8 @@ class App extends Component {
           {/* 全て仮に用意したものです */}
           {/* URLをブラウザに直打ちすると移動できます */}
           <Route exact path='/' render={() => <h1>Home</h1>} />
-          <Route exact path='/login' render={() => <h1>Login</h1>} />
           <Route exact path='/client/testChannel' component={Channel} />
+          <Route exact path='/login' component={LoginForm} />
           <Route
             exact
             path='/client/testChannel/makeThreadForm'
