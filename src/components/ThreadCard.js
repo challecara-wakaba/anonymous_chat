@@ -14,10 +14,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: 'auto',
     maxWidth: theme.breakpoints.values.md
   },
-  upperPairContainer: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between'
+  timeStamp: {
+    textAlign: 'right'
   },
   image: {
     marginRight: 'auto',
@@ -53,19 +51,18 @@ const ThreadCard = props => {
       <Divider className={classes.divider} />
       <CardActionArea>
         <CardContent>
-          <div className={classes.upperPairContainer}>
-            <Typography variant='h5' components='h2' gutterBottom>
-              {title}
-            </Typography>
-            <Typography
-              variant='body1'
-              components='span'
-              color='textSecondary'
-              gutterBottom
-            >
-              {convertDateFormat(timeStamp)}
-            </Typography>
-          </div>
+          <Typography variant='h5' components='h2' gutterBottom>
+            {title}
+          </Typography>
+          <Typography
+            className={classes.timeStamp}
+            variant='body1'
+            components='span'
+            color='textSecondary'
+            gutterBottom
+          >
+            {convertDateFormat(timeStamp)}
+          </Typography>
           <Typography
             variant='body1'
             components='p'
