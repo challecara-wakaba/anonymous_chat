@@ -14,7 +14,10 @@ const useStyles = makeStyles(theme => ({
     marginRight: 'auto',
     maxWidth: theme.breakpoints.values.md
   },
-  topContainer: {
+  topAreaContainer: {
+    paddingBottom: theme.spacing(1)
+  },
+  titleAreaContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
@@ -24,10 +27,14 @@ const useStyles = makeStyles(theme => ({
   },
   image: {
     marginRight: 'auto',
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(2),
     marginLeft: 'auto',
     maxHeight: 135,
     maxWidth: 240
+  },
+  newsBar: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1)
   },
   divider: {
     height: 1
@@ -55,8 +62,8 @@ const ThreadCard = props => {
     <Card className={classes.root} elevation={1} square>
       <Divider className={classes.divider} />
       <CardActionArea>
-        <CardContent>
-          <div className={classes.topContainer}>
+        <CardContent className={classes.topAreaContainer}>
+          <div className={classes.titleAreaContainer}>
             <Typography variant='subtitle1' components='h2' gutterBottom>
               {title}
             </Typography>
@@ -87,7 +94,7 @@ const ThreadCard = props => {
           />
         )}
         <Divider />
-        <CardContent>
+        <CardContent className={classes.newsBar}>
           <Typography variant='body2'>{NOTIS}</Typography>
         </CardContent>
       </CardActionArea>
