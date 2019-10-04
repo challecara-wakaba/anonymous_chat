@@ -2,11 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ThreadCardList from '../components/ThreadCardList';
+import ThreadAddButton from '../components/ThreadAddButton';
 import * as channelActions from '../modules/channelModule';
 
 function Channel(props) {
   const { threads } = props;
-  return <ThreadCardList threads={threads} />;
+
+  return (
+    <React.Fragment>
+      <ThreadCardList threads={threads} />
+      <ThreadAddButton />
+    </React.Fragment>
+  );
 }
 
 function mapStateToProps(state) {
