@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: 'auto',
     marginBottom: theme.spacing(3),
     marginLeft: 'auto',
-    maxHeight: 180,
-    maxWidth: 320
+    maxHeight: 135,
+    maxWidth: 240
   },
   divider: {
     height: 1
