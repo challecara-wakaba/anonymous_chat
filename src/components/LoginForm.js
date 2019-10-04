@@ -1,38 +1,38 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
-
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
+  Firstbox: {
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginLeft: theme.spacing(3),
+    marginTop: theme.spacing(8)
   },
-  Typography: {},
-  button: {
-    margin: theme.spacing(2)
+  Secondbox: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '16px 88px 0 96px'
   },
-  textField: {
-    margin: theme.spacing(2)
-  },
-  input: {
-    display: 'none'
+  Firstmargin: {
+    marginLeft: theme.spacing(5),
+    marginRight: theme.spacing(7)
   }
 }));
 
-export default function SpacingGrid() {
-  const classes = useStyles;
+function TextFields() {
+  const classes = useStyles();
 
   return (
-    <div>
-      <Typography component='h1' variant='h5'>
-        ログインしてください
-      </Typography>
+    <form className={classes.Firstbox} noVaridate autoComplete='off'>
+      <h1>ログインしてください</h1>
       <TextField
         id='outlined-email-input'
-        label='Email' //実際に表示される名前
-        className={classes.textField}
+        label='Email'
+        className={classes.Firstmargin}
         type='email'
         name='email'
         autoComplete='email'
@@ -42,23 +42,35 @@ export default function SpacingGrid() {
       <TextField
         id='outlined-password-input'
         label='Password'
-        className={classes.textField}
+        className={classes.Firstmargin}
         type='password'
         autoComplete='current-password'
         margin='normal'
         variant='outlined'
       />
-      <Button
-        variant='contained'
-        color='secondary'
-        size='large'
-        className={classes.button}
-      >
+    </form>
+  );
+}
+
+function Buttons() {
+  const classes = useStyles();
+  return (
+    <div className={classes.Secondbox}>
+      <Button variant='contained' color='secondary' size='large'>
         ログイン
       </Button>
       <Link href='#' variant='body2'>
         パスワードを忘れた！
       </Link>
+    </div>
+  );
+}
+
+export default function LoginForm() {
+  return (
+    <div>
+      <TextFields />
+      <Buttons />
     </div>
   );
 }
