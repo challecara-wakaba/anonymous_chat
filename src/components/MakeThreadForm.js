@@ -55,7 +55,7 @@ function TextFields(props) {
   const { title, details, onChange } = props;
 
   return (
-    <form className={classes.firstbox} noValidate autoComplete='off'>
+    <div className={classes.firstbox}>
       <TextField
         required
         id='outlined-required'
@@ -79,7 +79,7 @@ function TextFields(props) {
         value={details}
         onChange={onChange}
       />
-    </form>
+    </div>
   );
 }
 
