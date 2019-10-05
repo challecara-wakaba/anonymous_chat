@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import ThreadCardList from '../components/ThreadCardList';
 import ThreadAddButton from '../components/ThreadAddButton';
-import * as channelActions from '../modules/channelModule';
 
 function Channel(props) {
   const { threads } = props;
@@ -21,14 +20,5 @@ function mapStateToProps(state) {
     threads: state.channel.threads
   };
 }
-function mapDispatchToProps(dispatch) {
-  return {
-    addThread: (title, details, pictureURL) =>
-      dispatch(channelActions.addThread(title, details, pictureURL))
-  };
-}
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Channel);
+export default connect(mapStateToProps)(Channel);
