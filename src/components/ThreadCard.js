@@ -49,13 +49,12 @@ const ThreadCard = props => {
   const { timeStamp, title, details, pictureURL } = props;
 
   const convertDateFormat = date => {
+    const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    const hour = ('0' + date.getHours()).slice(-2); // 一桁の時は0を埋めて2桁にする
-    const minute = ('0' + date.getMinutes()).slice(-2); // 一桁の時は0を埋めて2桁にする
     const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'][date.getDay()];
 
-    return `${month}月${day}日(${dayOfWeek}) ${hour}:${minute}`;
+    return `${year}年${month}月${day}日(${dayOfWeek})`;
   };
 
   return (
