@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
+import { mergeClasses } from '@material-ui/styles';
 const useStyles = makeStyles(theme => ({
   Firstbox: {
     display: 'flex',
@@ -11,6 +12,9 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     marginLeft: theme.spacing(3),
     marginTop: theme.spacing(8)
+  },
+  Weight: {
+    fontWeight: 'lighter'
   },
   Secondbox: {
     display: 'flex',
@@ -28,7 +32,7 @@ function TextFields() {
 
   return (
     <form className={classes.Firstbox} noVaridate autoComplete='off'>
-      <h1>ログインしてください</h1>
+      <h1 className={classes.Weight}>ログインしてください</h1>
       <TextField
         id='outlined-email-input'
         label='Email'
