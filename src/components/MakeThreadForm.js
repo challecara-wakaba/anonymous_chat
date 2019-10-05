@@ -288,12 +288,13 @@ export default function MakeThreadForm(props) {
 
   function handleTextChange(event) {
     const targetName = event.target.name;
+    const value = event.target.value;
     switch (targetName) {
       case 'title':
-        setTitle(event.target.value);
+        setTitle(value);
         return;
       case 'details':
-        setDetails(event.target.value);
+        setDetails(value);
         return;
       default:
         return;
@@ -302,33 +303,34 @@ export default function MakeThreadForm(props) {
 
   function handleCheckChange(event) {
     const targetName = event.target.name;
+    const checked = event.target.checked;
     switch (targetName) {
       case 'first':
-        setIsFirst(event.target.checked);
+        setIsFirst(checked);
         return;
       case 'second':
-        setIsSecond(event.target.checked);
+        setIsSecond(checked);
         return;
       case 'third':
-        setIsThird(event.target.checked);
+        setIsThird(checked);
         return;
       case 'fourth':
-        setIsFourth(event.target.checked);
+        setIsFourth(checked);
         return;
       case 'fifth':
-        setIsFifth(event.target.checked);
+        setIsFifth(checked);
         return;
       case 'fastHalf':
-        setIsFastHalf(event.target.checked);
+        setIsFastHalf(checked);
         return;
       case 'fastEnd':
-        setIsFastEnd(event.target.checked);
+        setIsFastEnd(checked);
         return;
       case 'lateHalf':
-        setIsLateHalf(event.target.checked);
+        setIsLateHalf(checked);
         return;
       case 'lateEnd':
-        setIsLateEnd(event.target.checked);
+        setIsLateEnd(checked);
         return;
       default:
         return;
