@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CheckBox from '@material-ui/core/Checkbox';
+import Typography from '@material-ui/core/Typography';
 import SendIcon from '@material-ui/icons/Send';
 const useStyles = makeStyles(theme => ({
   firstbox: {
@@ -47,19 +48,22 @@ const useStyles = makeStyles(theme => ({
   },
   forthLeft: {
     marginLeft: theme.spacing(2)
+  },
+  errorMessage: {
+    color: 'red'
   }
 }));
 
 function TextFields(props) {
   const classes = useStyles();
-  const { title, details, onChange } = props;
+  const { title, details, isTitleFilled, onChange } = props;
 
   return (
     <div className={classes.firstbox}>
       <TextField
-        required
+        error={!isTitleFilled}
         id='outlined-required'
-        label='題名'
+        label='題名（必須）'
         placeholder='過去問　[2]-(1) 力のモーメント'
         margin='normal'
         variant='outlined'
@@ -67,6 +71,11 @@ function TextFields(props) {
         value={title}
         onChange={onChange}
       />
+      {!isTitleFilled && (
+        <Typography className={classes.errorMessage} variant='body2'>
+          この項目の入力は必須です
+        </Typography>
+      )}
       <TextField
         multiline
         id='outlined-multilined-static'
@@ -271,6 +280,7 @@ export default function MakeThreadForm(props) {
   // TextFieldsに渡す
   const [title, setTitle] = useState('');
   const [details, setDetails] = useState('');
+  const [isTitleFilled, setIsTitileFilled] = useState(true); // 訪問した最初にはエラーは出さない
 
   // ImageButtonに渡す
   const [pictureURL, setPictureURL] = useState('');
@@ -292,6 +302,10 @@ export default function MakeThreadForm(props) {
     switch (targetName) {
       case 'title':
         setTitle(value);
+        // 何か入力されていればerror表示を消す
+        if (value.trim() !== '') {
+          setIsTitileFilled(true);
+        }
         return;
       case 'details':
         setDetails(value);
@@ -338,12 +352,23 @@ export default function MakeThreadForm(props) {
   }
 
   function handleSubmit() {
-    addThread(title, details, pictureURL);
+    // タイトルの入力欄が空だったりホワイトスペースばっかりだったら送信しない
+    // String.tirm() で文字列の銭湯と最後にある改行は空白を取り除
+    if (title.trim() === '') {
+      setIsTitileFilled(false);
+      return;
+    }
+    addThread(title.trim(), details.trim(), pictureURL);
   }
 
   return (
     <div>
-      <TextFields title={title} details={details} onChange={handleTextChange} />
+      <TextFields
+        title={title}
+        details={details}
+        isTitleFilled={isTitleFilled}
+        onChange={handleTextChange}
+      />
       <ImageButton />
       <Checkbox onChange={handleCheckChange} />
       <OtherButtons
