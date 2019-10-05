@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Thread from './containers/Thread';
-import MakeThreadForm from './components/MakeThreadForm';
+import MakeThread from './containers/MakeThread';
 import Channel from './containers/Channel';
 
 import LoginForm from './components/LoginForm';
@@ -21,8 +21,8 @@ class App extends Component {
           <Route exact path='/login' component={LoginForm} />
           <Route
             exact
-            path='/client/testChannel/makeThreadForm'
-            component={MakeThreadForm}
+            path='/client/testChannel/makeThread'
+            component={MakeThread}
           />
           <Route
             exact
