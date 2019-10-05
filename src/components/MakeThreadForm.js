@@ -265,7 +265,9 @@ function OtherButtons(props) {
   );
 }
 
-export default function MakeThreadForm() {
+export default function MakeThreadForm(props) {
+  const { addThread } = props;
+
   // TextFieldsに渡す
   const [title, setTitle] = useState('');
   const [details, setDetails] = useState('');
@@ -333,7 +335,9 @@ export default function MakeThreadForm() {
     }
   }
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    addThread(title, details, pictureURL);
+  }
 
   return (
     <div>
