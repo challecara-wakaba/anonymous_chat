@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -50,8 +50,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function TextFields() {
+function TextFields(props) {
   const classes = useStyles();
+  const { title, details, onChange } = props;
 
   return (
     <form className={classes.firstbox} noValidate autoComplete='off'>
@@ -62,6 +63,9 @@ function TextFields() {
         placeholder='過去問　[2]-(1) 力のモーメント'
         margin='normal'
         variant='outlined'
+        name='title' // 入力をstateで管理するのに用いる
+        value={title}
+        onChange={onChange}
       />
       <TextField
         multiline
@@ -71,6 +75,9 @@ function TextFields() {
         rows='4'
         margin='normal'
         variant='outlined'
+        name='details' // 入力をstataeで管理するのに用いる
+        value={details}
+        onChange={onChange}
       />
     </form>
   );
@@ -89,8 +96,20 @@ function ImageButton() {
   );
 }
 
-function Checkbox() {
+function Checkbox(props) {
   const classes = useStyles();
+  const {
+    isFirst,
+    isSecond,
+    isThird,
+    isFourth,
+    isFifth,
+    isFastHalf,
+    isFastEnd,
+    isLateHalf,
+    isLateEnd,
+    onChange
+  } = props;
 
   return (
     <FormGroup required className={classes.forthbox}>
@@ -101,6 +120,9 @@ function Checkbox() {
             value='checkedA'
             color='primary'
             className={classes.firstLeft}
+            name='first' // 入力をstataeで管理するのに用いる
+            checked={isFirst}
+            onChange={onChange}
           />
         }
         label='#１年'
@@ -112,6 +134,9 @@ function Checkbox() {
             value='checkedA'
             color='primary'
             className={classes.firstLeft}
+            name='second' // 入力をstataeで管理するのに用いる
+            checked={isSecond}
+            onChange={onChange}
           />
         }
         label='#２年'
@@ -123,6 +148,9 @@ function Checkbox() {
             value='checkedB'
             color='primary'
             className={classes.firstLeft}
+            name='third' // 入力をstataeで管理するのに用いる
+            checked={isThird}
+            onChange={onChange}
           />
         }
         label='#３年'
@@ -134,6 +162,9 @@ function Checkbox() {
             value='checkedC'
             color='primary'
             className={classes.firstLeft}
+            name='fourth' // 入力をstataeで管理するのに用いる
+            checked={isFourth}
+            onChange={onChange}
           />
         }
         label='#４年'
@@ -145,6 +176,9 @@ function Checkbox() {
             value='checkedD'
             color='primary'
             className={classes.firstLeft}
+            name='fifth' // 入力をstataeで管理するのに用いる
+            checked={isFifth}
+            onChange={onChange}
           />
         }
         label='#５年'
@@ -156,6 +190,9 @@ function Checkbox() {
             value='checkedE'
             color='primary'
             className={classes.secondLeft}
+            name='fastHalf' // 入力をstataeで管理するのに用いる
+            fhecked={isFastHalf}
+            onChange={onChange}
           />
         }
         label='#前期中間'
@@ -167,6 +204,9 @@ function Checkbox() {
             value='checkedF'
             color='primary'
             className={classes.secondLeft}
+            name='fastEnd' // 入力をstataeで管理するのに用いる
+            checked={isFastEnd}
+            onChange={onChange}
           />
         }
         label='#前期期末'
@@ -178,6 +218,9 @@ function Checkbox() {
             value='checkedG'
             color='primary'
             className={classes.secondLeft}
+            name='lateHalf' // 入力をstataeで管理するのに用いる
+            checked={isLateHalf}
+            onChange={onChange}
           />
         }
         label='#後期中間'
@@ -189,6 +232,9 @@ function Checkbox() {
             value='checkedH'
             color='primary'
             className={classes.thirdLeft}
+            name='lateEnd' // 入力をstataeで管理するのに用いる
+            checked={isLateEnd}
+            onChange={onChange}
           />
         }
         label='#年度末'
@@ -198,14 +244,20 @@ function Checkbox() {
   );
 }
 
-function OtherButtons() {
+function OtherButtons(props) {
   const classes = useStyles();
+  const { onSubmit } = props;
   return (
     <div className={classes.fifthbox}>
       <Button variant='contained' size='medium' color='secondary'>
         キャンセル
       </Button>
-      <Button variant='contained' color='primary' className={classes.button}>
+      <Button
+        onClick={onSubmit}
+        variant='contained'
+        color='primary'
+        className={classes.button}
+      >
         送信
         <SendIcon className={classes.forthLeft}></SendIcon>
       </Button>
@@ -214,12 +266,92 @@ function OtherButtons() {
 }
 
 export default function MakeThreadForm() {
+  // TextFieldsに渡す
+  const [title, setTitle] = useState('');
+  const [details, setDetails] = useState('');
+
+  // ImageButtonに渡す
+  const [pictureURL, setPictureURL] = useState('');
+
+  // checkBoxに渡す
+  const [isFirst, setIsFirst] = useState(false);
+  const [isSecond, setIsSecond] = useState(false);
+  const [isThird, setIsThird] = useState(false);
+  const [isFourth, setIsFourth] = useState(false);
+  const [isFifth, setIsFifth] = useState(false);
+  const [isFastHalf, setIsFastHalf] = useState(false);
+  const [isFastEnd, setIsFastEnd] = useState(false);
+  const [isLateHalf, setIsLateHalf] = useState(false);
+  const [isLateEnd, setIsLateEnd] = useState(false);
+
+  function handleTextChange(event) {
+    const targetName = event.target.name;
+    switch (targetName) {
+      case 'title':
+        setTitle(event.target.value);
+        return;
+      case 'details':
+        setDetails(event.target.value);
+        return;
+      default:
+        return;
+    }
+  }
+
+  function handleCheckChange(event) {
+    const targetName = event.target.name;
+    switch (targetName) {
+      case 'first':
+        setIsFirst(event.target.checked);
+        return;
+      case 'second':
+        setIsSecond(event.target.checked);
+        return;
+      case 'third':
+        setIsThird(event.target.checked);
+        return;
+      case 'fourth':
+        setIsFourth(event.target.checked);
+        return;
+      case 'fifth':
+        setIsFifth(event.target.checked);
+        return;
+      case 'fastHalf':
+        setIsFastHalf(event.target.checked);
+        return;
+      case 'fastEnd':
+        setIsFastEnd(event.target.checked);
+        return;
+      case 'lateHalf':
+        setIsLateHalf(event.target.checked);
+        return;
+      case 'lateEnd':
+        setIsLateEnd(event.target.checked);
+        return;
+      default:
+        return;
+    }
+  }
+
+  function handleSubmit() {}
+
   return (
     <div>
-      <TextFields />
+      <TextFields title={title} details={details} onChange={handleTextChange} />
       <ImageButton />
-      <Checkbox />
-      <OtherButtons />
+      <Checkbox onChange={handleCheckChange} />
+      <OtherButtons
+        isFirst={isFirst}
+        isSecond={isSecond}
+        isThird={isThird}
+        isFourth={isFourth}
+        isFifth={isFifth}
+        isFastHalf={isFastHalf}
+        isFastEnd={isFastEnd}
+        isLateHalf={isLateHalf}
+        isLateEnd={isLateEnd}
+        onSubmit={handleSubmit}
+      />
     </div>
   );
 }
