@@ -84,7 +84,7 @@ const ThreadCard = props => {
             {details}
           </Typography>
         </CardContent>
-        {(!pictureURL || pictureURL === '') && (
+        {!(!pictureURL || pictureURL === '') && (
           // urlがundefinedか空文字だったら表示しない
           <CardMedia
             className={classes.image}
