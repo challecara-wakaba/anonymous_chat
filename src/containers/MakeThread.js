@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 
 import {
   TextFields,
   ImageButton,
   Checkboxs,
-  OtherButtons
+  CancelButton,
+  SendButton
 } from '../components/MakeThreadForm';
 import * as channelActions from '../modules/channelModule';
 
+const useStyles = makeStyles(theme => ({
+  bottomContainer: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    margin: '48px 0',
+    padding: '0 16px'
+  }
+}));
+
 function MakeThread(props) {
+  const classes = useStyles();
   const { addThread } = props;
   // TextFieldsに渡す
   const [title, setTitle] = useState('');
@@ -116,7 +128,10 @@ function MakeThread(props) {
         isLateEnd={isLateEnd}
         onChange={handleCheckChange}
       />
-      <OtherButtons onSubmit={handleSubmit} />
+      <div className={classes.bottomContainer}>
+        <CancelButton />
+        <SendButton onClick={handleSubmit} />
+      </div>
     </React.Fragment>
   );
 }

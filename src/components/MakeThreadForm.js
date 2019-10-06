@@ -253,23 +253,21 @@ export function Checkboxs(props) {
   );
 }
 
-export function OtherButtons(props) {
-  const classes = useStyles();
-  const { onSubmit } = props;
+export function CancelButton() {
   return (
-    <div className={classes.fifthbox}>
-      <Button variant='contained' size='medium' color='secondary'>
-        キャンセル
-      </Button>
-      <Button
-        onClick={onSubmit}
-        variant='contained'
-        color='primary'
-        className={classes.button}
-      >
-        送信
-        <SendIcon className={classes.forthLeft}></SendIcon>
-      </Button>
-    </div>
+    <Button variant='contained' size='medium' color='secondary'>
+      キャンセル
+    </Button>
+  );
+}
+
+export function SendButton(props) {
+  const classes = useStyles();
+  const { onClick } = props;
+  return (
+    <Button onClick={onClick} variant='contained' size='medium' color='primary'>
+      送信
+      <SendIcon className={classes.forthLeft}></SendIcon>
+    </Button>
   );
 }
