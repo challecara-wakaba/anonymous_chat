@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CheckBox from '@material-ui/core/Checkbox';
+import Typography from '@material-ui/core/Typography';
 import SendIcon from '@material-ui/icons/Send';
 const useStyles = makeStyles(theme => ({
   firstbox: {
@@ -47,22 +48,34 @@ const useStyles = makeStyles(theme => ({
   },
   forthLeft: {
     marginLeft: theme.spacing(2)
+  },
+  errorMessage: {
+    color: 'red'
   }
 }));
 
-function TextFields() {
+export function TextFields(props) {
   const classes = useStyles();
+  const { title, details, isTitleFilled, onChange } = props;
 
   return (
-    <form className={classes.firstbox} noValidate autoComplete='off'>
+    <div className={classes.firstbox}>
       <TextField
-        required
+        error={!isTitleFilled}
         id='outlined-required'
-        label='題名'
+        label='題名（必須）'
         placeholder='過去問　[2]-(1) 力のモーメント'
         margin='normal'
         variant='outlined'
+        name='title' // 入力をstateで管理するのに用いる
+        value={title}
+        onChange={onChange}
       />
+      {!isTitleFilled && (
+        <Typography className={classes.errorMessage} variant='body2'>
+          この項目の入力は必須です
+        </Typography>
+      )}
       <TextField
         multiline
         id='outlined-multilined-static'
@@ -71,12 +84,15 @@ function TextFields() {
         rows='4'
         margin='normal'
         variant='outlined'
+        name='details' // 入力をstataeで管理するのに用いる
+        value={details}
+        onChange={onChange}
       />
-    </form>
+    </div>
   );
 }
 
-function ImageButton() {
+export function ImageButton() {
   const classes = useStyles();
 
   return (
@@ -89,8 +105,20 @@ function ImageButton() {
   );
 }
 
-function Checkbox() {
+export function Checkboxs(props) {
   const classes = useStyles();
+  const {
+    isFirst,
+    isSecond,
+    isThird,
+    isFourth,
+    isFifth,
+    isFastHalf,
+    isFastEnd,
+    isLateHalf,
+    isLateEnd,
+    onChange
+  } = props;
 
   return (
     <FormGroup required className={classes.forthbox}>
@@ -101,6 +129,9 @@ function Checkbox() {
             value='checkedA'
             color='primary'
             className={classes.firstLeft}
+            name='first' // 入力をstataeで管理するのに用いる
+            checked={isFirst}
+            onChange={onChange}
           />
         }
         label='#１年'
@@ -112,6 +143,9 @@ function Checkbox() {
             value='checkedA'
             color='primary'
             className={classes.firstLeft}
+            name='second' // 入力をstataeで管理するのに用いる
+            checked={isSecond}
+            onChange={onChange}
           />
         }
         label='#２年'
@@ -123,6 +157,9 @@ function Checkbox() {
             value='checkedB'
             color='primary'
             className={classes.firstLeft}
+            name='third' // 入力をstataeで管理するのに用いる
+            checked={isThird}
+            onChange={onChange}
           />
         }
         label='#３年'
@@ -134,6 +171,9 @@ function Checkbox() {
             value='checkedC'
             color='primary'
             className={classes.firstLeft}
+            name='fourth' // 入力をstataeで管理するのに用いる
+            checked={isFourth}
+            onChange={onChange}
           />
         }
         label='#４年'
@@ -145,6 +185,9 @@ function Checkbox() {
             value='checkedD'
             color='primary'
             className={classes.firstLeft}
+            name='fifth' // 入力をstataeで管理するのに用いる
+            checked={isFifth}
+            onChange={onChange}
           />
         }
         label='#５年'
@@ -156,6 +199,9 @@ function Checkbox() {
             value='checkedE'
             color='primary'
             className={classes.secondLeft}
+            name='fastHalf' // 入力をstataeで管理するのに用いる
+            fhecked={isFastHalf}
+            onChange={onChange}
           />
         }
         label='#前期中間'
@@ -167,6 +213,9 @@ function Checkbox() {
             value='checkedF'
             color='primary'
             className={classes.secondLeft}
+            name='fastEnd' // 入力をstataeで管理するのに用いる
+            checked={isFastEnd}
+            onChange={onChange}
           />
         }
         label='#前期期末'
@@ -178,6 +227,9 @@ function Checkbox() {
             value='checkedG'
             color='primary'
             className={classes.secondLeft}
+            name='lateHalf' // 入力をstataeで管理するのに用いる
+            checked={isLateHalf}
+            onChange={onChange}
           />
         }
         label='#後期中間'
@@ -189,6 +241,9 @@ function Checkbox() {
             value='checkedH'
             color='primary'
             className={classes.thirdLeft}
+            name='lateEnd' // 入力をstataeで管理するのに用いる
+            checked={isLateEnd}
+            onChange={onChange}
           />
         }
         label='#年度末'
@@ -198,28 +253,21 @@ function Checkbox() {
   );
 }
 
-function OtherButtons() {
-  const classes = useStyles();
+export function CancelButton() {
   return (
-    <div className={classes.fifthbox}>
-      <Button variant='contained' size='medium' color='secondary'>
-        キャンセル
-      </Button>
-      <Button variant='contained' color='primary' className={classes.button}>
-        送信
-        <SendIcon className={classes.forthLeft}></SendIcon>
-      </Button>
-    </div>
+    <Button variant='contained' size='medium' color='secondary'>
+      キャンセル
+    </Button>
   );
 }
 
-export default function MakeThreadForm() {
+export function SendButton(props) {
+  const classes = useStyles();
+  const { onClick } = props;
   return (
-    <div>
-      <TextFields />
-      <ImageButton />
-      <Checkbox />
-      <OtherButtons />
-    </div>
+    <Button onClick={onClick} variant='contained' size='medium' color='primary'>
+      送信
+      <SendIcon className={classes.forthLeft}></SendIcon>
+    </Button>
   );
 }

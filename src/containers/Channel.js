@@ -1,12 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import ThreadCardList from '../components/ThreadCardList';
-import * as channelActions from '../modules/channelModule';
+import ThreadAddButton from '../components/ThreadAddButton';
 
 function Channel(props) {
   const { threads } = props;
-  return <ThreadCardList threads={threads} />;
+  const { url } = props.match;
+
+  return (
+    <React.Fragment>
+      <ThreadCardList threads={threads} />
+      <Link to={`${url}/makeThread`}>
+        <ThreadAddButton />
+      </Link>
+    </React.Fragment>
+  );
 }
 
 function mapStateToProps(state) {
@@ -14,14 +24,5 @@ function mapStateToProps(state) {
     threads: state.channel.threads
   };
 }
-function mapDispatchToProps(dispatch) {
-  return {
-    addThread: (title, details, pictureURL) =>
-      dispatch(channelActions.addThread(title, details, pictureURL))
-  };
-}
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Channel);
+export default connect(mapStateToProps)(Channel);

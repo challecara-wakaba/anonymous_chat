@@ -27,7 +27,7 @@ export default function reducer(state = initialState, action) {
         pictureURL: action.pictureURL
       };
       return Object.assign({}, state, {
-        threads: [...state.threads, newThread]
+        threads: [newThread, ...state.threads]
       });
 
     default:
