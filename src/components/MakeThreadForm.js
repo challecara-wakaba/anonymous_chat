@@ -105,7 +105,7 @@ export function ImageButton() {
   );
 }
 
-export function Checkbox(props) {
+export function Checkboxs(props) {
   const classes = useStyles();
   const {
     isFirst,

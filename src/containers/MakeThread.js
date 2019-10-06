@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
   TextFields,
   ImageButton,
-  Checkbox,
+  Checkboxs,
   OtherButtons
 } from '../components/MakeThreadForm';
 import * as channelActions from '../modules/channelModule';
@@ -104,7 +104,7 @@ function MakeThread(props) {
         onChange={handleTextChange}
       />
       <ImageButton />
-      <Checkbox onChange={handleCheckChange} />
+      <Checkboxs onChange={handleCheckChange} />
       <OtherButtons
         isFirst={isFirst}
         isSecond={isSecond}
