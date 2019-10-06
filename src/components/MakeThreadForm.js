@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function TextFields(props) {
+export function TextFields(props) {
   const classes = useStyles();
   const { title, details, isTitleFilled, onChange } = props;
 
@@ -92,7 +92,7 @@ function TextFields(props) {
   );
 }
 
-function ImageButton() {
+export function ImageButton() {
   const classes = useStyles();
 
   return (
@@ -105,7 +105,7 @@ function ImageButton() {
   );
 }
 
-function Checkbox(props) {
+export function Checkbox(props) {
   const classes = useStyles();
   const {
     isFirst,
@@ -253,7 +253,7 @@ function Checkbox(props) {
   );
 }
 
-function OtherButtons(props) {
+export function OtherButtons(props) {
   const classes = useStyles();
   const { onSubmit } = props;
   return (
@@ -270,119 +270,6 @@ function OtherButtons(props) {
         送信
         <SendIcon className={classes.forthLeft}></SendIcon>
       </Button>
-    </div>
-  );
-}
-
-export default function MakeThreadForm(props) {
-  const { addThread } = props;
-
-  // TextFieldsに渡す
-  const [title, setTitle] = useState('');
-  const [details, setDetails] = useState('');
-  const [isTitleFilled, setIsTitileFilled] = useState(true); // 訪問した最初にはエラーは出さない
-
-  // ImageButtonに渡す
-  const [pictureURL, setPictureURL] = useState('');
-
-  // checkBoxに渡す
-  const [isFirst, setIsFirst] = useState(false);
-  const [isSecond, setIsSecond] = useState(false);
-  const [isThird, setIsThird] = useState(false);
-  const [isFourth, setIsFourth] = useState(false);
-  const [isFifth, setIsFifth] = useState(false);
-  const [isFastHalf, setIsFastHalf] = useState(false);
-  const [isFastEnd, setIsFastEnd] = useState(false);
-  const [isLateHalf, setIsLateHalf] = useState(false);
-  const [isLateEnd, setIsLateEnd] = useState(false);
-
-  function handleTextChange(event) {
-    const targetName = event.target.name;
-    const value = event.target.value;
-    switch (targetName) {
-      case 'title':
-        setTitle(value);
-        // 何か入力されていればerror表示を消す
-        if (value.trim() !== '') {
-          setIsTitileFilled(true);
-        }
-        return;
-      case 'details':
-        setDetails(value);
-        return;
-      default:
-        return;
-    }
-  }
-
-  function handleCheckChange(event) {
-    const targetName = event.target.name;
-    const checked = event.target.checked;
-    switch (targetName) {
-      case 'first':
-        setIsFirst(checked);
-        return;
-      case 'second':
-        setIsSecond(checked);
-        return;
-      case 'third':
-        setIsThird(checked);
-        return;
-      case 'fourth':
-        setIsFourth(checked);
-        return;
-      case 'fifth':
-        setIsFifth(checked);
-        return;
-      case 'fastHalf':
-        setIsFastHalf(checked);
-        return;
-      case 'fastEnd':
-        setIsFastEnd(checked);
-        return;
-      case 'lateHalf':
-        setIsLateHalf(checked);
-        return;
-      case 'lateEnd':
-        setIsLateEnd(checked);
-        return;
-      default:
-        return;
-    }
-  }
-
-  function handleSubmit() {
-    // タイトルの入力欄が空だったりホワイトスペースばっかりだったら送信しない
-    // String.tirm() で文字列の銭湯と最後にある改行は空白を取り除
-    if (title.trim() === '') {
-      setIsTitileFilled(false);
-      return;
-    }
-    addThread(title.trim(), details.trim(), pictureURL);
-  }
-
-  return (
-    <div>
-      <TextFields
-        title={title}
-        details={details}
-        isTitleFilled={isTitleFilled}
-        onChange={handleTextChange}
-      />
-      <ImageButton />
-      <Checkbox onChange={handleCheckChange} />
-      <OtherButtons
-        isFirst={isFirst}
-        isSecond={isSecond}
-        isThird={isThird}
-        isFourth={isFourth}
-        isFifth={isFifth}
-        isFastHalf={isFastHalf}
-        isFastEnd={isFastEnd}
-        isLateHalf={isLateHalf}
-        isLateEnd={isLateEnd}
-        onSubmit={handleSubmit}
-      />
     </div>
   );
 }
