@@ -1,16 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import ThreadCardList from '../components/ThreadCardList';
 import ThreadAddButton from '../components/ThreadAddButton';
 
 function Channel(props) {
   const { threads } = props;
+  const { url } = props.match;
 
   return (
     <React.Fragment>
       <ThreadCardList threads={threads} />
-      <ThreadAddButton />
+      <Link to={`${url}/makeThread`}>
+        <ThreadAddButton />
+      </Link>
     </React.Fragment>
   );
 }
