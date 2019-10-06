@@ -14,15 +14,27 @@ const useStyles = makeStyles(theme => ({
     marginRight: 'auto',
     maxWidth: theme.breakpoints.values.md
   },
+  topAreaContainer: {
+    paddingBottom: theme.spacing(1)
+  },
+  titleAreaContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
   timeStamp: {
-    textAlign: 'right'
+    fontSize: 10
   },
   image: {
     marginRight: 'auto',
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(2),
     marginLeft: 'auto',
-    maxHeight: 180,
-    maxWidth: 320
+    maxHeight: 135,
+    maxWidth: 240
+  },
+  newsBar: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1)
   },
   divider: {
     height: 1
@@ -37,43 +49,54 @@ const ThreadCard = props => {
   const { timeStamp, title, details, pictureURL } = props;
 
   const convertDateFormat = date => {
+    const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    const hour = ('0' + date.getHours()).slice(-2); // 一桁の時は0を埋めて2桁にする
-    const minute = ('0' + date.getMinutes()).slice(-2); // 一桁の時は0を埋めて2桁にする
     const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'][date.getDay()];
 
-    return `${month}月${day}日(${dayOfWeek}) ${hour}:${minute}`;
+    return `${year}年${month}月${day}日(${dayOfWeek})`;
+  };
+
+  const convertLineFeed = text => {
+    // 改行コード\nを<br />に変換
+    // これを行わないとテキストが改行されない
+    return text.split('\n').map((line, key) => (
+      <span key={key}>
+        {line}
+        <br />
+      </span>
+    ));
   };
 
   return (
     <Card className={classes.root} elevation={1} square>
       <Divider className={classes.divider} />
       <CardActionArea>
-        <CardContent>
-          <Typography variant='h5' components='h2' gutterBottom>
-            {title}
-          </Typography>
+        <CardContent className={classes.topAreaContainer}>
+          <div className={classes.titleAreaContainer}>
+            <Typography variant='subtitle1' components='h2' gutterBottom>
+              {title}
+            </Typography>
+            <Typography
+              className={classes.timeStamp}
+              components='span'
+              color='textSecondary'
+              gutterBottom
+            >
+              {convertDateFormat(timeStamp)}
+            </Typography>
+          </div>
           <Typography
-            className={classes.timeStamp}
-            variant='body1'
-            components='span'
-            color='textSecondary'
-            gutterBottom
-          >
-            {convertDateFormat(timeStamp)}
-          </Typography>
-          <Typography
-            variant='body1'
+            variant='body2'
             components='p'
             color='textSecondary'
             gutterBottom
           >
-            {details}
+            {convertLineFeed(details)}
           </Typography>
         </CardContent>
-        {pictureURL && (
-          // urlがundefinedだったら表示しない
+        {!(!pictureURL || pictureURL === '') && (
+          // urlがundefinedか空文字だったら表示しない
           <CardMedia
             className={classes.image}
             component='img'
@@ -81,8 +104,8 @@ const ThreadCard = props => {
           />
         )}
         <Divider />
-        <CardContent>
-          <Typography variant='body1'>{NOTIS}</Typography>
+        <CardContent className={classes.newsBar}>
+          <Typography variant='body2'>{NOTIS}</Typography>
         </CardContent>
       </CardActionArea>
       <Divider className={classes.divider} />
