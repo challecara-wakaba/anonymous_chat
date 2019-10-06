@@ -104,8 +104,7 @@ function MakeThread(props) {
         onChange={handleTextChange}
       />
       <ImageButton />
-      <Checkboxs onChange={handleCheckChange} />
-      <OtherButtons
+      <Checkboxs
         isFirst={isFirst}
         isSecond={isSecond}
         isThird={isThird}
@@ -115,8 +114,9 @@ function MakeThread(props) {
         isFastEnd={isFastEnd}
         isLateHalf={isLateHalf}
         isLateEnd={isLateEnd}
-        onSubmit={handleSubmit}
+        onChange={handleCheckChange}
       />
+      <OtherButtons onSubmit={handleSubmit} />
     </React.Fragment>
   );
 }
