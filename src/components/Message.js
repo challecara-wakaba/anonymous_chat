@@ -5,6 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import GoodButton from './GoodButton';
 
 const useStyles = makeStyles(theme => ({
   inline: {
@@ -40,41 +41,48 @@ const Message = props => {
   };
 
   return (
-    <ListItem alignItems='flex-start' style={reactWindowStyle}>
-      <ListItemAvatar>
-        <Avatar alt={name} src={icon} />
-      </ListItemAvatar>
-      <ListItemText
-        primary={
-          <React.Fragment>
-            <Typography component='span' variant='subtitle1' className='inline'>
-              {name}
-            </Typography>
-            {'  '}
-            <Typography
-              component='span'
-              variant='caption'
-              className={classes.inline}
-              color='textSecondary'
-            >
-              {convertDateFormat(timeStamp)}
-            </Typography>
-          </React.Fragment>
-        }
-        secondary={
-          <React.Fragment>
-            <Typography
-              component='span'
-              variant='body2'
-              className={classes.inline}
-              color='textPrimary'
-            >
-              {convertLineFeed(text)}
-            </Typography>
-          </React.Fragment>
-        }
-      />
-    </ListItem>
+    <React.Fragment>
+      <ListItem alignItems='flex-start' style={reactWindowStyle}>
+        <ListItemAvatar>
+          <Avatar alt={name} src={icon} />
+        </ListItemAvatar>
+        <ListItemText
+          primary={
+            <React.Fragment>
+              <Typography
+                component='span'
+                variant='subtitle1'
+                className='inline'
+              >
+                {name}
+              </Typography>
+              {'  '}
+              <Typography
+                component='span'
+                variant='caption'
+                className={classes.inline}
+                color='textSecondary'
+              >
+                {convertDateFormat(timeStamp)}
+              </Typography>
+            </React.Fragment>
+          }
+          secondary={
+            <React.Fragment>
+              <Typography
+                component='span'
+                variant='body2'
+                className={classes.inline}
+                color='textPrimary'
+              >
+                {convertLineFeed(text)}
+              </Typography>
+              <GoodButton />
+            </React.Fragment>
+          }
+        />
+      </ListItem>
+    </React.Fragment>
   );
 };
 
