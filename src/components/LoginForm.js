@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
   Span: {
     fontSize: '40px',
-    Color: '#FF0000'
+    color: '#FF0000'
   },
   Secondbox: {
     display: 'flex',
