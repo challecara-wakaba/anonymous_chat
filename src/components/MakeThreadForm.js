@@ -8,45 +8,31 @@ import CheckBox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import SendIcon from '@material-ui/icons/Send';
 const useStyles = makeStyles(theme => ({
-  firstbox: {
+  firstCont: {
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    padding: '0 8px'
+    margin: '0 8px'
   },
-  secondbox: {
+  secondCont: {
     display: 'flex',
     justifyContent: 'flex-start',
-    padding: '16px 8px'
+    margin: theme.spacing(1),
+    paddingBottom: theme.spacing(1)
   },
-  thirdbox: {
-    margin: '0 8px',
+  thirdCont: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    margin: theme.spacing(2)
   },
-  forthbox: {
+  forthCont: {
     display: 'flex',
     flexDirection: 'column',
     margin: theme.spacing(1),
-    padding: '0 48px 64px 16px',
+    padding: theme.spacing(3),
     backgroundColor: 'pink'
   },
-  fifthbox: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    margin: '48px 0',
-    padding: '0 16px'
-  },
-  firstLeft: {
-    marginLeft: theme.spacing(11)
-  },
-  secondLeft: {
-    marginLeft: theme.spacing(7)
-  },
-  thirdLeft: {
-    marginLeft: theme.spacing(9)
-  },
-  forthLeft: {
+  Left: {
     marginLeft: theme.spacing(2)
   },
   errorMessage: {
@@ -59,7 +45,7 @@ export function TextFields(props) {
   const { title, details, isTitleFilled, onChange } = props;
 
   return (
-    <div className={classes.firstbox}>
+    <div className={classes.firstCont}>
       <TextField
         error={!isTitleFilled}
         id='outlined-required'
@@ -96,11 +82,11 @@ export function ImageButton() {
   const classes = useStyles();
 
   return (
-    <div className={classes.secondbox}>
+    <div className={classes.secondCont}>
       <Button variant='contained' size='medium' color='primary'>
         画像を追加
       </Button>
-      <h5 className={classes.thirdbox}>1枚追加できます</h5>
+      <h5 className={classes.thirdCont}>1枚追加できます</h5>
     </div>
   );
 }
@@ -121,14 +107,14 @@ export function Checkboxs(props) {
   } = props;
 
   return (
-    <FormGroup required className={classes.forthbox}>
+    <FormGroup className={classes.forthCont}>
       <h2>タグを選択してください</h2>
       <FormControlLabel
         control={
           <CheckBox
             value='checkedA'
             color='primary'
-            className={classes.firstLeft}
+            className={classes.Margin}
             name='first' // 入力をstataeで管理するのに用いる
             checked={isFirst}
             onChange={onChange}
@@ -142,7 +128,7 @@ export function Checkboxs(props) {
           <CheckBox
             value='checkedA'
             color='primary'
-            className={classes.firstLeft}
+            className={classes.Margin}
             name='second' // 入力をstataeで管理するのに用いる
             checked={isSecond}
             onChange={onChange}
@@ -156,7 +142,7 @@ export function Checkboxs(props) {
           <CheckBox
             value='checkedB'
             color='primary'
-            className={classes.firstLeft}
+            className={classes.Margin}
             name='third' // 入力をstataeで管理するのに用いる
             checked={isThird}
             onChange={onChange}
@@ -170,7 +156,7 @@ export function Checkboxs(props) {
           <CheckBox
             value='checkedC'
             color='primary'
-            className={classes.firstLeft}
+            className={classes.Margin}
             name='fourth' // 入力をstataeで管理するのに用いる
             checked={isFourth}
             onChange={onChange}
@@ -184,7 +170,7 @@ export function Checkboxs(props) {
           <CheckBox
             value='checkedD'
             color='primary'
-            className={classes.firstLeft}
+            className={classes.Margin}
             name='fifth' // 入力をstataeで管理するのに用いる
             checked={isFifth}
             onChange={onChange}
@@ -198,7 +184,7 @@ export function Checkboxs(props) {
           <CheckBox
             value='checkedE'
             color='primary'
-            className={classes.secondLeft}
+            className={classes.Margin}
             name='fastHalf' // 入力をstataeで管理するのに用いる
             fhecked={isFastHalf}
             onChange={onChange}
@@ -212,7 +198,7 @@ export function Checkboxs(props) {
           <CheckBox
             value='checkedF'
             color='primary'
-            className={classes.secondLeft}
+            className={classes.Margin}
             name='fastEnd' // 入力をstataeで管理するのに用いる
             checked={isFastEnd}
             onChange={onChange}
@@ -226,7 +212,7 @@ export function Checkboxs(props) {
           <CheckBox
             value='checkedG'
             color='primary'
-            className={classes.secondLeft}
+            className={classes.Margin}
             name='lateHalf' // 入力をstataeで管理するのに用いる
             checked={isLateHalf}
             onChange={onChange}
@@ -240,7 +226,7 @@ export function Checkboxs(props) {
           <CheckBox
             value='checkedH'
             color='primary'
-            className={classes.thirdLeft}
+            className={classes.Margin}
             name='lateEnd' // 入力をstataeで管理するのに用いる
             checked={isLateEnd}
             onChange={onChange}
@@ -267,7 +253,7 @@ export function SendButton(props) {
   return (
     <Button onClick={onClick} variant='contained' size='medium' color='primary'>
       送信
-      <SendIcon className={classes.forthLeft}></SendIcon>
+      <SendIcon className={classes.Left}></SendIcon>
     </Button>
   );
 }

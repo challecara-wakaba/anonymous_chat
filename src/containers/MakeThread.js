@@ -16,8 +16,7 @@ const useStyles = makeStyles(theme => ({
   bottomContainer: {
     display: 'flex',
     justifyContent: 'space-around',
-    margin: '48px 0',
-    padding: '0 16px'
+    margin: '48px 16px'
   }
 }));
 
