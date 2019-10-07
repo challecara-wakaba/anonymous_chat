@@ -31,7 +31,7 @@ function MakeThread(props) {
   const [isTitleFilled, setIsTitileFilled] = useState(true); // 訪問した最初にはエラーは出さない
 
   // ImageButtonに渡す
-  const [pictureURL, setPictureURL] = useState('');
+  const [pictureURL /*setPictureURL*/] = useState('');
 
   // checkBoxに渡す
   const [isFirst, setIsFirst] = useState(false);
