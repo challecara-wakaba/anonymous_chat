@@ -10,19 +10,25 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
     justifyContent: 'center',
     marginLeft: theme.spacing(3),
-    marginTop: theme.spacing(8)
+    marginTop: theme.spacing(4)
   },
-  Weight: {
+  Title: {
+    paddingLeft: theme.spacing(3),
+    marginBottom: theme.spacing(6),
     fontWeight: 'lighter'
+  },
+  Span: {
+    fontSize: '40px',
+    Color: '#FF0000'
   },
   Secondbox: {
     display: 'flex',
     flexDirection: 'column',
-    margin: '16px 88px 0 96px'
+    margin: '16px 32px 0 32px'
   },
   Firstmargin: {
-    marginLeft: theme.spacing(5),
-    marginRight: theme.spacing(7)
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(4)
   }
 }));
 
@@ -31,7 +37,9 @@ function TextFields() {
 
   return (
     <form className={classes.Firstbox} noVaridate autoComplete='off'>
-      <h1 className={classes.Weight}>ログインしてください</h1>
+      <h1 className={classes.Title}>
+        <span className={classes.Span}>Lask</span>へようこそ
+      </h1>
       <TextField
         id='outlined-email-input'
         label='Email'
