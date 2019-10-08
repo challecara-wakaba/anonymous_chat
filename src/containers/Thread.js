@@ -5,6 +5,13 @@ import MessageList from '../components/MessageList';
 import ThreadFooter from '../components/ThreadFooter';
 import * as threadActions from '../modules/threadModule';
 
+const listSytle = {
+  // VirtuosoはmakeStyleで高さと幅指定ができないためオブジェクトを作り
+  // propsで渡しinlineCSSで適応させる
+  height: document.documentElement.clientHeight - 64, //footerの高さ分引く
+  width: '100%'
+};
+
 const Thread = props => {
   const userName = 'annin'; // これはテストです
 
@@ -16,7 +23,7 @@ const Thread = props => {
 
   return (
     <React.Fragment>
-      <MessageList replies={replies} />
+      <MessageList listStyle={listSytle} replies={replies} />
       <ThreadFooter onSubmit={handleSubmit} />
     </React.Fragment>
   );
