@@ -12,14 +12,12 @@ const useStyle = makeStyles(theme => ({
   footerNormal: {
     position: 'fixed',
     top: 'auto',
-    bottom: 0,
-    height: theme.spacing(8)
+    bottom: 0
   },
   footerAtFocus: {
     position: 'absolute',
     top: 'auto',
-    bottom: 0,
-    height: theme.spacing(8)
+    bottom: 0
   },
   input: {
     flexGrow: 1
