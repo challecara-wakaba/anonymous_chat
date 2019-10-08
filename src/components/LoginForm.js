@@ -4,31 +4,32 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 const useStyles = makeStyles(theme => ({
-  Firstbox: {
+  FirstCont: {
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    justifyContent: 'center',
-    marginLeft: theme.spacing(3),
-    marginTop: theme.spacing(4)
+    width: 'auto',
+    margin: '40px 24px 0 24px'
+  },
+  SecondCont: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '32px 24px'
   },
   Title: {
-    paddingLeft: theme.spacing(3),
-    marginBottom: theme.spacing(6),
+    marginLeft: theme.spacing(2),
+    marginBottom: theme.spacing(5),
     fontWeight: 'lighter'
   },
   Span: {
-    fontSize: '40px',
+    fontSize: theme.spacing(5),
     color: '#FF0000'
   },
-  Secondbox: {
-    display: 'flex',
-    flexDirection: 'column',
-    margin: '16px 32px 0 32px'
+  FirstMargin: {
+    marginBottom: 'unset'
   },
-  Firstmargin: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(4)
+  SecondMargin: {
+    marginBottom: theme.spacing(1)
   }
 }));
 
@@ -36,16 +37,16 @@ function TextFields() {
   const classes = useStyles();
 
   return (
-    <form className={classes.Firstbox} noVaridate autoComplete='off'>
+    <form className={classes.FirstCont} noVaridate autoComplete='off'>
       <h1 className={classes.Title}>
         <span className={classes.Span}>Lask</span>へようこそ
       </h1>
       <TextField
         id='outlined-email-input'
         label='Email'
-        className={classes.Firstmargin}
         type='email'
         name='email'
+        className={classes.FirstMargin}
         autoComplete='email'
         margin='normal'
         variant='outlined'
@@ -53,8 +54,8 @@ function TextFields() {
       <TextField
         id='outlined-password-input'
         label='Password'
-        className={classes.Firstmargin}
         type='password'
+        className={classes.FirstMargin}
         autoComplete='current-password'
         margin='normal'
         variant='outlined'
@@ -66,8 +67,13 @@ function TextFields() {
 function Buttons() {
   const classes = useStyles();
   return (
-    <div className={classes.Secondbox}>
-      <Button variant='contained' color='secondary' size='large'>
+    <div className={classes.SecondCont}>
+      <Button
+        variant='contained'
+        color='secondary'
+        size='large'
+        className={classes.SecondMargin}
+      >
         ログイン
       </Button>
       <Link href='#' variant='body2'>
