@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 
+import Login from './containers/Login';
 import Thread from './containers/Thread';
 import MakeThread from './containers/MakeThread';
 import Channel from './containers/Channel';
@@ -18,7 +19,7 @@ class App extends Component {
           {/* URLをブラウザに直打ちすると移動できます */}
           <Route exact path='/' render={() => <h1>Home</h1>} />
           <Route exact path='/client/testChannel' component={Channel} />
-          <Route exact path='/login' component={LoginForm} />
+          <Route exact path='/login' component={Login} />
           <Route
             exact
             path='/client/testChannel/makeThread'
