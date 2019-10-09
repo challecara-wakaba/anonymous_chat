@@ -64,8 +64,9 @@ function TextFields() {
   );
 }
 
-function Buttons() {
+function Buttons(props) {
   const classes = useStyles();
+  const { onSubmit } = props;
   return (
     <div className={classes.SecondCont}>
       <Button
@@ -73,6 +74,7 @@ function Buttons() {
         color='secondary'
         size='large'
         className={classes.SecondMargin}
+        onClick={onSubmit}
       >
         ログイン
       </Button>
@@ -83,11 +85,12 @@ function Buttons() {
   );
 }
 
-export default function LoginForm() {
+export default function LoginForm(props) {
+  const { onSubmit } = props;
   return (
     <div>
       <TextFields />
-      <Buttons />
+      <Buttons onSubmit={onSubmit} />
     </div>
   );
 }
