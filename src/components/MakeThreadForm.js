@@ -8,49 +8,49 @@ import CheckBox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import SendIcon from '@material-ui/icons/Send';
 const useStyles = makeStyles(theme => ({
-  firstbox: {
+  FirstCont: {
     display: 'flex',
     flexDirection: 'column',
-    flexWrap: 'wrap',
-    padding: '0 8px'
+    flexWrap: 'wrap'
   },
-  secondbox: {
+  SecondCont: {
     display: 'flex',
-    justifyContent: 'flex-start',
-    padding: '16px 8px'
+    justifyContent: 'flex-start'
   },
-  thirdbox: {
-    margin: '0 8px',
-    display: 'flex',
-    alignItems: 'center'
-  },
-  forthbox: {
-    display: 'flex',
+  ThirdCont: {
+    display: 'inline-flex',
     flexDirection: 'column',
     margin: theme.spacing(1),
-    padding: '0 64px 64px 16px',
+    marginRight: theme.spacing(3),
+    padding: theme.spacing(2),
     backgroundColor: 'pink'
-  },
-  fifthbox: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    margin: '48px 0',
-    padding: '0 16px'
-  },
-  firstLeft: {
-    marginLeft: theme.spacing(11)
-  },
-  secondLeft: {
-    marginLeft: theme.spacing(7)
-  },
-  thirdLeft: {
-    marginLeft: theme.spacing(9)
-  },
-  forthLeft: {
-    marginLeft: theme.spacing(2)
   },
   errorMessage: {
     color: 'red'
+  },
+  Field: {
+    margin: theme.spacing(1)
+  },
+  Text: {
+    display: 'flex',
+    alignItems: 'center',
+    margin: theme.spacing(1)
+  },
+  Tag: {
+    display: 'flex',
+    flexDirection: 'row-reverse'
+  },
+  ClassBox: {
+    paddingLeft: theme.spacing(11)
+  },
+  ExamBox: {
+    paddingLeft: theme.spacing(7)
+  },
+  EndExamBox: {
+    paddingLeft: theme.spacing(9)
+  },
+  Left: {
+    marginLeft: theme.spacing(2)
   }
 }));
 
@@ -59,13 +59,14 @@ export function TextFields(props) {
   const { title, details, isTitleFilled, onChange } = props;
 
   return (
-    <div className={classes.firstbox}>
+    <div className={classes.FirstCont}>
       <TextField
         error={!isTitleFilled}
         id='outlined-required'
         label='題名（必須）'
         placeholder='過去問　[2]-(1) 力のモーメント'
         margin='normal'
+        className={classes.Field}
         variant='outlined'
         name='title' // 入力をstateで管理するのに用いる
         value={title}
@@ -83,6 +84,7 @@ export function TextFields(props) {
         placeholder='(例)この問題の解き方がわかりません'
         rows='4'
         margin='normal'
+        className={classes.Field}
         variant='outlined'
         name='details' // 入力をstataeで管理するのに用いる
         value={details}
@@ -96,11 +98,16 @@ export function ImageButton() {
   const classes = useStyles();
 
   return (
-    <div className={classes.secondbox}>
-      <Button variant='contained' size='medium' color='primary'>
+    <div className={classes.SecondCont}>
+      <Button
+        variant='contained'
+        size='medium'
+        color='primary'
+        className={classes.Text}
+      >
         画像を追加
       </Button>
-      <h5 className={classes.thirdbox}>1枚追加できます</h5>
+      <h5 className={classes.Text}>1枚追加できます</h5>
     </div>
   );
 }
@@ -121,133 +128,133 @@ export function Checkboxs(props) {
   } = props;
 
   return (
-    <FormGroup required className={classes.forthbox}>
+    <FormGroup className={classes.ThirdCont}>
       <h2>タグを選択してください</h2>
       <FormControlLabel
+        className={classes.Tag}
         control={
           <CheckBox
             value='checkedA'
             color='primary'
-            className={classes.firstLeft}
             name='first' // 入力をstataeで管理するのに用いる
             checked={isFirst}
             onChange={onChange}
+            className={classes.ClassBox}
           />
         }
         label='#１年'
-        labelPlacement='start'
       />
       <FormControlLabel
-        control={
-          <CheckBox
-            value='checkedA'
-            color='primary'
-            className={classes.firstLeft}
-            name='second' // 入力をstataeで管理するのに用いる
-            checked={isSecond}
-            onChange={onChange}
-          />
-        }
-        label='#２年'
-        labelPlacement='start'
-      />
-      <FormControlLabel
+        className={classes.Tag}
         control={
           <CheckBox
             value='checkedB'
             color='primary'
-            className={classes.firstLeft}
-            name='third' // 入力をstataeで管理するのに用いる
-            checked={isThird}
+            name='second' // 入力をstataeで管理するのに用いる
+            checked={isSecond}
             onChange={onChange}
+            className={classes.ClassBox}
           />
         }
-        label='#３年'
-        labelPlacement='start'
+        label='#２年'
       />
       <FormControlLabel
+        className={classes.Tag}
         control={
           <CheckBox
             value='checkedC'
             color='primary'
-            className={classes.firstLeft}
-            name='fourth' // 入力をstataeで管理するのに用いる
-            checked={isFourth}
+            name='third' // 入力をstataeで管理するのに用いる
+            checked={isThird}
             onChange={onChange}
+            className={classes.ClassBox}
           />
         }
-        label='#４年'
-        labelPlacement='start'
+        label='#３年'
       />
       <FormControlLabel
+        className={classes.Tag}
         control={
           <CheckBox
             value='checkedD'
             color='primary'
-            className={classes.firstLeft}
-            name='fifth' // 入力をstataeで管理するのに用いる
-            checked={isFifth}
+            name='fourth' // 入力をstataeで管理するのに用いる
+            checked={isFourth}
             onChange={onChange}
+            className={classes.ClassBox}
           />
         }
-        label='#５年'
-        labelPlacement='start'
+        label='#４年'
       />
       <FormControlLabel
+        className={classes.Tag}
         control={
           <CheckBox
             value='checkedE'
             color='primary'
-            className={classes.secondLeft}
-            name='fastHalf' // 入力をstataeで管理するのに用いる
-            fhecked={isFastHalf}
+            name='fifth' // 入力をstataeで管理するのに用いる
+            checked={isFifth}
             onChange={onChange}
+            className={classes.ClassBox}
           />
         }
-        label='#前期中間'
-        labelPlacement='start'
+        label='#５年'
       />
       <FormControlLabel
+        className={classes.Tag}
         control={
           <CheckBox
             value='checkedF'
             color='primary'
-            className={classes.secondLeft}
-            name='fastEnd' // 入力をstataeで管理するのに用いる
-            checked={isFastEnd}
+            name='fastHalf' // 入力をstataeで管理するのに用いる
+            fhecked={isFastHalf}
             onChange={onChange}
+            className={classes.ExamBox}
           />
         }
-        label='#前期期末'
-        labelPlacement='start'
+        label='#前期中間'
       />
       <FormControlLabel
+        className={classes.Tag}
         control={
           <CheckBox
             value='checkedG'
             color='primary'
-            className={classes.secondLeft}
-            name='lateHalf' // 入力をstataeで管理するのに用いる
-            checked={isLateHalf}
+            name='fastEnd' // 入力をstataeで管理するのに用いる
+            checked={isFastEnd}
             onChange={onChange}
+            className={classes.ExamBox}
           />
         }
-        label='#後期中間'
-        labelPlacement='start'
+        label='#前期期末'
       />
       <FormControlLabel
+        className={classes.Tag}
         control={
           <CheckBox
             value='checkedH'
             color='primary'
-            className={classes.thirdLeft}
+            name='lateHalf' // 入力をstataeで管理するのに用いる
+            checked={isLateHalf}
+            onChange={onChange}
+            className={classes.ExamBox}
+          />
+        }
+        label='#後期中間'
+      />
+      <FormControlLabel
+        className={classes.Tag}
+        control={
+          <CheckBox
+            value='checkedI'
+            color='primary'
             name='lateEnd' // 入力をstataeで管理するのに用いる
             checked={isLateEnd}
             onChange={onChange}
+            className={classes.EndExamBox}
           />
         }
         label='#年度末'
-        labelPlacement='start'
       />
     </FormGroup>
   );
@@ -267,7 +274,7 @@ export function SendButton(props) {
   return (
     <Button onClick={onClick} variant='contained' size='medium' color='primary'>
       送信
-      <SendIcon className={classes.forthLeft}></SendIcon>
+      <SendIcon className={classes.Left}></SendIcon>
     </Button>
   );
 }
