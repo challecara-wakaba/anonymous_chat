@@ -19,6 +19,21 @@ const Thread = props => {
   const THREADTITLE = '# threadTitle'; // これはテストです
 
   const { replies, addMessage } = props;
+  const { url } = props.match;
+
+  const _changeUpperDirectory = locationStr => {
+    // Linkを用いて上の階層のディレクトリ移動する処理
+    // shellでの'..'と同じ動きをする
+    const separateURL = locationStr.split('/');
+    const end = separateURL[separateURL.length - 1];
+    return locationStr.replace('/' + end, ''); // endだけ置き換えると'/'が残るため'/'も置き換える
+  };
+
+  const handleHeadLeftButtonClick = () => {
+    // 送信したらチャンネル画面に戻る
+    // sendButtonのpropsにhistoryが渡されている
+    props.history.push(_changeUpperDirectory(url));
+  };
 
   const handleSubmit = text => {
     addMessage(userName, text);
@@ -26,7 +41,11 @@ const Thread = props => {
 
   return (
     <React.Fragment>
-      <Header location='thread' label={THREADTITLE} />
+      <Header
+        location='thread'
+        onLeftButtonClick={handleHeadLeftButtonClick}
+        label={THREADTITLE}
+      />
       <MessageList listStyle={listSytle} replies={replies} />
       <ThreadFooter onSubmit={handleSubmit} />
     </React.Fragment>

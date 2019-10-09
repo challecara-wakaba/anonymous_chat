@@ -16,13 +16,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function Header(props) {
   const classes = useStyles();
-  const { location, label } = props;
+  const { location, onLeftButtonClick, label } = props;
 
   let leftButton, rightButton;
   switch (location) {
     case 'channel':
       leftButton = (
-        <IconButton color='inherit'>
+        <IconButton color='inherit' onClick={onLeftButtonClick}>
           <MenuIcon />
         </IconButton>
       );
@@ -34,7 +34,7 @@ export default function Header(props) {
       break;
     case 'thread':
       leftButton = (
-        <IconButton color='inherit'>
+        <IconButton color='inherit' onClick={onLeftButtonClick}>
           <ArrowBackIosIcon />
         </IconButton>
       );
