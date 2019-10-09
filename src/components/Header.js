@@ -21,23 +21,11 @@ export default function Header(props) {
   let leftButton, rightButton;
   switch (location) {
     case 'channel':
-      leftButton = (
-        <IconButton color='inherit' onClick={onLeftButtonClick}>
-          <MenuIcon />
-        </IconButton>
-      );
-      rightButton = (
-        <IconButton color='inherit'>
-          <SearchIcon />
-        </IconButton>
-      );
+      leftButton = <MenuIcon />;
+      rightButton = <SearchIcon />;
       break;
     case 'thread':
-      leftButton = (
-        <IconButton color='inherit' onClick={onLeftButtonClick}>
-          <ArrowBackIosIcon />
-        </IconButton>
-      );
+      leftButton = <ArrowBackIosIcon />;
       rightButton = null;
       break;
     default:
@@ -47,11 +35,15 @@ export default function Header(props) {
   return (
     <AppBar>
       <Toolbar>
-        {leftButton}
+        <IconButton edge='start' color='inherit' onClick={onLeftButtonClick}>
+          {leftButton}
+        </IconButton>
         <Typography className={classes.label} variant='h6' color='inherit'>
           {label}
         </Typography>
-        {rightButton}
+        <IconButton edge='end' color='inherit'>
+          {rightButton}
+        </IconButton>
       </Toolbar>
     </AppBar>
   );
