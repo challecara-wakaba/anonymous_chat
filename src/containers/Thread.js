@@ -16,6 +16,7 @@ const listSytle = {
 
 const Thread = props => {
   const userName = 'annin'; // これはテストです
+  const THREADTITLE = '# threadTitle'; // これはテストです
 
   const { replies, addMessage } = props;
 
@@ -25,7 +26,7 @@ const Thread = props => {
 
   return (
     <React.Fragment>
-      <Header />
+      <Header location='thread' label={THREADTITLE} />
       <MessageList listStyle={listSytle} replies={replies} />
       <ThreadFooter onSubmit={handleSubmit} />
     </React.Fragment>

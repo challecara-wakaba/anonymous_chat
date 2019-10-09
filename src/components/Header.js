@@ -14,11 +14,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LABEL = '過去問[2]-(1)';
-
 export default function Header(props) {
   const classes = useStyles();
-  const { location } = props;
+  const { location, label } = props;
 
   let leftButton, rightButton;
   switch (location) {
@@ -51,7 +49,7 @@ export default function Header(props) {
       <Toolbar>
         {leftButton}
         <Typography className={classes.label} variant='h6' color='inherit'>
-          {LABEL}
+          {label}
         </Typography>
         {rightButton}
       </Toolbar>
