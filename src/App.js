@@ -7,8 +7,6 @@ import Thread from './containers/Thread';
 import MakeThread from './containers/MakeThread';
 import Channel from './containers/Channel';
 
-import LoginForm from './components/LoginForm';
-
 class App extends Component {
   render() {
     return (
