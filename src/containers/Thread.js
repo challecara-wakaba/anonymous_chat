@@ -16,7 +16,7 @@ const listSytle = {
 
 const Thread = props => {
   const userName = 'annin'; // これはテストです
-  const THREADTITLE = '# threadTitle'; // これはテストです
+  const THREADTITLE = 'threadTitle'; // これはテストです
 
   const { replies, addMessage } = props;
   const { url } = props.match;

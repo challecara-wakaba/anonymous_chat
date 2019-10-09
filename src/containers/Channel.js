@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import Header from '../components/Header';
 import ThreadCardList from '../components/ThreadCardList';
 import ThreadAddButton from '../components/ThreadAddButton';
 
@@ -13,13 +14,15 @@ const listStyle = {
   width: '100%'
 };
 
+const LABEL = '# 物理';
 function Channel(props) {
   const { threads } = props;
   const { url } = props.match;
 
   return (
     <React.Fragment>
-      <ThreadCardList threads={threads} />
+      <Header location='channel' label={LABEL} />
+      <ThreadCardList listStyle={listStyle} threads={threads} />
       <Link to={`${url}/makeThread`}>
         <ThreadAddButton />
       </Link>
