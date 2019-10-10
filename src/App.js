@@ -7,7 +7,17 @@ import Thread from './containers/Thread';
 import MakeThread from './containers/MakeThread';
 import Channel from './containers/Channel';
 
+import LoginForm from './components/LoginForm';
+import firebase from 'firebase/app';
+import config from '../config/firebase-config';
+
 class App extends Component {
+  constructor() {
+    super();
+
+    //Initialize Firebase
+    firebase.initializeApp(config);
+  }
   render() {
     return (
       <React.Fragment>
