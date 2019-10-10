@@ -49,7 +49,7 @@ const Message = props => {
             <Typography component='span' variant='subtitle1' className='inline'>
               {name}
             </Typography>
-            {'  '}
+            {'  ' /*nameとtimeStampの間の余白*/}
             <Typography
               component='span'
               variant='caption'
