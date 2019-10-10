@@ -8,11 +8,9 @@ import 'firebase/auth';
 function handleSubmit() {
   firebase
     .auth()
-    .signInWithEmailAndPassword(email, password)
+    .signInWithEmailAndPassword(null, null)
     .catch(function(error) {
-      {
-        /*エラーの処理*/
-      }
+      /*エラーの処理*/
       var errorCode = error.code;
       var errorMessage = error.message;
       if (errorCode === 'auth/wrong-password') {
