@@ -33,8 +33,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function TextFields() {
+function TextFields(props) {
   const classes = useStyles();
+  const { email, password, onTextChange } = props;
 
   return (
     <form className={classes.FirstCont} noVaridate autoComplete='off'>
@@ -45,20 +46,25 @@ function TextFields() {
         id='outlined-email-input'
         label='Email'
         type='email'
-        name='email'
+        name='email' // onTextChangeで使う
         className={classes.FirstMargin}
         autoComplete='email'
         margin='normal'
         variant='outlined'
+        value={email}
+        onChange={onTextChange}
       />
       <TextField
         id='outlined-password-input'
         label='Password'
         type='password'
+        name='password' // onTextChangeで使う
         className={classes.FirstMargin}
         autoComplete='current-password'
         margin='normal'
         variant='outlined'
+        value={password}
+        onChange={onTextChange}
       />
     </form>
   );
@@ -86,10 +92,14 @@ function Buttons(props) {
 }
 
 export default function LoginForm(props) {
-  const { onSubmit } = props;
+  const { email, password, onTextChange, onSubmit } = props;
   return (
     <div>
-      <TextFields />
+      <TextFields
+        email={email}
+        password={password}
+        onTextChange={onTextChange}
+      />
       <Buttons onSubmit={onSubmit} />
     </div>
   );
