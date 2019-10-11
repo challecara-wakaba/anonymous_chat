@@ -5,6 +5,9 @@ import { TextFields, Buttons } from '../components/LoginForm';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
+// ログインに成功したときの異動先
+const DESTINATION = '/client/testChannel';
+
 function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -35,6 +38,11 @@ function Login(props) {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
+      .then(function() {
+        // ログインできた時の処理
+        // チャンネルに移動
+        props.history.push(DESTINATION);
+      })
       .catch(function(error) {
         /*エラーの処理*/
         var errorCode = error.code;

@@ -106,7 +106,7 @@ export function Buttons(props) {
       >
         ログイン
       </Button>
-      <Link href='#' variant='body2'>
+      <Link href='' variant='body2'>
         パスワードを忘れた！
       </Link>
     </div>
