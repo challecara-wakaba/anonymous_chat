@@ -6,10 +6,6 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
-const NAME = 'annin';
-const TIMESTAMP = new Date();
-const TEXT = 'この問題教えて';
-
 const useStyles = makeStyles(theme => ({
   image: {
     margin: `${theme.spacing(2)}px auto`,
@@ -20,6 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function FirstPost(props) {
   const classes = useStyles();
+  const { name, details, pictureURL, timeStamp } = props;
 
   function convertDateFormat(date) {
     const month = date.getMonth() + 1;
@@ -40,7 +37,7 @@ export default function FirstPost(props) {
         primary={
           <React.Fragment>
             <Typography component='span' variant='subtitle1'>
-              {NAME}
+              {name}
             </Typography>
             {'  ' /*nameとtimeStampの間の余白*/}
             <Typography
@@ -48,21 +45,17 @@ export default function FirstPost(props) {
               variant='caption'
               color='textSecondary'
             >
-              {convertDateFormat(TIMESTAMP)}
+              {convertDateFormat(timeStamp)}
             </Typography>
           </React.Fragment>
         }
         secondary={
           <React.Fragment>
             <Typography component='span' variant='body2' color='textPrimary'>
-              {TEXT}
+              {details}
             </Typography>
             <br />
-            <img
-              className={classes.image}
-              src='https://i0.wp.com/nobon.me/wp-content/uploads/2017/04/the_legend_of_zelda_breath_of_the_wild_4k-2560x1600.jpg'
-              alt=' '
-            />
+            <img className={classes.image} src={pictureURL} alt=' ' />
           </React.Fragment>
         }
       ></ListItemText>
