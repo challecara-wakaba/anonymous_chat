@@ -27,6 +27,11 @@ function Login(props) {
   }
 
   function handleSubmit() {
+    // フラグの初期化
+    // これをしないと一度エラーが出ると消えなくなる
+    setIsUserFound(true);
+    setIsCorrectPassword(true);
+
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
