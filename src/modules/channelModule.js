@@ -8,8 +8,8 @@ const initialState = {
     {
       id: shortid.generate(),
       timeStamp: new Date(),
-      title: '過去問 [2]-(1) 力のモーメント',
-      details: 'この問題の解き方がわかりません',
+      title: 'ドリルp53 [B]-(1)',
+      details: 'この英文の訳がわかりません',
       pictureURL: 'http://img-cdn.jg.jugem.jp/993/154735/20101224_1438937.jpg'
     }
   ]

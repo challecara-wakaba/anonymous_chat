@@ -14,7 +14,7 @@ const listStyle = {
   width: '100%'
 };
 
-const LABEL = '# 物理';
+const LABEL = '# 英語';
 function Channel(props) {
   const { threads } = props;
   const { url } = props.match;
