@@ -33,7 +33,9 @@ function Login(props) {
 
         var errorCode = error.code;
         var errorMessage = error.message;
-        if (errorCode === 'auth/wrong-password') {
+        if (errorCode === 'auth/user-not-found') {
+          alert('User not found');
+        } else if (errorCode === 'auth/wrong-password') {
           alert('Wrong password.');
         } else {
           alert(errorMessage);
