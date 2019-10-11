@@ -85,7 +85,7 @@ export function TextFields(props) {
       />
       {!isCorrectPassword && (
         <Typography className={classes.errorMessage} variant='body2'>
-          メールアドレスが間違っているか、登録されていません。
+          パスワードが間違っています
         </Typography>
       )}
     </form>
