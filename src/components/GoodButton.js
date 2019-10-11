@@ -22,7 +22,7 @@ const GoodButton = props => {
   const { classes } = props;
   return (
     <Button className={classes.ButtonCont}>
-      <ThumbUpIcon className={classes.IconCont} />9
+      <ThumbUpIcon className={classes.IconCont} />
     </Button>
   );
 };
