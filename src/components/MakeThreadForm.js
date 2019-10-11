@@ -41,13 +41,13 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row-reverse'
   },
   ClassBox: {
-    paddingLeft: theme.spacing(11)
+    marginLeft: theme.spacing(11)
   },
   ExamBox: {
-    paddingLeft: theme.spacing(7)
+    marginLeft: theme.spacing(7)
   },
   EndExamBox: {
-    paddingLeft: theme.spacing(9)
+    marginLeft: theme.spacing(9)
   },
   Left: {
     marginLeft: theme.spacing(2)
