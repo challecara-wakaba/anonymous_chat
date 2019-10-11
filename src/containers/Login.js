@@ -8,6 +8,8 @@ import 'firebase/auth';
 function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isUserFound, setIsUserFound] = useState(true);
+  const [isCorrectPassword, setIsCorrectPassword] = useState(true);
 
   function handleTextChange(event) {
     const targetName = event.target.name;
@@ -34,9 +36,9 @@ function Login(props) {
         var errorCode = error.code;
         var errorMessage = error.message;
         if (errorCode === 'auth/user-not-found') {
-          alert('User not found');
+          setIsUserFound(false);
         } else if (errorCode === 'auth/wrong-password') {
-          alert('Wrong password.');
+          setIsCorrectPassword(false);
         } else {
           alert(errorMessage);
         }
@@ -48,6 +50,8 @@ function Login(props) {
       <TextFields
         email={email}
         password={password}
+        isUserFound={isUserFound}
+        isCorrectPassword={isCorrectPassword}
         onTextChange={handleTextChange}
       />
       <Buttons onSubmit={handleSubmit} />

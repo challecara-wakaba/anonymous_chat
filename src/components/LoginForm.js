@@ -35,7 +35,13 @@ const useStyles = makeStyles(theme => ({
 
 export function TextFields(props) {
   const classes = useStyles();
-  const { email, password, onTextChange } = props;
+  const {
+    email,
+    password,
+    isUserFound,
+    isCorrectPassword,
+    onTextChange
+  } = props;
 
   return (
     <form className={classes.FirstCont} noVaridate autoComplete='off'>
@@ -51,6 +57,7 @@ export function TextFields(props) {
         autoComplete='email'
         margin='normal'
         variant='outlined'
+        error={!isUserFound}
         value={email}
         onChange={onTextChange}
       />
@@ -63,6 +70,7 @@ export function TextFields(props) {
         autoComplete='current-password'
         margin='normal'
         variant='outlined'
+        error={!isCorrectPassword}
         value={password}
         onChange={onTextChange}
       />
