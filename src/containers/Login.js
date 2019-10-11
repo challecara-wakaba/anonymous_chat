@@ -37,7 +37,6 @@ function Login(props) {
       .signInWithEmailAndPassword(email, password)
       .catch(function(error) {
         /*エラーの処理*/
-
         var errorCode = error.code;
         var errorMessage = error.message;
         if (errorCode === 'auth/user-not-found') {

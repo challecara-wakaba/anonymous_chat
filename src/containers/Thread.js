@@ -30,7 +30,7 @@ const Thread = props => {
   };
 
   const handleHeadLeftButtonClick = () => {
-    // 送信したらチャンネル画面に戻る
+    // チャンネル画面に戻る
     // sendButtonのpropsにhistoryが渡されている
     props.history.push(_changeUpperDirectory(url));
   };
