@@ -5,19 +5,20 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import GoodButton from './GoodButton';
 
 const useStyles = makeStyles(theme => ({
-  inline: {
-    display: 'inline'
+  image: {
+    margin: `${theme.spacing(2)}px auto`,
+    maxHeight: 135,
+    maxWidth: 240
   }
 }));
 
-const Message = props => {
+export default function FirstPost(props) {
   const classes = useStyles();
-  const { name, icon, timeStamp, text } = props;
+  const { name, details, pictureURL, timeStamp } = props;
 
-  const convertDateFormat = date => {
+  function convertDateFormat(date) {
     const month = date.getMonth() + 1;
     const day = date.getDate();
     const hour = ('0' + date.getHours()).slice(-2); // 一桁の時は0を埋めて2桁にする
@@ -25,35 +26,23 @@ const Message = props => {
     const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'][date.getDay()];
 
     return `${month}月${day}日(${dayOfWeek}) ${hour}:${minute}`;
-  };
-
-  const convertLineFeed = text => {
-    // 改行コード\nを<br />に変換
-    // これを行わないとテキストが改行されない
-    return text.split('\n').map((line, key) => (
-      <span key={key}>
-        {line}
-        <br />
-      </span>
-    ));
-  };
+  }
 
   return (
     <ListItem alignItems='flex-start'>
       <ListItemAvatar>
-        <Avatar alt={name} src={icon} />
+        <Avatar /* alt={} src={} */ />
       </ListItemAvatar>
       <ListItemText
         primary={
           <React.Fragment>
-            <Typography component='span' variant='subtitle1' className='inline'>
+            <Typography component='span' variant='subtitle1'>
               {name}
             </Typography>
             {'  ' /*nameとtimeStampの間の余白*/}
             <Typography
               component='span'
               variant='caption'
-              className={classes.inline}
               color='textSecondary'
             >
               {convertDateFormat(timeStamp)}
@@ -62,20 +51,14 @@ const Message = props => {
         }
         secondary={
           <React.Fragment>
-            <Typography
-              component='span'
-              variant='body2'
-              className={classes.inline}
-              color='textPrimary'
-            >
-              {convertLineFeed(text)}
+            <Typography component='span' variant='body2' color='textPrimary'>
+              {details}
             </Typography>
-            <GoodButton />
+            <br />
+            <img className={classes.image} src={pictureURL} alt=' ' />
           </React.Fragment>
         }
-      />
+      ></ListItemText>
     </ListItem>
   );
-};
-
-export default Message;
+}

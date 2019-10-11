@@ -4,6 +4,14 @@ import shortid from 'shortid';
 const ADD_MESSAGE = 'ADD_MESSAGE';
 
 const initialState = {
+  post: {
+    id: shortid.generate(),
+    name: 'annin',
+    timeStamp: new Date(),
+    title: 'ドリルp53 [B]-(1)',
+    details: 'この英文の訳がわかりません',
+    pictureURL: 'http://img-cdn.jg.jugem.jp/993/154735/20101224_1438937.jpg'
+  },
   replies: []
 };
 
