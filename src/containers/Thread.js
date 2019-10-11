@@ -16,7 +16,6 @@ const listSytle = {
 
 const Thread = props => {
   const userName = 'annin'; // これはテストです
-  const THREADTITLE = 'threadTitle'; // これはテストです
 
   const { post, replies, addMessage } = props;
   const { url } = props.match;
@@ -44,7 +43,7 @@ const Thread = props => {
       <Header
         location='thread'
         onLeftButtonClick={handleHeadLeftButtonClick}
-        label={THREADTITLE}
+        label={post.title}
       />
       <MessageList listStyle={listSytle} post={post} replies={replies} />
       <ThreadFooter onSubmit={handleSubmit} />
