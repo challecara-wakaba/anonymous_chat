@@ -70,6 +70,7 @@ const Message = props => {
             >
               {convertLineFeed(text)}
             </Typography>
+            <GoodButton />
           </React.Fragment>
         }
       />
