@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'pink'
   },
   errorMessage: {
+    marginLeft: theme.spacing(1),
     color: 'red'
   },
   Field: {
@@ -48,6 +49,9 @@ const useStyles = makeStyles(theme => ({
   },
   EndExamBox: {
     marginLeft: theme.spacing(9)
+  },
+  Buttons: {
+    marginRight: theme.spacing(3)
   },
   Left: {
     marginLeft: theme.spacing(2)
@@ -261,8 +265,14 @@ export function Checkboxs(props) {
 }
 
 export function CancelButton() {
+  const classes = useStyles();
   return (
-    <Button variant='contained' size='medium' color='secondary'>
+    <Button
+      className={classes.Buttons}
+      variant='contained'
+      size='medium'
+      color='secondary'
+    >
       キャンセル
     </Button>
   );
@@ -272,7 +282,13 @@ export function SendButton(props) {
   const classes = useStyles();
   const { onClick } = props;
   return (
-    <Button onClick={onClick} variant='contained' size='medium' color='primary'>
+    <Button
+      onClick={onClick}
+      className={classes.Buttons}
+      variant='contained'
+      size='medium'
+      color='primary'
+    >
       送信
       <SendIcon className={classes.Left}></SendIcon>
     </Button>
