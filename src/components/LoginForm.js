@@ -49,7 +49,6 @@ export function TextFields(props) {
         <span className={classes.Span}>Lask</span>へようこそ
       </h1>
       <TextField
-        id='outlined-email-input'
         label='Email'
         type='email'
         name='email' // onTextChangeで使う
@@ -57,7 +56,7 @@ export function TextFields(props) {
         autoComplete='email'
         margin='normal'
         variant='outlined'
-        error={!isUserFound}
+        error={!isUserFound} // tureの時赤枠にする
         value={email}
         onChange={onTextChange}
       />
@@ -70,7 +69,7 @@ export function TextFields(props) {
         autoComplete='current-password'
         margin='normal'
         variant='outlined'
-        error={!isCorrectPassword}
+        error={!isCorrectPassword} // tureの時赤枠にする
         value={password}
         onChange={onTextChange}
       />
