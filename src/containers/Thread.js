@@ -18,7 +18,7 @@ const Thread = props => {
   const userName = 'annin'; // これはテストです
   const THREADTITLE = 'threadTitle'; // これはテストです
 
-  const { replies, addMessage } = props;
+  const { post, replies, addMessage } = props;
   const { url } = props.match;
 
   const _changeUpperDirectory = locationStr => {
@@ -46,7 +46,7 @@ const Thread = props => {
         onLeftButtonClick={handleHeadLeftButtonClick}
         label={THREADTITLE}
       />
-      <MessageList listStyle={listSytle} replies={replies} />
+      <MessageList listStyle={listSytle} post={post} replies={replies} />
       <ThreadFooter onSubmit={handleSubmit} />
     </React.Fragment>
   );
@@ -55,6 +55,7 @@ const Thread = props => {
 // redux関連
 const mapStateToProps = state => {
   return {
+    post: state.thread.post,
     replies: state.thread.replies
   };
 };
