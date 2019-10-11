@@ -1,4 +1,5 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -9,7 +10,17 @@ const NAME = 'annin';
 const TIMESTAMP = new Date();
 const TEXT = 'この問題教えて';
 
+const useStyles = makeStyles(theme => ({
+  image: {
+    margin: `${theme.spacing(2)}px auto`,
+    maxHeight: 135,
+    maxWidth: 240
+  }
+}));
+
 export default function FirstPost(props) {
+  const classes = useStyles();
+
   function convertDateFormat(date) {
     const month = date.getMonth() + 1;
     const day = date.getDate();
@@ -46,7 +57,12 @@ export default function FirstPost(props) {
             <Typography component='span' variant='body2' color='textPrimary'>
               {TEXT}
             </Typography>
-            <img src='http://www.htmq.com/images/kaeru.gif' alt=' ' />
+            <br />
+            <img
+              className={classes.image}
+              src='https://i0.wp.com/nobon.me/wp-content/uploads/2017/04/the_legend_of_zelda_breath_of_the_wild_4k-2560x1600.jpg'
+              alt=' '
+            />
           </React.Fragment>
         }
       ></ListItemText>
