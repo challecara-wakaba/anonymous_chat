@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import LoginForm from '../components/LoginForm';
+import { TextFields, Buttons } from '../components/LoginForm';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
@@ -45,12 +45,12 @@ function Login(props) {
   }
   return (
     <React.Fragment>
-      <LoginForm
+      <TextFields
         email={email}
         password={password}
         onTextChange={handleTextChange}
-        onSubmit={handleSubmit}
       />
+      <Buttons onSubmit={handleSubmit} />
     </React.Fragment>
   );
 }

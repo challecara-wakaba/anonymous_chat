@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function TextFields(props) {
+export function TextFields(props) {
   const classes = useStyles();
   const { email, password, onTextChange } = props;
 
@@ -70,7 +70,7 @@ function TextFields(props) {
   );
 }
 
-function Buttons(props) {
+export function Buttons(props) {
   const classes = useStyles();
   const { onSubmit } = props;
   return (
@@ -87,20 +87,6 @@ function Buttons(props) {
       <Link href='#' variant='body2'>
         パスワードを忘れた！
       </Link>
-    </div>
-  );
-}
-
-export default function LoginForm(props) {
-  const { email, password, onTextChange, onSubmit } = props;
-  return (
-    <div>
-      <TextFields
-        email={email}
-        password={password}
-        onTextChange={onTextChange}
-      />
-      <Buttons onSubmit={onSubmit} />
     </div>
   );
 }
