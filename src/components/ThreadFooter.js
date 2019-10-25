@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { animateScroll } from 'react-scroll';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -26,6 +26,7 @@ const useStyle = makeStyles(theme => ({
 
 const ThreadFooter = props => {
   const classes = useStyle();
+  const pickFile = useRef(null);
   const { onSubmit } = props;
   const [writingText, setWritingText] = useState('');
   const [isInputFocus, setIsInputFoucs] = useState(false);
@@ -37,6 +38,11 @@ const ThreadFooter = props => {
 
   const handleTextChange = e => {
     setWritingText(e.target.value);
+  };
+
+  const handlePictureButtonClick = () => {
+    // iconButtonがクリックされたときに、input.clickが走る
+    pickFile.current.click();
   };
 
   const handleSendButtonClick = () => {
@@ -59,7 +65,8 @@ const ThreadFooter = props => {
 
   const toolbar = (
     <Toolbar disableGutters={true}>
-      <IconButton color='inherit'>
+      <input type='file' ref={pickFile} style={{ display: 'none' }} />
+      <IconButton color='inherit' onClick={handlePictureButtonClick}>
         <PhotoLibraryIcon />
       </IconButton>
       <Input
