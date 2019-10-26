@@ -6,6 +6,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,6 +23,9 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+  title: {
+    flexGrow: 1
   },
   timeStamp: {
     fontSize: 10
@@ -74,7 +79,12 @@ const ThreadCard = props => {
       <CardActionArea>
         <CardContent className={classes.topAreaContainer}>
           <div className={classes.titleAreaContainer}>
-            <Typography variant='subtitle1' components='h2' gutterBottom>
+            <Typography
+              className={classes.title}
+              variant='subtitle1'
+              components='h2'
+              gutterBottom
+            >
               {title}
             </Typography>
             <Typography
@@ -85,6 +95,9 @@ const ThreadCard = props => {
             >
               {convertDateFormat(timeStamp)}
             </Typography>
+            <IconButton edge='end'>
+              <MoreVertIcon />
+            </IconButton>
           </div>
           <Typography
             variant='body2'
