@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,6 +8,8 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -52,6 +54,28 @@ const NOTIS = '2件の返信';
 const ThreadCard = props => {
   const classes = useStyles();
   const { timeStamp, title, details, pictureURL } = props;
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      keepMounted
+      open={Boolean(anchorEl)}
+      onBlur={handleMenuClose}
+      onClose={handleMenuClose}
+    >
+      <MenuItem>TEST</MenuItem> {/* for test */}
+      <MenuItem>TEST2</MenuItem> {/* fortest */}
+    </Menu>
+  );
 
   const convertDateFormat = date => {
     const year = date.getFullYear();
@@ -95,9 +119,10 @@ const ThreadCard = props => {
             >
               {convertDateFormat(timeStamp)}
             </Typography>
-            <IconButton edge='end'>
+            <IconButton edge='end' onClick={handleMenuOpen}>
               <MoreVertIcon />
             </IconButton>
+            {renderMenu}
           </div>
           <Typography
             variant='body2'
