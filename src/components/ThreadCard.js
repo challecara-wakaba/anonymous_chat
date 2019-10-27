@@ -54,7 +54,7 @@ const NOTIS = '2件の返信';
 const ThreadCard = props => {
   const classes = useStyles();
   const { timeStamp, title, details, pictureURL } = props;
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null); // あくまで開いているボタンの場所のstateのためrリフトアップしてない
 
   const handleMenuOpen = event => {
     setAnchorEl(event.currentTarget);
