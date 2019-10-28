@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
+import changeUpperDirectory from '../functions/changeUpperDirectory';
+
 import {
   TextFields,
   ImageButton,
@@ -99,14 +101,6 @@ function MakeThread(props) {
     }
   }
 
-  function _changeUpperDirectory(locationStr) {
-    // Linkを用いて上の階層のディレクトリ移動する処理
-    // shellでの'..'と同じ動きをする
-    const separateURL = locationStr.split('/');
-    const end = separateURL[separateURL.length - 1];
-    return locationStr.replace('/' + end, ''); // endだけ置き換えると'/'が残るため'/'も置き換える
-  }
-
   function handleSubmit() {
     // タイトルの入力欄が空だったりホワイトスペースばっかりだったら送信しない
     // String.tirm() で文字列の銭湯と最後にある改行は空白を取り除
@@ -118,7 +112,7 @@ function MakeThread(props) {
 
     // 送信したらチャンネル画面に戻る
     // sendButtonのpropsにhistoryが渡されている
-    props.history.push(_changeUpperDirectory(url));
+    props.history.push(changeUpperDirectory(url));
   }
 
   return (
@@ -143,14 +137,11 @@ function MakeThread(props) {
         onChange={handleCheckChange}
       />
       <div className={classes.bottomContainer}>
-        <Link to={`${_changeUpperDirectory(url)}`}>
+        <Link to={`${changeUpperDirectory(url)}`}>
           <CancelButton />
         </Link>
         {/* SendButtonはLinkを用いずonClick時にhistory.pushを発火する */}
-        <SendButton
-          onClick={handleSubmit}
-          _changeUpperDirectory={_changeUpperDirectory}
-        />
+        <SendButton onClick={handleSubmit} />
       </div>
     </React.Fragment>
   );

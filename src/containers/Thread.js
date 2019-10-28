@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import MessageList from '../components/MessageList';
 import ThreadFooter from '../components/ThreadFooter';
 import * as threadActions from '../modules/threadModule';
+import changeUpperDirectory from '../functions/changeUpperDirectory';
 
 const listSytle = {
   // VirtuosoはmakeStyleで高さと幅指定ができないためオブジェクトを作り
@@ -20,18 +21,10 @@ const Thread = props => {
   const { post, replies, addMessage } = props;
   const { url } = props.match;
 
-  const _changeUpperDirectory = locationStr => {
-    // Linkを用いて上の階層のディレクトリ移動する処理
-    // shellでの'..'と同じ動きをする
-    const separateURL = locationStr.split('/');
-    const end = separateURL[separateURL.length - 1];
-    return locationStr.replace('/' + end, ''); // endだけ置き換えると'/'が残るため'/'も置き換える
-  };
-
   const handleHeadLeftButtonClick = () => {
     // チャンネル画面に戻る
     // sendButtonのpropsにhistoryが渡されている
-    props.history.push(_changeUpperDirectory(url));
+    props.history.push(changeUpperDirectory(url));
   };
 
   const handleSubmit = text => {
