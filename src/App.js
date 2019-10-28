@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { Route, Switch } from 'react-router-dom';
 
@@ -11,29 +12,26 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import config from './config/firebaseconfig';
 
+import * as userActions from './modules/userModule';
+
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     //Initialize Firebase
     firebase.initializeApp(config);
 
-    this.uid = '';
+    this.loggedIn = props.loggedIn;
+    this.notLoggedIn = props.notLoggedIn;
+    this.uid = props.uid;
   }
   componentDidMount() {
+    const self = this; // javascriptのthisを固定させるため
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        // User is signed in.
-        // const displayName = user.displayName;
-        // const email = user.email;
-        // const emailVerified = user.emailVerified;
-        // const photoURL = user.photoURL;
-        // const isAnonymous = user.isAnonymous;
-        this.uid = user.uid;
-        // const providerData = user.providerData;
-        // ...
+        self.loggedIn(user);
       } else {
-        this.uid = '';
+        self.notLoggedIn(user);
         // User is signed out.
         alert('Uid is none');
         // ...
@@ -74,4 +72,19 @@ class App extends Component {
   }
 }
 
-export default App;
+// redux関連
+function mapStateToProps(state) {
+  return {
+    uid: state.uid
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    loggedIn: user => dispatch(userActions.loggedIn(user)),
+    notLoggedIn: () => dispatch(userActions.notLoggedIn())
+  };
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
