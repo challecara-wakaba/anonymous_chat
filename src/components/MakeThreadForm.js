@@ -23,19 +23,23 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     marginRight: theme.spacing(3),
     padding: theme.spacing(2),
-    backgroundColor: 'pink'
+    backgroundColor: '#FFDEDD'
   },
   errorMessage: {
     marginLeft: theme.spacing(1),
-    color: 'red'
+    color: theme.error
   },
   Field: {
     margin: theme.spacing(1)
   },
-  Text: {
+  AddButton: {
     display: 'flex',
     alignItems: 'center',
-    margin: theme.spacing(1)
+    margin: '12px 8px',
+    backgroundColor: '#000000'
+  },
+  FieldText: {
+    color: '#FFFFFF'
   },
   Tag: {
     display: 'flex',
@@ -50,11 +54,17 @@ const useStyles = makeStyles(theme => ({
   EndExamBox: {
     marginLeft: theme.spacing(9)
   },
-  Buttons: {
-    marginRight: theme.spacing(3)
+  CancelButton: {
+    marginRight: theme.spacing(3),
+    backgroundColor: theme.secondary
   },
-  Left: {
-    marginLeft: theme.spacing(2)
+  SendButton: {
+    marginRight: theme.spacing(3),
+    backgroundColor: theme.primary
+  },
+  PaperPlane: {
+    marginLeft: theme.spacing(2),
+    color: '#FFFFFF'
   }
 }));
 
@@ -103,15 +113,10 @@ export function ImageButton() {
 
   return (
     <div className={classes.SecondCont}>
-      <Button
-        variant='contained'
-        size='medium'
-        color='primary'
-        className={classes.Text}
-      >
-        画像を追加
+      <Button variant='contained' size='medium' className={classes.AddButton}>
+        <span className={classes.FieldText}>画像を追加</span>
       </Button>
-      <h5 className={classes.Text}>1枚追加できます</h5>
+      <h5>1枚追加できます</h5>
     </div>
   );
 }
@@ -267,13 +272,8 @@ export function Checkboxs(props) {
 export function CancelButton() {
   const classes = useStyles();
   return (
-    <Button
-      className={classes.Buttons}
-      variant='contained'
-      size='medium'
-      color='secondary'
-    >
-      キャンセル
+    <Button className={classes.CancelButton} variant='contained' size='medium'>
+      <span className={classes.Fieldtext}>キャンセル</span>
     </Button>
   );
 }
@@ -284,13 +284,12 @@ export function SendButton(props) {
   return (
     <Button
       onClick={onClick}
-      className={classes.Buttons}
+      className={classes.SendButton}
       variant='contained'
       size='medium'
-      color='primary'
     >
-      送信
-      <SendIcon className={classes.Left}></SendIcon>
+      <span className={classes.FieldText}>送信</span>
+      <SendIcon className={classes.PaperPlane}></SendIcon>
     </Button>
   );
 }

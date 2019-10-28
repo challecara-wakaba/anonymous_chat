@@ -25,16 +25,23 @@ const useStyles = makeStyles(theme => ({
   },
   Span: {
     fontSize: theme.spacing(5),
-    color: '#FF0000'
+    color: theme.primary
   },
-  FirstMargin: {
+  Margin: {
     marginBottom: 'unset'
   },
-  SecondMargin: {
-    marginBottom: theme.spacing(1)
+  Button: {
+    marginBottom: theme.spacing(1),
+    backgroundColor: '#000000'
+  },
+  FieldText: {
+    color: '#FFFFFF'
+  },
+  MesText: {
+    color: theme.primary
   },
   errorMessage: {
-    color: 'red'
+    color: theme.error
   }
 }));
 
@@ -75,7 +82,7 @@ export function TextFields(props) {
         label='Password'
         type='password'
         name='password' // onTextChangeで使う
-        className={classes.FirstMargin}
+        className={classes.Margin}
         autoComplete='current-password'
         margin='normal'
         variant='outlined'
@@ -99,14 +106,13 @@ export function Buttons(props) {
     <div className={classes.SecondCont}>
       <Button
         variant='contained'
-        color='secondary'
         size='large'
-        className={classes.SecondMargin}
+        className={classes.Button}
         onClick={onSubmit}
       >
-        ログイン
+        <span className={classes.FieldText}>ログイン</span>
       </Button>
-      <Link href='' variant='body2'>
+      <Link href='' variant='body2' className={classes.MesText}>
         パスワードを忘れた！
       </Link>
     </div>
