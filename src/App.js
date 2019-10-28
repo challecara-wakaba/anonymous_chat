@@ -24,13 +24,13 @@ class App extends Component {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         // User is signed in.
-        var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var isAnonymous = user.isAnonymous;
+        // const displayName = user.displayName;
+        // const email = user.email;
+        // const emailVerified = user.emailVerified;
+        // const photoURL = user.photoURL;
+        // const isAnonymous = user.isAnonymous;
         this.uid = user.uid;
-        var providerData = user.providerData;
+        // const providerData = user.providerData;
         // ...
       } else {
         this.uid = '';
