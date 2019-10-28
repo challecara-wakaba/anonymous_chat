@@ -2,17 +2,16 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import { withStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/styles';
 
 const styles = {
   ButtonCont: {
     display: 'inline-flex',
-    border: 'solid medium #FFB74C',
+    border: 'solid medium #FF5F58',
     height: '24px',
     padding: 'unset',
     marginTop: '8px',
     '&:hover ': {
-      backgroundColor: '#FFB74C'
+      backgroundColor: '#FF5F58'
     }
   },
   IconCont: {
@@ -22,7 +21,6 @@ const styles = {
 
 const GoodButton = props => {
   const { classes } = props;
-  const theme = useTheme();
   return (
     <Button className={classes.ButtonCont}>
       <ThumbUpIcon className={classes.IconCont} />
@@ -31,5 +29,3 @@ const GoodButton = props => {
 };
 
 export default withStyles(styles)(GoodButton);
-
-//return <div>{`color ${theme.}`}</div>;
