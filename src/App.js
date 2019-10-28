@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { Route, Switch } from 'react-router-dom';
 
@@ -11,30 +12,28 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import config from './config/firebaseconfig';
 
-var uid = 'NONE';
+import * as userActions from './modules/userModule';
+
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     //Initialize Firebase
     firebase.initializeApp(config);
+
+    this.loggedIn = props.loggedIn;
+    this.notLoggedIn = props.notLoggedIn;
+    this.uid = props.uid;
   }
   componentDidMount() {
+    const self = this; // javascriptのthisを固定させるため
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        // User is signed in.
-        var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        var providerData = user.providerData;
-        // ...
+        self.loggedIn(user);
       } else {
-        var uid = 'none';
+        self.notLoggedIn(user);
         // User is signed out.
-        alert('Uid is none');
+        alert('You are not logged in yet');
         // ...
       }
     });
@@ -51,20 +50,20 @@ class App extends Component {
             exact
             path='/client/testChannel'
             component={Channel}
-            UserUid={uid}
+            UserUid={this.uid}
           />
-          <Route exact path='/login' component={Login} UserUid={uid} />
+          <Route exact path='/login' component={Login} UserUid={this.uid} />
           <Route
             exact
             path='/client/testChannel/makeThread'
             component={MakeThread}
-            UserUid={uid}
+            UserUid={this.uid}
           />
           <Route
             exact
             path='/client/testChannel/testThread'
             component={Thread}
-            UserUid={uid}
+            UserUid={this.uid}
           />
           <Route render={() => <p>ページが見つかりません</p>} />
         </Switch>
@@ -73,4 +72,19 @@ class App extends Component {
   }
 }
 
-export default App;
+// redux関連
+function mapStateToProps(state) {
+  return {
+    uid: state.uid
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    loggedIn: user => dispatch(userActions.loggedIn(user)),
+    notLoggedIn: () => dispatch(userActions.notLoggedIn())
+  };
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
