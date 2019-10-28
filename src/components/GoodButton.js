@@ -6,16 +6,15 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
   ButtonCont: {
     display: 'inline-flex',
-    border: 'solid medium #FF5F58',
+    border: 'solid thin #FF4500',
     height: '24px',
+    minWidth: '48px',
     padding: 'unset',
-    marginTop: '8px',
-    '&:hover ': {
-      backgroundColor: '#FF5F58'
-    }
+    marginTop: '6px'
   },
   IconCont: {
-    height: '18px'
+    height: '18px',
+    color: '#FF4500'
   }
 };
 
