@@ -45,12 +45,12 @@ export function loggedIn(user) {
 export function notLoggedIn() {
   return {
     type: NOT_LOGGED_IN,
-    displayName: '',
-    email: '',
-    emailVerified: '',
-    photoURL: '',
-    isAnonymous: '',
-    uid: '',
-    providerData: ''
+    displayName: null,
+    email: null,
+    emailVerified: null,
+    photoURL: null,
+    isAnonymous: null,
+    uid: null,
+    providerData: null
   };
 }
