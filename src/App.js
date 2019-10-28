@@ -11,13 +11,14 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import config from './config/firebaseconfig';
 
-var uid = 'NONE';
 class App extends Component {
   constructor() {
     super();
 
     //Initialize Firebase
     firebase.initializeApp(config);
+
+    this.uid = '';
   }
   componentDidMount() {
     firebase.auth().onAuthStateChanged(function(user) {
@@ -28,11 +29,11 @@ class App extends Component {
         var emailVerified = user.emailVerified;
         var photoURL = user.photoURL;
         var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
+        this.uid = user.uid;
         var providerData = user.providerData;
         // ...
       } else {
-        var uid = 'none';
+        this.uid = '';
         // User is signed out.
         alert('Uid is none');
         // ...
@@ -51,20 +52,20 @@ class App extends Component {
             exact
             path='/client/testChannel'
             component={Channel}
-            UserUid={uid}
+            UserUid={this.uid}
           />
-          <Route exact path='/login' component={Login} UserUid={uid} />
+          <Route exact path='/login' component={Login} UserUid={this.uid} />
           <Route
             exact
             path='/client/testChannel/makeThread'
             component={MakeThread}
-            UserUid={uid}
+            UserUid={this.uid}
           />
           <Route
             exact
             path='/client/testChannel/testThread'
             component={Thread}
-            UserUid={uid}
+            UserUid={this.uid}
           />
           <Route render={() => <p>ページが見つかりません</p>} />
         </Switch>
