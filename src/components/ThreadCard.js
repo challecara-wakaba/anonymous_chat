@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -100,52 +99,50 @@ const ThreadCard = props => {
   return (
     <Card className={classes.root} elevation={1} square>
       <Divider className={classes.divider} />
-      <CardActionArea>
-        <CardContent className={classes.topAreaContainer}>
-          <div className={classes.titleAreaContainer}>
-            <Typography
-              className={classes.title}
-              variant='subtitle1'
-              components='h2'
-              gutterBottom
-            >
-              {title}
-            </Typography>
-            <Typography
-              className={classes.timeStamp}
-              components='span'
-              color='textSecondary'
-              gutterBottom
-            >
-              {convertDateFormat(timeStamp)}
-            </Typography>
-            <IconButton edge='end' onClick={handleMenuOpen}>
-              <MoreVertIcon />
-            </IconButton>
-            {renderMenu}
-          </div>
+      <CardContent className={classes.topAreaContainer}>
+        <div className={classes.titleAreaContainer}>
           <Typography
-            variant='body2'
-            components='p'
+            className={classes.title}
+            variant='subtitle1'
+            components='h2'
+            gutterBottom
+          >
+            {title}
+          </Typography>
+          <Typography
+            className={classes.timeStamp}
+            components='span'
             color='textSecondary'
             gutterBottom
           >
-            {convertLineFeed(details)}
+            {convertDateFormat(timeStamp)}
           </Typography>
-        </CardContent>
-        {!(!pictureURL || pictureURL === '') && (
-          // urlがundefinedか空文字だったら表示しない
-          <CardMedia
-            className={classes.image}
-            component='img'
-            image={pictureURL}
-          />
-        )}
-        <Divider />
-        <CardContent className={classes.newsBar}>
-          <Typography variant='body2'>{NOTIS}</Typography>
-        </CardContent>
-      </CardActionArea>
+          <IconButton edge='end' onClick={handleMenuOpen}>
+            <MoreVertIcon />
+          </IconButton>
+          {renderMenu}
+        </div>
+        <Typography
+          variant='body2'
+          components='p'
+          color='textSecondary'
+          gutterBottom
+        >
+          {convertLineFeed(details)}
+        </Typography>
+      </CardContent>
+      {!(!pictureURL || pictureURL === '') && (
+        // urlがundefinedか空文字だったら表示しない
+        <CardMedia
+          className={classes.image}
+          component='img'
+          image={pictureURL}
+        />
+      )}
+      <Divider />
+      <CardContent className={classes.newsBar}>
+        <Typography variant='body2'>{NOTIS}</Typography>
+      </CardContent>
       <Divider className={classes.divider} />
     </Card>
   );
