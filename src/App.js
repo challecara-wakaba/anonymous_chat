@@ -33,7 +33,7 @@ class App extends Component {
       } else {
         self.notLoggedIn(user);
         // User is signed out.
-        alert('Uid is none');
+        alert('You are not logged in yet');
         // ...
       }
     });
