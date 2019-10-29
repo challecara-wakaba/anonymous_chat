@@ -6,8 +6,20 @@
 const LOGGED_IN = 'LOGGED_IN';
 const NOT_LOGGED_IN = 'NOT_LOGGED_IN';
 
+const initialState = {
+  user: {
+    displayName: null,
+    email: null,
+    emailVerified: null,
+    photoURL: null,
+    isAnonymous: null,
+    uid: null,
+    providerData: null
+  }
+};
+
 // reducer
-export default function reducer(state = {}, action) {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LOGGED_IN:
     case NOT_LOGGED_IN:
