@@ -49,7 +49,7 @@ export function TextFields(props) {
   } = props;
 
   return (
-    <form className={classes.FirstCont} noVaridate autoComplete='off'>
+    <form className={classes.FirstCont} noValidate autoComplete='off'>
       <h1 className={classes.Title}>
         <span className={classes.Span}>Lask</span>へようこそ
       </h1>
