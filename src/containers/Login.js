@@ -45,8 +45,8 @@ function Login(props) {
       })
       .catch(function(error) {
         /*エラーの処理*/
-        var errorCode = error.code;
-        var errorMessage = error.message;
+        const errorCode = error.code;
+        const errorMessage = error.message;
         if (
           errorCode === 'auth/invalid-email' ||
           errorCode === 'auth/user-not-found'
