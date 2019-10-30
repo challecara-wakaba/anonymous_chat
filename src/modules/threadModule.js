@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) => {
     case ADD_MESSAGE:
       const newMessage = {
         id: action.id,
-        name: action.name,
+        userUid: action.userUid,
         text: action.text,
         timeStamp: action.timeStamp
       };
@@ -36,11 +36,11 @@ const reducer = (state = initialState, action) => {
 export default reducer;
 
 // Action Creators
-export const addMessage = (name, text) => {
+export const addMessage = (userUid, text) => {
   return {
     type: ADD_MESSAGE,
     id: shortid.generate(),
-    name: name,
+    userUid: userUid,
     text: text,
     timeStamp: new Date()
   };

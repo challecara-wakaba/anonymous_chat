@@ -16,9 +16,7 @@ const listSytle = {
 };
 
 const Thread = props => {
-  const userName = 'annin'; // これはテストです
-
-  const { post, replies, addMessage } = props;
+  const { user, post, replies, addMessage } = props;
   const { url } = props.match;
 
   const handleHeadLeftButtonClick = () => {
@@ -28,7 +26,7 @@ const Thread = props => {
   };
 
   const handleSubmit = text => {
-    addMessage(userName, text);
+    addMessage(user.uid, text);
   };
 
   return (
@@ -48,12 +46,14 @@ const Thread = props => {
 const mapStateToProps = state => {
   return {
     post: state.thread.post,
-    replies: state.thread.replies
+    replies: state.thread.replies,
+    user: state.user.user
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    addMessage: (name, text) => dispatch(threadActions.addMessage(name, text))
+    addMessage: (userUid, text) =>
+      dispatch(threadActions.addMessage(userUid, text))
   };
 };
 export default connect(
