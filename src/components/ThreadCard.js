@@ -19,7 +19,8 @@ const useStyles = makeStyles(theme => ({
     background: theme.background
   },
   topAreaContainer: {
-    paddingBottom: theme.spacing(1)
+    paddingBottom: theme.spacing(1),
+    color: '#142471'
   },
   titleAreaContainer: {
     display: 'flex',
