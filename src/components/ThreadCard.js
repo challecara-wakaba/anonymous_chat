@@ -15,7 +15,8 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto',
     marginBottom: theme.spacing(1),
     marginRight: 'auto',
-    maxWidth: theme.breakpoints.values.md
+    maxWidth: theme.breakpoints.values.md,
+    background: theme.background
   },
   topAreaContainer: {
     paddingBottom: theme.spacing(1)
@@ -29,7 +30,11 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   timeStamp: {
-    fontSize: 10
+    fontSize: 10,
+    color: theme.primary
+  },
+  Color: {
+    color: theme.primary
   },
   image: {
     marginRight: 'auto',
@@ -40,7 +45,8 @@ const useStyles = makeStyles(theme => ({
   },
   newsBar: {
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1)
+    paddingBottom: theme.spacing(1),
+    background: theme.secondary
   },
   divider: {
     height: 1
@@ -112,7 +118,6 @@ const ThreadCard = props => {
           <Typography
             className={classes.timeStamp}
             components='span'
-            color='textSecondary'
             gutterBottom
           >
             {convertDateFormat(timeStamp)}
@@ -125,7 +130,7 @@ const ThreadCard = props => {
         <Typography
           variant='body2'
           components='p'
-          color='textSecondary'
+          className={classes.Color}
           gutterBottom
         >
           {convertLineFeed(details)}
