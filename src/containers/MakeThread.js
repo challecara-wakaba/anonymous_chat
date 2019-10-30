@@ -137,7 +137,10 @@ function MakeThread(props) {
         onChange={handleCheckChange}
       />
       <div className={classes.bottomContainer}>
-        <Link to={`${changeUpperDirectory(url)}`}>
+        <Link
+          to={`${changeUpperDirectory(url)}`}
+          style={{ textDecoration: 'none' } /*下線を消す*/}
+        >
           <CancelButton />
         </Link>
         {/* SendButtonはLinkを用いずonClick時にhistory.pushを発火する */}
