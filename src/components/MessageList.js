@@ -35,7 +35,7 @@ export default function MessageList(props) {
       const arrIndex = index - 1; // postの分一個大きいため引く
       return (
         <Message
-          name={replies[arrIndex].name}
+          name=''
           icon=''
           text={replies[arrIndex].text}
           timeStamp={replies[arrIndex].timeStamp}
