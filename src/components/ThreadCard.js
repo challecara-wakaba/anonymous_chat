@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
 const useStyles = makeStyles(theme => ({
-  ItemColor: {
+  Item: {
     backgroundColor: '#000000',
     color: '#FFFFFF'
   },
@@ -37,6 +37,9 @@ const useStyles = makeStyles(theme => ({
   timeStamp: {
     fontSize: 10,
     color: theme.primary
+  },
+  Ver: {
+    color: '#142471'
   },
   Color: {
     color: theme.primary
@@ -82,7 +85,7 @@ const ThreadCard = props => {
       onBlur={handleMenuClose}
       onClose={handleMenuClose}
     >
-      <MenuItem className={classes.ItemColor}>削除</MenuItem> {/* for test */}
+      <MenuItem className={classes.Item}>削除</MenuItem> {/* for test */}
     </Menu>
   );
 
@@ -127,7 +130,7 @@ const ThreadCard = props => {
             {convertDateFormat(timeStamp)}
           </Typography>
           <IconButton edge='end' onClick={handleMenuOpen}>
-            <MoreVertIcon />
+            <MoreVertIcon className={classes.Ver} />
           </IconButton>
           {renderMenu}
         </div>
