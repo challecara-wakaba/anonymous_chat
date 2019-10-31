@@ -10,10 +10,6 @@ const useStyles = makeStyles(theme => ({
   Name: {
     color: '#142471'
   },
-  DayTime: {
-    display: 'flex',
-    justifyContent: 'flex-end'
-  },
   image: {
     margin: `${theme.spacing(2)}px auto`,
     maxHeight: 135,
@@ -51,11 +47,7 @@ export default function FirstPost(props) {
               {name}
             </Typography>
             {'  ' /*nameとtimeStampの間の余白*/}
-            <Typography
-              component='span'
-              variant='caption'
-              className={classes.DayTime}
-            >
+            <Typography component='span' variant='caption'>
               {convertDateFormat(timeStamp)}
             </Typography>
           </React.Fragment>
