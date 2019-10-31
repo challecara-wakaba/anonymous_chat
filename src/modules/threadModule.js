@@ -1,5 +1,8 @@
 import shortid from 'shortid';
-
+//cloudfirestore
+import 'firebase/auth';
+import firebase from 'firebase';
+var db = firebase.firestore();
 // action type
 const ADD_MESSAGE = 'ADD_MESSAGE';
 
