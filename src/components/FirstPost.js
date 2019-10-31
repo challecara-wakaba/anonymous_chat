@@ -7,6 +7,13 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
+  Name: {
+    color: '#142471'
+  },
+  DayTime: {
+    display: 'flex',
+    justifyContent: 'flex-end'
+  },
   image: {
     margin: `${theme.spacing(2)}px auto`,
     maxHeight: 135,
@@ -36,14 +43,18 @@ export default function FirstPost(props) {
       <ListItemText
         primary={
           <React.Fragment>
-            <Typography component='span' variant='subtitle1'>
+            <Typography
+              component='span'
+              variant='subtitle1'
+              className={classes.Name}
+            >
               {name}
             </Typography>
             {'  ' /*nameとtimeStampの間の余白*/}
             <Typography
               component='span'
               variant='caption'
-              color='textSecondary'
+              className={classes.DayTime}
             >
               {convertDateFormat(timeStamp)}
             </Typography>
@@ -51,7 +62,7 @@ export default function FirstPost(props) {
         }
         secondary={
           <React.Fragment>
-            <Typography component='span' variant='body2' color='textPrimary'>
+            <Typography component='span' variant='body2'>
               {details}
             </Typography>
             <br />
