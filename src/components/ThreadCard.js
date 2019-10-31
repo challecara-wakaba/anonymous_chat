@@ -11,6 +11,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
 const useStyles = makeStyles(theme => ({
+  ItemColor: {
+    backgroundColor: '#000000',
+    color: '#FFFFFF'
+  },
   root: {
     marginLeft: 'auto',
     marginBottom: theme.spacing(1),
@@ -78,8 +82,7 @@ const ThreadCard = props => {
       onBlur={handleMenuClose}
       onClose={handleMenuClose}
     >
-      <MenuItem>TEST</MenuItem> {/* for test */}
-      <MenuItem>TEST2</MenuItem> {/* fortest */}
+      <MenuItem className={classes.ItemColor}>削除</MenuItem> {/* for test */}
     </Menu>
   );
 
