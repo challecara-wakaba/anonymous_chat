@@ -1,7 +1,8 @@
 import shortid from 'shortid';
-//cloudfirestore
+//cloudfirestoreの宣言
 import 'firebase/auth';
-import firebase from 'firebase';
+const firebase = require('firebase');
+require('firebase/firestore');
 var db = firebase.firestore();
 // action type
 const ADD_MESSAGE = 'ADD_MESSAGE';
