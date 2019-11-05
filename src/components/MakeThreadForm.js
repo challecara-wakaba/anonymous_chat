@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    marginTop: theme.spacing(1)
+    paddingTop: theme.spacing(1)
   },
   SecondCont: {
     display: 'flex',
