@@ -19,7 +19,7 @@ class App extends Component {
     super(props);
 
     //Initialize Firebase
-    firebase.initializeApp(config);
+    // firebase.initializeApp(config);
 
     this.loggedIn = props.loggedIn;
     this.notLoggedIn = props.notLoggedIn;
