@@ -19,6 +19,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-around',
     margin: '48px 0',
+    marginBottom: 'unset',
+    paddingBottom: '48px',
     padding: '0 16px'
   },
   root: {
