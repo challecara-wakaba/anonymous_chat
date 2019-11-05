@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     marginRight: theme.spacing(3),
     padding: theme.spacing(2),
-    backgroundColor: '#FFDEDD'
+    backgroundColor: theme.threadBackground
   },
   errorMessage: {
     marginLeft: theme.spacing(1),
