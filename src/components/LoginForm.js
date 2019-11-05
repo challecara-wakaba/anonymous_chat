@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     flexWrap: 'wrap',
     width: 'auto',
-    margin: '40px 24px 0 24px'
+    margin: '0 24px'
   },
   SecondCont: {
     display: 'flex',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { makeStyles } from '@material-ui/core/styles';
 import Header from '../components/Header';
 import MessageList from '../components/MessageList';
 import ThreadFooter from '../components/ThreadFooter';
@@ -15,7 +15,14 @@ const listSytle = {
   width: '100%'
 };
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    backgroundColor: theme.background,
+    minHeight: '100vh'
+  }
+}));
 const Thread = props => {
+  const classes = useStyles();
   const { user, post, replies, addMessage } = props;
   const { url } = props.match;
 
@@ -30,7 +37,7 @@ const Thread = props => {
   };
 
   return (
-    <React.Fragment>
+    <div className={classes.root}>
       <Header
         location='thread'
         onLeftButtonClick={handleHeadLeftButtonClick}
@@ -38,7 +45,7 @@ const Thread = props => {
       />
       <MessageList listStyle={listSytle} post={post} replies={replies} />
       <ThreadFooter onSubmit={handleSubmit} />
-    </React.Fragment>
+    </div>
   );
 };
 

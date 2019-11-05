@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import { makeStyles } from '@material-ui/core/styles';
 import Header from '../components/Header';
 import ThreadCardList from '../components/ThreadCardList';
 import ThreadAddButton from '../components/ThreadAddButton';
@@ -14,19 +14,26 @@ const listStyle = {
   width: '100%'
 };
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    backgroundColor: theme.threadBackground,
+    minHeight: '100vh'
+  }
+}));
+
 const LABEL = '# 英語';
 function Channel(props) {
   const { threads } = props;
   const { url } = props.match;
-
+  const classes = useStyles();
   return (
-    <React.Fragment>
+    <div className={classes.root}>
       <Header location='channel' label={LABEL} />
       <ThreadCardList listStyle={listStyle} threads={threads} />
       <Link to={`${url}/makeThread`}>
         <ThreadAddButton />
       </Link>
-    </React.Fragment>
+    </div>
   );
 }
 
