@@ -1,4 +1,9 @@
 import shortid from 'shortid';
+//cloudfirestoreの初期化
+import firebase from 'firebase';
+import config from '../config/firebaseconfig';
+firebase.initializeApp(config);
+var db = firebase.firestore();
 
 // action type
 const ADD_MESSAGE = 'ADD_MESSAGE';
@@ -8,8 +13,8 @@ const initialState = {
     id: shortid.generate(),
     name: 'annin',
     timeStamp: new Date(),
-    title: 'ドリルp53 [B]-(1)',
-    details: 'この英文の訳がわかりません',
+    title: 'ショッパーズ',
+    details: 'ンョ゛ハー　゛',
     pictureURL: 'http://img-cdn.jg.jugem.jp/993/154735/20101224_1438937.jpg'
   },
   replies: []
@@ -37,6 +42,17 @@ export default reducer;
 
 // Action Creators
 export const addMessage = (userUid, text) => {
+  db.collection('message')
+    .add({
+      uid: userUid,
+      message: text
+    })
+    .then(function(docRef) {
+      alert('Document written with ID: ', docRef.id);
+    })
+    .catch(function(error) {
+      alert('Error adding document: ', error);
+    });
   return {
     type: ADD_MESSAGE,
     id: shortid.generate(),
