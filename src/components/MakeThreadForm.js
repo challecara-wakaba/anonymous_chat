@@ -11,7 +11,8 @@ const useStyles = makeStyles(theme => ({
   FirstCont: {
     display: 'flex',
     flexDirection: 'column',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    marginTop: theme.spacing(1)
   },
   SecondCont: {
     display: 'flex',
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     color: theme.error
   },
-  Field: {
+  Margin: {
     margin: theme.spacing(1)
   },
   AddButton: {
@@ -46,13 +47,13 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row-reverse'
   },
   ClassBox: {
-    marginLeft: theme.spacing(11)
+    marginLeft: theme.spacing(15)
   },
   ExamBox: {
-    marginLeft: theme.spacing(7)
+    marginLeft: theme.spacing(11)
   },
   EndExamBox: {
-    marginLeft: theme.spacing(9)
+    marginLeft: theme.spacing(13)
   },
   CancelButton: {
     marginRight: theme.spacing(3),
@@ -74,13 +75,14 @@ export function TextFields(props) {
 
   return (
     <div className={classes.FirstCont}>
+      <h1 className={classes.Margin}>#物理</h1>
       <TextField
         error={!isTitleFilled}
         id='outlined-required'
         label='題名（必須）'
         placeholder='過去問　[2]-(1) 力のモーメント'
         margin='normal'
-        className={classes.Field}
+        className={classes.Margin}
         variant='outlined'
         name='title' // 入力をstateで管理するのに用いる
         value={title}
@@ -98,7 +100,7 @@ export function TextFields(props) {
         placeholder='(例)この問題の解き方がわかりません'
         rows='4'
         margin='normal'
-        className={classes.Field}
+        className={classes.Margin}
         variant='outlined'
         name='details' // 入力をstataeで管理するのに用いる
         value={details}
