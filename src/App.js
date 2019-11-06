@@ -54,29 +54,31 @@ class App extends Component {
   }
 }
 
-function ClientChannel() {
+function ClientChannel(props) {
   const path = '/client';
   const { channel } = useParams(); // /client/:channelの:channelで指定した物が入る
+  const { history } = props;
 
   return (
     <Switch>
       <Route exact path={`${path}/${channel}`}>
-        <Channel />
+        <Channel history={history} />
       </Route>
       <Route exact path={`${path}/${channel}/makeThread`}>
-        <MakeThread />
+        <MakeThread history={history} />
       </Route>
       <Route path={`${path}/${channel}/:thread`}>
-        <ClientThread />
+        <ClientThread history={history} />
       </Route>
       <Route render={() => <p>ページが見つかりませんん</p>} />
     </Switch>
   );
 }
 
-function ClientThread() {
+function ClientThread(props) {
   const { path } = useRouteMatch();
   const { thread } = useParams(); // /client/channel/:threadの:threadで指定した物が入る
+  const { history } = props;
 
   // :threadを取り除く
   const basePath = path
@@ -87,7 +89,7 @@ function ClientThread() {
   return (
     <switch>
       <Route exact path={`${basePath}/${thread}`}>
-        <Thread />
+        <Thread history={history} />
       </Route>
       <Route render={() => <p>ページが見つかりませんんん</p>} />
     </switch>
