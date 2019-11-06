@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useRouteMatch } from 'react-router-dom';
 
 import Header from '../components/Header';
 import MessageList from '../components/MessageList';
@@ -17,7 +18,7 @@ const listSytle = {
 
 const Thread = props => {
   const { user, post, replies, addMessage } = props;
-  const { url } = props.match;
+  const { url } = useRouteMatch();
 
   const handleHeadLeftButtonClick = () => {
     // チャンネル画面に戻る

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 import Header from '../components/Header';
 import ThreadCardList from '../components/ThreadCardList';
@@ -17,7 +17,7 @@ const listStyle = {
 const LABEL = '# 英語';
 function Channel(props) {
   const { threads } = props;
-  const { url } = props.match;
+  const { url } = useRouteMatch();
 
   return (
     <React.Fragment>
