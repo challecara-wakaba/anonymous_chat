@@ -83,7 +83,6 @@ function ClientThread() {
     .split('/')
     .slice(0, 3)
     .join('/');
-  alert(basePath + thread);
 
   return (
     <switch>
