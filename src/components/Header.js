@@ -10,6 +10,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    zIndex: 1
+  },
   ToolBar: {
     backgroundColor: theme.primary
   },
@@ -40,7 +43,7 @@ export default function Header(props) {
   }
 
   return (
-    <AppBar>
+    <AppBar className={classes.root}>
       <Toolbar className={classes.ToolBar}>
         <IconButton
           edge='start'
