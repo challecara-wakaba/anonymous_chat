@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import { useRouteMatch } from 'react-router-dom';
+
 import Header from '../components/Header';
 import MessageList from '../components/MessageList';
 import ThreadFooter from '../components/ThreadFooter';
@@ -24,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 const Thread = props => {
   const classes = useStyles();
   const { user, post, replies, addMessage } = props;
-  const { url } = props.match;
+  const { url } = useRouteMatch();
 
   const handleHeadLeftButtonClick = () => {
     // チャンネル画面に戻る

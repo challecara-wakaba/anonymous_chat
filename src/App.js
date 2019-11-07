@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useRouteMatch, useParams } from 'react-router-dom';
 
 import Login from './containers/Login';
 import Thread from './containers/Thread';
@@ -10,7 +10,7 @@ import Channel from './containers/Channel';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import config from './config/firebaseconfig';
+// import config from './config/firebaseconfig';
 
 import * as userActions from './modules/userModule';
 
@@ -19,7 +19,7 @@ class App extends Component {
     super(props);
 
     //Initialize Firebase
-    firebase.initializeApp(config);
+    // firebase.initializeApp(config);
 
     this.loggedIn = props.loggedIn;
     this.notLoggedIn = props.notLoggedIn;
@@ -45,23 +45,55 @@ class App extends Component {
           {/* 全て仮に用意したものです */}
           {/* URLをブラウザに直打ちすると移動できます */}
           <Route exact path='/' render={() => <h1>Home</h1>} />
-          <Route exact path='/client/testChannel' component={Channel} />
           <Route exact path='/login' component={Login} />
-          <Route
-            exact
-            path='/client/testChannel/makeThread'
-            component={MakeThread}
-          />
-          <Route
-            exact
-            path='/client/testChannel/testThread'
-            component={Thread}
-          />
+          <Route path='/client/:channel' component={ClientChannel} />
           <Route render={() => <p>ページが見つかりません</p>} />
         </Switch>
       </React.Fragment>
     );
   }
+}
+
+function ClientChannel(props) {
+  const path = '/client';
+  const { channel } = useParams(); // /client/:channelの:channelで指定した物が入る
+  const { history } = props;
+
+  return (
+    <Switch>
+      <Route exact path={`${path}/${channel}`}>
+        <Channel history={history} />
+      </Route>
+      <Route exact path={`${path}/${channel}/makeThread`}>
+        <MakeThread history={history} />
+      </Route>
+      <Route path={`${path}/${channel}/:thread`}>
+        <ClientThread history={history} />
+      </Route>
+      <Route render={() => <p>ページが見つかりませんん</p>} />
+    </Switch>
+  );
+}
+
+function ClientThread(props) {
+  const { path } = useRouteMatch();
+  const { thread } = useParams(); // /client/channel/:threadの:threadで指定した物が入る
+  const { history } = props;
+
+  // :threadを取り除く
+  const basePath = path
+    .split('/')
+    .slice(0, 3)
+    .join('/');
+
+  return (
+    <switch>
+      <Route exact path={`${basePath}/${thread}`}>
+        <Thread history={history} />
+      </Route>
+      <Route render={() => <p>ページが見つかりませんんん</p>} />
+    </switch>
+  );
 }
 
 // redux関連

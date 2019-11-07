@@ -52,12 +52,19 @@ function Login(props) {
       })
       .catch(function(error) {
         /*エラーの処理*/
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        if (errorCode === 'auth/user-not-found') {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (
+          errorCode === 'auth/invalid-email' ||
+          errorCode === 'auth/user-not-found'
+        ) {
           setIsUserFound(false);
         } else if (errorCode === 'auth/wrong-password') {
           setIsCorrectPassword(false);
+        } else if (errorCode === 'auth/too-many-requests') {
+          alert(
+            'ログインの失敗が一定回数を超えました。しばらくしてからもう一度お試しください。'
+          );
         } else {
           alert(errorMessage);
         }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 import changeUpperDirectory from '../functions/changeUpperDirectory';
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 
 function MakeThread(props) {
   const classes = useStyles();
-  const { url } = props.match;
+  const { url } = useRouteMatch();
   const { addThread } = props;
   // TextFieldsに渡す
   const [title, setTitle] = useState('');
@@ -143,7 +143,10 @@ function MakeThread(props) {
         onChange={handleCheckChange}
       />
       <div className={classes.bottomContainer}>
-        <Link to={`${changeUpperDirectory(url)}`}>
+        <Link
+          to={`${changeUpperDirectory(url)}`}
+          style={{ textDecoration: 'none' } /*下線を消す*/}
+        >
           <CancelButton />
         </Link>
         {/* SendButtonはLinkを用いずonClick時にhistory.pushを発火する */}

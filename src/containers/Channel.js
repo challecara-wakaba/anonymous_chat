@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link, useRouteMatch } from 'react-router-dom';
+
 import Header from '../components/Header';
 import ThreadCardList from '../components/ThreadCardList';
 import ThreadAddButton from '../components/ThreadAddButton';
@@ -24,8 +26,9 @@ const useStyles = makeStyles(theme => ({
 const LABEL = '# 英語';
 function Channel(props) {
   const { threads } = props;
-  const { url } = props.match;
   const classes = useStyles();
+  const { url } = useRouteMatch();
+
   return (
     <div className={classes.root}>
       <Header location='channel' label={LABEL} />
