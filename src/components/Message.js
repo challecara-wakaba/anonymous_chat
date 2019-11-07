@@ -9,7 +9,8 @@ import GoodButton from './GoodButton';
 
 const useStyles = makeStyles(theme => ({
   inline: {
-    display: 'inline'
+    display: 'inline',
+    color: '#000000'
   }
 }));
 
@@ -46,7 +47,11 @@ const Message = props => {
       <ListItemText
         primary={
           <React.Fragment>
-            <Typography component='span' variant='subtitle1' className='inline'>
+            <Typography
+              component='span'
+              variant='subtitle1'
+              className={classes.inline}
+            >
               {name}
             </Typography>
             {'  ' /*nameとtimeStampの間の余白*/}
@@ -54,7 +59,6 @@ const Message = props => {
               component='span'
               variant='caption'
               className={classes.inline}
-              color='textSecondary'
             >
               {convertDateFormat(timeStamp)}
             </Typography>
@@ -66,7 +70,6 @@ const Message = props => {
               component='span'
               variant='body2'
               className={classes.inline}
-              color='textPrimary'
             >
               {convertLineFeed(text)}
             </Typography>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import { useRouteMatch } from 'react-router-dom';
 
 import Header from '../components/Header';
@@ -11,12 +12,19 @@ import changeUpperDirectory from '../functions/changeUpperDirectory';
 const listSytle = {
   // VirtuosoはmakeStyleで高さと幅指定ができないためオブジェクトを作り
   // propsで渡しinlineCSSで適応させる
-  marginTop: 64,
+  marginTop: 56,
   height: document.documentElement.clientHeight - 64 - 64, //headerとfooterの高さ分引く
   width: '100%'
 };
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    backgroundColor: theme.background,
+    minHeight: '100vh'
+  }
+}));
 const Thread = props => {
+  const classes = useStyles();
   const { user, post, replies, addMessage } = props;
   const { url } = useRouteMatch();
 
@@ -31,7 +39,7 @@ const Thread = props => {
   };
 
   return (
-    <React.Fragment>
+    <div className={classes.root}>
       <Header
         location='thread'
         onLeftButtonClick={handleHeadLeftButtonClick}
@@ -39,7 +47,7 @@ const Thread = props => {
       />
       <MessageList listStyle={listSytle} post={post} replies={replies} />
       <ThreadFooter onSubmit={handleSubmit} />
-    </React.Fragment>
+    </div>
   );
 };
 

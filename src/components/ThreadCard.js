@@ -11,14 +11,20 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
 const useStyles = makeStyles(theme => ({
+  Item: {
+    backgroundColor: '#000000',
+    color: '#FFFFFF'
+  },
   root: {
     marginLeft: 'auto',
     marginBottom: theme.spacing(1),
     marginRight: 'auto',
-    maxWidth: theme.breakpoints.values.md
+    maxWidth: theme.breakpoints.values.md,
+    background: theme.background
   },
   topAreaContainer: {
-    paddingBottom: theme.spacing(1)
+    paddingBottom: theme.spacing(1),
+    color: '#142471'
   },
   titleAreaContainer: {
     display: 'flex',
@@ -29,7 +35,14 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   timeStamp: {
-    fontSize: 10
+    fontSize: 10,
+    color: theme.primary
+  },
+  Ver: {
+    color: '#142471'
+  },
+  Color: {
+    color: theme.primary
   },
   image: {
     marginRight: 'auto',
@@ -40,7 +53,8 @@ const useStyles = makeStyles(theme => ({
   },
   newsBar: {
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1)
+    paddingBottom: theme.spacing(1),
+    background: theme.secondary
   },
   divider: {
     height: 1
@@ -71,8 +85,8 @@ const ThreadCard = props => {
       onBlur={handleMenuClose}
       onClose={handleMenuClose}
     >
-      <MenuItem>TEST</MenuItem> {/* for test */}
-      <MenuItem>TEST2</MenuItem> {/* fortest */}
+      <MenuItem className={classes.Item}>削除</MenuItem> {/* for test */}
+      <MenuItem className={classes.Item}>編集</MenuItem> {/* for test */}
     </Menu>
   );
 
@@ -112,20 +126,19 @@ const ThreadCard = props => {
           <Typography
             className={classes.timeStamp}
             components='span'
-            color='textSecondary'
             gutterBottom
           >
             {convertDateFormat(timeStamp)}
           </Typography>
           <IconButton edge='end' onClick={handleMenuOpen}>
-            <MoreVertIcon />
+            <MoreVertIcon className={classes.Ver} />
           </IconButton>
           {renderMenu}
         </div>
         <Typography
           variant='body2'
           components='p'
-          color='textSecondary'
+          className={classes.Color}
           gutterBottom
         >
           {convertLineFeed(details)}

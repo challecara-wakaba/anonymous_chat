@@ -9,6 +9,12 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles(theme => ({
+  ToolBar: {
+    backgroundColor: theme.primary
+  },
+  IconButton: {
+    color: '#FFFFFF'
+  },
   label: {
     flexGrow: 1
   }
@@ -34,14 +40,18 @@ export default function Header(props) {
 
   return (
     <AppBar>
-      <Toolbar>
-        <IconButton edge='start' color='inherit' onClick={onLeftButtonClick}>
+      <Toolbar className={classes.ToolBar}>
+        <IconButton
+          edge='start'
+          onClick={onLeftButtonClick}
+          className={classes.IconButton}
+        >
           {leftButton}
         </IconButton>
-        <Typography className={classes.label} variant='h6' color='inherit'>
+        <Typography className={classes.label} variant='h6'>
           {label}
         </Typography>
-        <IconButton edge='end' color='inherit'>
+        <IconButton edge='end' className={classes.IconButton}>
           {rightButton}
         </IconButton>
       </Toolbar>

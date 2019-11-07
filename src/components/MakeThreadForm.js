@@ -11,7 +11,8 @@ const useStyles = makeStyles(theme => ({
   FirstCont: {
     display: 'flex',
     flexDirection: 'column',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    paddingTop: theme.spacing(1)
   },
   SecondCont: {
     display: 'flex',
@@ -23,38 +24,48 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     marginRight: theme.spacing(3),
     padding: theme.spacing(2),
-    backgroundColor: 'pink'
+    backgroundColor: theme.threadBackground
   },
   errorMessage: {
     marginLeft: theme.spacing(1),
-    color: 'red'
+    color: theme.error
   },
-  Field: {
+  Margin: {
     margin: theme.spacing(1)
   },
-  Text: {
+  AddButton: {
     display: 'flex',
     alignItems: 'center',
-    margin: theme.spacing(1)
+    margin: '12px 8px',
+    backgroundColor: '#000000'
+  },
+  FieldText: {
+    color: '#FFFFFF'
   },
   Tag: {
     display: 'flex',
     flexDirection: 'row-reverse'
   },
   ClassBox: {
-    marginLeft: theme.spacing(11)
+    marginLeft: theme.spacing(15)
   },
   ExamBox: {
-    marginLeft: theme.spacing(7)
+    marginLeft: theme.spacing(11)
   },
   EndExamBox: {
-    marginLeft: theme.spacing(9)
+    marginLeft: theme.spacing(13)
   },
-  Buttons: {
-    marginRight: theme.spacing(3)
+  CancelButton: {
+    marginRight: theme.spacing(3),
+    backgroundColor: theme.secondary
   },
-  Left: {
-    marginLeft: theme.spacing(2)
+  SendButton: {
+    marginRight: theme.spacing(3),
+    backgroundColor: theme.primary
+  },
+  PaperPlane: {
+    marginLeft: theme.spacing(2),
+    color: '#FFFFFF'
   }
 }));
 
@@ -64,13 +75,14 @@ export function TextFields(props) {
 
   return (
     <div className={classes.FirstCont}>
+      <h1 className={classes.Margin}>#物理</h1>
       <TextField
         error={!isTitleFilled}
         id='outlined-required'
         label='題名（必須）'
         placeholder='過去問　[2]-(1) 力のモーメント'
         margin='normal'
-        className={classes.Field}
+        className={classes.Margin}
         variant='outlined'
         name='title' // 入力をstateで管理するのに用いる
         value={title}
@@ -88,7 +100,7 @@ export function TextFields(props) {
         placeholder='(例)この問題の解き方がわかりません'
         rows='4'
         margin='normal'
-        className={classes.Field}
+        className={classes.Margin}
         variant='outlined'
         name='details' // 入力をstataeで管理するのに用いる
         value={details}
@@ -103,15 +115,10 @@ export function ImageButton() {
 
   return (
     <div className={classes.SecondCont}>
-      <Button
-        variant='contained'
-        size='medium'
-        color='primary'
-        className={classes.Text}
-      >
-        画像を追加
+      <Button variant='contained' size='medium' className={classes.AddButton}>
+        <span className={classes.FieldText}>画像を追加</span>
       </Button>
-      <h5 className={classes.Text}>1枚追加できます</h5>
+      <h5>1枚追加できます</h5>
     </div>
   );
 }
@@ -267,13 +274,8 @@ export function Checkboxs(props) {
 export function CancelButton() {
   const classes = useStyles();
   return (
-    <Button
-      className={classes.Buttons}
-      variant='contained'
-      size='medium'
-      color='secondary'
-    >
-      キャンセル
+    <Button className={classes.CancelButton} variant='contained' size='medium'>
+      <span className={classes.Fieldtext}>キャンセル</span>
     </Button>
   );
 }
@@ -284,13 +286,12 @@ export function SendButton(props) {
   return (
     <Button
       onClick={onClick}
-      className={classes.Buttons}
+      className={classes.SendButton}
       variant='contained'
       size='medium'
-      color='primary'
     >
-      送信
-      <SendIcon className={classes.Left}></SendIcon>
+      <span className={classes.FieldText}>送信</span>
+      <SendIcon className={classes.PaperPlane}></SendIcon>
     </Button>
   );
 }
