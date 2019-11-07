@@ -9,7 +9,7 @@ import ThreadAddButton from '../components/ThreadAddButton';
 const listStyle = {
   // VirtuosoはmakeStyleで高さと幅指定ができないためオブジェクトを作り
   // propsで渡しinlineCSSで適応させる
-  marginTop: 72, // ヘッダー分+8pxくらい余白を取る
+  marginTop: 56,
   height: document.documentElement.clientHeight - 64, //headerとfooterの高さ分引く
   width: '100%'
 };

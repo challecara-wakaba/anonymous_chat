@@ -86,6 +86,7 @@ const ThreadCard = props => {
       onClose={handleMenuClose}
     >
       <MenuItem className={classes.Item}>削除</MenuItem> {/* for test */}
+      <MenuItem className={classes.Item}>編集</MenuItem> {/* for test */}
     </Menu>
   );
 
