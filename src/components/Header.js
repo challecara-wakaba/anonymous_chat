@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import EditIcon from '@material-ui/icons/Edit';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles(theme => ({
@@ -32,7 +33,7 @@ export default function Header(props) {
       break;
     case 'thread':
       leftButton = <ArrowBackIosIcon />;
-      rightButton = null;
+      rightButton = <EditIcon />;
       break;
     default:
       break;
