@@ -26,17 +26,21 @@ const useStyles = makeStyles(theme => ({
 
 export default function Header(props) {
   const classes = useStyles();
-  const { location, onLeftButtonClick, label } = props;
+  const { location, onBuckButtonClick, onWriteButtonClick, label } = props;
 
-  let leftButton, rightButton;
+  let leftButton, rightButton, onLeftClick, onRightClick;
   switch (location) {
     case 'channel':
       leftButton = <MenuIcon />;
       rightButton = <SearchIcon />;
+      onLeftClick = null;
+      onRightClick = null;
       break;
     case 'thread':
       leftButton = <ArrowBackIosIcon />;
       rightButton = <EditIcon />;
+      onLeftClick = onBuckButtonClick;
+      onRightClick = onWriteButtonClick;
       break;
     default:
       break;
@@ -47,7 +51,7 @@ export default function Header(props) {
       <Toolbar className={classes.ToolBar}>
         <IconButton
           edge='start'
-          onClick={onLeftButtonClick}
+          onClick={onLeftClick}
           className={classes.IconButton}
         >
           {leftButton}
@@ -55,7 +59,11 @@ export default function Header(props) {
         <Typography className={classes.label} variant='h6'>
           {label}
         </Typography>
-        <IconButton edge='end' className={classes.IconButton}>
+        <IconButton
+          edge='end'
+          className={classes.IconButton}
+          onClick={onRightClick}
+        >
           {rightButton}
         </IconButton>
       </Toolbar>

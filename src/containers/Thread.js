@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { useRouteMatch } from 'react-router-dom';
 
 import Header from '../components/Header';
 import MessageList from '../components/MessageList';
-import ThreadFooter from '../components/ThreadFooter';
+// import ThreadFooter from '../components/ThreadFooter';
 import InputModal from '../components/InputModal';
 import * as threadActions from '../modules/threadModule';
 import changeUpperDirectory from '../functions/changeUpperDirectory';
@@ -31,6 +31,7 @@ const Thread = props => {
   const classes = useStyles();
   const { user, post, replies, addMessage, loadMessage } = props;
   const { url } = useRouteMatch();
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(
     () => {
@@ -48,7 +49,11 @@ const Thread = props => {
     [] /*useEffectをcomponentDidMountのように扱うためにから配列を渡している*/
   );
 
-  const handleHeadLeftButtonClick = () => {
+  // modal window用
+  const handleModaleOpen = () => setIsOpen(true);
+  const handleModaleClose = () => setIsOpen(false);
+
+  const handleBuckButtonClick = () => {
     // チャンネル画面に戻る
     // sendButtonのpropsにhistoryが渡されている
     props.history.push(changeUpperDirectory(url));
@@ -62,12 +67,17 @@ const Thread = props => {
     <div className={classes.root}>
       <Header
         location='thread'
-        onLeftButtonClick={handleHeadLeftButtonClick}
+        onBuckButtonClick={handleBuckButtonClick}
+        onWriteButtonClick={handleModaleOpen}
         label={post.title}
       />
       <MessageList listStyle={listSytle} post={post} replies={replies} />
       {/* <ThreadFooter onSubmit={handleSubmit} /> */}
-      <InputModal />
+      <InputModal
+        isOpen={isOpen}
+        onClose={handleModaleClose}
+        onSubmit={handleSubmit}
+      />
     </div>
   );
 };
