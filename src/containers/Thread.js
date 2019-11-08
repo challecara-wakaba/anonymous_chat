@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { useRouteMatch } from 'react-router-dom';
 
 import Header from '../components/Header';
 import MessageList from '../components/MessageList';
-import ThreadFooter from '../components/ThreadFooter';
+// import ThreadFooter from '../components/ThreadFooter';
+import InputModal from '../components/InputModal';
 import * as threadActions from '../modules/threadModule';
 import changeUpperDirectory from '../functions/changeUpperDirectory';
 //cloudfirestoreの初期化
@@ -16,7 +17,7 @@ const listSytle = {
   // VirtuosoはmakeStyleで高さと幅指定ができないためオブジェクトを作り
   // propsで渡しinlineCSSで適応させる
   marginTop: 56,
-  height: document.documentElement.clientHeight - 64 - 64, //headerとfooterの高さ分引く
+  height: document.documentElement.clientHeight - 64, //headerの高さ分引く
   width: '100%'
 };
 
@@ -30,6 +31,7 @@ const Thread = props => {
   const classes = useStyles();
   const { user, post, replies, addMessage, loadMessage } = props;
   const { url } = useRouteMatch();
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(
     () => {
@@ -47,25 +49,34 @@ const Thread = props => {
     [] /*useEffectをcomponentDidMountのように扱うためにから配列を渡している*/
   );
 
-  const handleHeadLeftButtonClick = () => {
+  // modal window用
+  const handleModaleOpen = () => setIsOpen(true);
+  const handleModaleClose = () => setIsOpen(false);
+  const submit = text => {
+    addMessage(user.uid, text.trim()); // ストアに接続してないため上のコンポーネントに渡す
+  };
+
+  const handleBuckButtonClick = () => {
     // チャンネル画面に戻る
     // sendButtonのpropsにhistoryが渡されている
     props.history.push(changeUpperDirectory(url));
-  };
-
-  const handleSubmit = text => {
-    addMessage(user.uid, text);
   };
 
   return (
     <div className={classes.root}>
       <Header
         location='thread'
-        onLeftButtonClick={handleHeadLeftButtonClick}
+        onBuckButtonClick={handleBuckButtonClick}
+        onWriteButtonClick={handleModaleOpen}
         label={post.title}
       />
       <MessageList listStyle={listSytle} post={post} replies={replies} />
-      <ThreadFooter onSubmit={handleSubmit} />
+      {/* <ThreadFooter onSubmit={handleSubmit} /> */}
+      <InputModal
+        isOpen={isOpen}
+        onClose={handleModaleClose}
+        onSubmit={submit}
+      />
     </div>
   );
 };
