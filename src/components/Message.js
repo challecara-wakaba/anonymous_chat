@@ -18,7 +18,8 @@ const Message = props => {
   const classes = useStyles();
   const { name, icon, timeStamp, text } = props;
 
-  const convertDateFormat = date => {
+  const convertDateFormat = timestamp => {
+    const date = timestamp.toDate(); // firebaseのtimestamp型をDate型に変換
     const month = date.getMonth() + 1;
     const day = date.getDate();
     const hour = ('0' + date.getHours()).slice(-2); // 一桁の時は0を埋めて2桁にする
