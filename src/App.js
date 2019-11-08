@@ -10,7 +10,7 @@ import Channel from './containers/Channel';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import config from './config/firebaseconfig';
+//import config from './config/firebaseconfig';
 
 import * as userActions from './modules/userModule';
 

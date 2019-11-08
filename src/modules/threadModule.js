@@ -4,7 +4,6 @@ import firebase from 'firebase';
 import config from '../config/firebaseconfig';
 firebase.initializeApp(config);
 var db = firebase.firestore();
-
 // action type
 const ADD_MESSAGE = 'ADD_MESSAGE';
 
@@ -43,15 +42,16 @@ export default reducer;
 // Action Creators
 export const addMessage = (userUid, text) => {
   db.collection('message')
-    .add({
+    .doc(Date.now().toString())
+    .set({
       uid: userUid,
       message: text
     })
-    .then(function(docRef) {
-      alert('Document written with ID: ', docRef.id);
+    .then(function() {
+      console.log('Document successfully written!');
     })
     .catch(function(error) {
-      alert('Error adding document: ', error);
+      console.log('Error adding document: ', error);
     });
   return {
     type: ADD_MESSAGE,
