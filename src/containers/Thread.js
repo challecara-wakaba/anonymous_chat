@@ -27,23 +27,25 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const Thread = props => {
-  useEffect(() => {
-    db.collection('message').onSnapshot(function(querySnapshot) {
-      var mes = [];
-      var uid = [];
-      querySnapshot.forEach(function(doc) {
-        mes.push(doc.data().message);
-        uid.push(doc.data().uid);
-      });
-      alert(mes);
-    });
-    return () => {
-      db.collection('message').onSnapshot(function() {});
-    };
-  });
   const classes = useStyles();
-  const { user, post, replies, addMessage } = props;
+  const { user, post, replies, addMessage, loadMessage } = props;
   const { url } = useRouteMatch();
+
+  useEffect(
+    () => {
+      db.collection('message').onSnapshot(function(querySnapshot) {
+        let replies = [];
+        querySnapshot.forEach(function(doc) {
+          replies.push(doc.data());
+        });
+        loadMessage(replies);
+      });
+      return () => {
+        db.collection('message').onSnapshot(function() {});
+      };
+    },
+    [] /*useEffectをcomponentDidMountのように扱うためにから配列を渡している*/
+  );
 
   const handleHeadLeftButtonClick = () => {
     // チャンネル画面に戻る
@@ -79,7 +81,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addMessage: (userUid, text) =>
-      dispatch(threadActions.addMessage(userUid, text))
+      dispatch(threadActions.addMessage(userUid, text)),
+    loadMessage: replies => dispatch(threadActions.loadMessage(replies))
   };
 };
 export default connect(

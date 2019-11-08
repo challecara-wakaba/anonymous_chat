@@ -5,6 +5,7 @@ import config from '../config/firebaseconfig';
 firebase.initializeApp(config);
 var db = firebase.firestore();
 // action type
+const LOAD_MESSAGE = 'LOAD_MESSAGE';
 const ADD_MESSAGE = 'ADD_MESSAGE';
 
 const initialState = {
@@ -22,17 +23,12 @@ const initialState = {
 // reducer
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_MESSAGE:
-      const newMessage = {
-        id: action.id,
-        userUid: action.userUid,
-        text: action.text,
-        timeStamp: action.timeStamp
-      };
+    case LOAD_MESSAGE:
       return Object.assign({}, state, {
-        replies: [...state.replies, newMessage]
+        replies: action.replies
       });
 
+    case ADD_MESSAGE:
     default:
       return state;
   }
@@ -40,12 +36,22 @@ const reducer = (state = initialState, action) => {
 export default reducer;
 
 // Action Creators
+export function loadMessage(replies) {
+  // listenerから呼ばれるアクション
+  return {
+    type: LOAD_MESSAGE,
+    replies: replies
+  };
+}
 export const addMessage = (userUid, text) => {
+  // サーバーにメッセージを送る
   db.collection('message')
     .doc(Date.now().toString())
     .set({
-      uid: userUid,
-      message: text
+      id: shortid.generate(),
+      userUid: userUid,
+      text: text,
+      timeStamp: new Date()
     })
     .then(function() {
       console.log('Document successfully written!');
@@ -54,10 +60,6 @@ export const addMessage = (userUid, text) => {
       console.log('Error adding document: ', error);
     });
   return {
-    type: ADD_MESSAGE,
-    id: shortid.generate(),
-    userUid: userUid,
-    text: text,
-    timeStamp: new Date()
+    type: ADD_MESSAGE
   };
 };
