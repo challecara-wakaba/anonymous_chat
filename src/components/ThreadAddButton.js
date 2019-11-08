@@ -9,7 +9,8 @@ const useStyles = makeStyles(theme => ({
     right: theme.spacing(2),
     bottom: theme.spacing(2),
     height: 80,
-    width: 80
+    width: 80,
+    backgroundColor: '#000000'
   },
   label: {
     height: 60,

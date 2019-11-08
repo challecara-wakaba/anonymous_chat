@@ -7,6 +7,12 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    backgroundColor: theme.threadBackground
+  },
+  Name: {
+    color: '#142471'
+  },
   image: {
     margin: `${theme.spacing(2)}px auto`,
     maxHeight: 135,
@@ -29,36 +35,38 @@ export default function FirstPost(props) {
   }
 
   return (
-    <ListItem alignItems='flex-start'>
-      <ListItemAvatar>
-        <Avatar /* alt={} src={} */ />
-      </ListItemAvatar>
-      <ListItemText
-        primary={
-          <React.Fragment>
-            <Typography component='span' variant='subtitle1'>
-              {name}
-            </Typography>
-            {'  ' /*nameとtimeStampの間の余白*/}
-            <Typography
-              component='span'
-              variant='caption'
-              color='textSecondary'
-            >
-              {convertDateFormat(timeStamp)}
-            </Typography>
-          </React.Fragment>
-        }
-        secondary={
-          <React.Fragment>
-            <Typography component='span' variant='body2' color='textPrimary'>
-              {details}
-            </Typography>
-            <br />
-            <img className={classes.image} src={pictureURL} alt=' ' />
-          </React.Fragment>
-        }
-      ></ListItemText>
-    </ListItem>
+    <div className={classes.root}>
+      <ListItem alignItems='flex-start'>
+        <ListItemAvatar>
+          <Avatar /* alt={} src={} */ />
+        </ListItemAvatar>
+        <ListItemText
+          primary={
+            <React.Fragment>
+              <Typography
+                component='span'
+                variant='subtitle1'
+                className={classes.Name}
+              >
+                {name}
+              </Typography>
+              {'  ' /*nameとtimeStampの間の余白*/}
+              <Typography component='span' variant='caption'>
+                {convertDateFormat(timeStamp)}
+              </Typography>
+            </React.Fragment>
+          }
+          secondary={
+            <React.Fragment>
+              <Typography component='span' variant='body2'>
+                {details}
+              </Typography>
+              <br />
+              <img className={classes.image} src={pictureURL} alt=' ' />
+            </React.Fragment>
+          }
+        ></ListItemText>
+      </ListItem>
+    </div>
   );
 }

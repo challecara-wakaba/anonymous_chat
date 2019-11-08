@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 import changeUpperDirectory from '../functions/changeUpperDirectory';
@@ -19,13 +19,19 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-around',
     margin: '48px 0',
+    marginBottom: 'unset',
+    paddingBottom: '48px',
     padding: '0 16px'
+  },
+  root: {
+    backgroundColor: theme.background,
+    minHeight: '100vh'
   }
 }));
 
 function MakeThread(props) {
   const classes = useStyles();
-  const { url } = props.match;
+  const { url } = useRouteMatch();
   const { addThread } = props;
   // TextFieldsに渡す
   const [title, setTitle] = useState('');
@@ -116,7 +122,7 @@ function MakeThread(props) {
   }
 
   return (
-    <React.Fragment>
+    <div className={classes.root}>
       <TextFields
         title={title}
         details={details}
@@ -146,7 +152,7 @@ function MakeThread(props) {
         {/* SendButtonはLinkを用いずonClick時にhistory.pushを発火する */}
         <SendButton onClick={handleSubmit} />
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 
