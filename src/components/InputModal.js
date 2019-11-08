@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -27,9 +27,28 @@ const useStyles = makeStyles(theme => ({
 }));
 
 ReactModal.setAppElement('#root');
+
 export default function InputModal(props) {
   const classes = useStyles();
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, onSubmit } = props;
+
+  // modal
+  const [writingText, setWritingText] = useState('');
+
+  const handleTextChange = e => {
+    setWritingText(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    // 入力欄が空だったりホワイトスペースばっかりだったら送信しない
+    // String.tirm() で文字列の銭湯と最後にある改行は空白を取り除く
+    if (writingText.trim() === '') {
+      return;
+    }
+    onSubmit(writingText.trim()); // ストアに接続してないため上のコンポーネントに渡す
+    setWritingText('');
+  };
+
   return (
     <React.Fragment>
       <ReactModal isOpen={isOpen} style={modalStyle}>
@@ -37,12 +56,18 @@ export default function InputModal(props) {
           <IconButton onClick={onClose}>
             <CloseIcon />
           </IconButton>
-          <Button>
+          <Button onClick={handleSubmit}>
             送信
             <SendIcon />
           </Button>
         </div>
-        <TextField multiline rows='2' variant='outlined' />
+        <TextField
+          multiline
+          rows='2'
+          variant='outlined'
+          value={writingText}
+          onChange={handleTextChange}
+        />
       </ReactModal>
     </React.Fragment>
   );

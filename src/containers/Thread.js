@@ -52,15 +52,14 @@ const Thread = props => {
   // modal window用
   const handleModaleOpen = () => setIsOpen(true);
   const handleModaleClose = () => setIsOpen(false);
+  const submit = text => {
+    addMessage(user.uid, text.trim()); // ストアに接続してないため上のコンポーネントに渡す
+  };
 
   const handleBuckButtonClick = () => {
     // チャンネル画面に戻る
     // sendButtonのpropsにhistoryが渡されている
     props.history.push(changeUpperDirectory(url));
-  };
-
-  const handleSubmit = text => {
-    addMessage(user.uid, text);
   };
 
   return (
@@ -76,7 +75,7 @@ const Thread = props => {
       <InputModal
         isOpen={isOpen}
         onClose={handleModaleClose}
-        onSubmit={handleSubmit}
+        onSubmit={submit}
       />
     </div>
   );
