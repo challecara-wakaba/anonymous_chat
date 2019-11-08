@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { useRouteMatch } from 'react-router-dom';
@@ -8,6 +8,9 @@ import MessageList from '../components/MessageList';
 import ThreadFooter from '../components/ThreadFooter';
 import * as threadActions from '../modules/threadModule';
 import changeUpperDirectory from '../functions/changeUpperDirectory';
+//cloudfirestoreの初期化
+import firebase from 'firebase';
+var db = firebase.firestore();
 
 const listSytle = {
   // VirtuosoはmakeStyleで高さと幅指定ができないためオブジェクトを作り
@@ -24,6 +27,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const Thread = props => {
+  useEffect(() => {
+    db.collection('message').onSnapshot(function(querySnapshot) {
+      var mes = [];
+      var uid = [];
+      querySnapshot.forEach(function(doc) {
+        mes.push(doc.data().message);
+        uid.push(doc.data().uid);
+      });
+      alert(mes);
+    });
+    return () => {
+      db.collection('message').onSnapshot(function() {});
+    };
+  });
   const classes = useStyles();
   const { user, post, replies, addMessage } = props;
   const { url } = useRouteMatch();
