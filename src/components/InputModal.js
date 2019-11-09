@@ -14,6 +14,7 @@ const modalStyle = {
   },
   content: {
     height: '180px',
+    backgroundColor: '#FFDEDD',
     zIndex: 3
   }
 };
