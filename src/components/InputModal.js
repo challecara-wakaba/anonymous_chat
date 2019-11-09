@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between'
   },
   Button: {
+    color: '#FFFFFF',
     backgroundColor: theme.secondary,
     margin: theme.spacing(1)
   },
@@ -33,7 +34,8 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(1)
   },
   Field: {
-    width: '100%'
+    width: '100%',
+    backgroundColor: '#FFFFFF'
   },
   ImageButton: {
     color: '#FFFFFF',
