@@ -39,11 +39,7 @@ export default function MessageList(props) {
           icon=''
           text={replies[arrIndex].text}
           timeStamp={replies[arrIndex].timeStamp}
-          goodCount={
-            replies[arrIndex].goodClickedUsers.length
-              ? replies[arrIndex].goodClickedUsers.length
-              : 0
-          }
+          goodCount={replies[arrIndex].goodClickedUsers.length}
         />
       );
     }
