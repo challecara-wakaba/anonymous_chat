@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 const Message = props => {
   const classes = useStyles();
-  const { name, icon, timeStamp, text } = props;
+  const { name, icon, timeStamp, text, goodCount } = props;
 
   const convertDateFormat = timestamp => {
     const date = timestamp.toDate(); // firebaseのtimestamp型をDate型に変換
@@ -74,7 +74,7 @@ const Message = props => {
             >
               {convertLineFeed(text)}
             </Typography>
-            <GoodButton />
+            <GoodButton goodCount={goodCount} />
           </React.Fragment>
         }
       />

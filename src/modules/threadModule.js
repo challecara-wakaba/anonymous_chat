@@ -51,7 +51,8 @@ export const addMessage = (userUid, text) => {
       id: shortid.generate(),
       userUid: userUid,
       text: text,
-      timeStamp: new Date()
+      timeStamp: new Date(),
+      goodClickedUsers: {}
     })
     .then(function() {
       console.log('Document successfully written!');

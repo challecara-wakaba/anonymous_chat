@@ -27,11 +27,16 @@ const useStyles = makeStyles(theme => ({
     minHeight: '100vh'
   }
 }));
+
 const Thread = props => {
   const classes = useStyles();
   const { user, post, replies, addMessage, loadMessage } = props;
   const { url } = useRouteMatch();
   const [isOpen, setIsOpen] = useState(false);
+  const [isGoodClicked, setIsGoodClicked] = useState(
+    // 配列に格納されているuidを探索をし見つかったらtrue,見つからなかったらfalse
+    replies.usersCliked
+  );
 
   useEffect(
     () => {
