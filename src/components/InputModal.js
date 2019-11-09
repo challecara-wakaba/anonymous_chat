@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(1)
   },
   Field: {
-    width: 250
+    width: '100%'
   },
   ImageButton: {
     color: '#FFFFFF',
