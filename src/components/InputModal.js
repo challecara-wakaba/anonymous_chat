@@ -13,7 +13,10 @@ const modalStyle = {
     zIndex: 2
   },
   content: {
-    height: '180px',
+    position: 'static',
+    margin: '5%',
+    padding: '4%',
+    height: '35%',
     backgroundColor: '#FFDEDD',
     zIndex: 3
   }
