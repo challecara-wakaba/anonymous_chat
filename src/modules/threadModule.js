@@ -4,9 +4,11 @@ import firebase from 'firebase';
 import config from '../config/firebaseconfig';
 firebase.initializeApp(config);
 var db = firebase.firestore();
+
 // action type
 const LOAD_MESSAGE = 'LOAD_MESSAGE';
 const ADD_MESSAGE = 'ADD_MESSAGE';
+const GOOD_BUTTON_CLICK = 'GOOD_BUTTON_CLICK';
 
 const initialState = {
   post: {
@@ -29,6 +31,7 @@ const reducer = (state = initialState, action) => {
       });
 
     case ADD_MESSAGE:
+    case GOOD_BUTTON_CLICK:
     default:
       return state;
   }
@@ -62,3 +65,16 @@ export const addMessage = (userUid, text) => {
     type: ADD_MESSAGE
   };
 };
+export function goodButtonClick(docKey, goodClickedUsers) {
+  db.collection('message')
+    .doc(docKey)
+    .update({
+      goodClickedUsers: goodClickedUsers
+    })
+    .catch(error => {
+      console.log('Error updating document: ', error);
+    });
+  return {
+    type: GOOD_BUTTON_CLICK
+  };
+}
