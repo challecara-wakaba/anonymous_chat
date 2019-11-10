@@ -44,18 +44,16 @@ export function loadMessage(replies) {
   };
 }
 export const addMessage = (userUid, text) => {
+  const docKey = Date.now().toString();
   // サーバーにメッセージを送る
   db.collection('message')
-    .doc(Date.now().toString())
+    .doc(docKey)
     .set({
-      id: shortid.generate(),
+      id: docKey,
       userUid: userUid,
       text: text,
       timeStamp: new Date(),
       goodClickedUsers: {}
-    })
-    .then(function() {
-      console.log('Document successfully written!');
     })
     .catch(function(error) {
       console.log('Error adding document: ', error);
