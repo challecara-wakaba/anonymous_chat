@@ -54,18 +54,21 @@ const Thread = props => {
     [] /*useEffectをcomponentDidMountのように扱うためにから配列を渡している*/
   );
 
-  // modal window用
+  // --- modal window ---
   const handleModaleOpen = () => setIsOpen(true);
   const handleModaleClose = () => setIsOpen(false);
   const submit = text => {
-    addMessage(user.uid, text.trim()); // ストアに接続してないため上のコンポーネントに渡す
+    addMessage(user.uid, text.trim());
   };
+  // --- --- --- ---
 
+  // --- header ---
   const handleBuckButtonClick = () => {
     // チャンネル画面に戻る
     // sendButtonのpropsにhistoryが渡されている
     props.history.push(changeUpperDirectory(url));
   };
+  // --- --- --- ---
 
   return (
     <div className={classes.root}>
