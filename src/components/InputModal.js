@@ -16,7 +16,7 @@ const modalStyle = {
     position: 'static',
     margin: '4%',
     padding: '2%',
-    height: '25%',
+    height: '32%',
     backgroundColor: '#FFDEDD',
     zIndex: 3
   }
@@ -30,7 +30,8 @@ const useStyles = makeStyles(theme => ({
   },
   modalBottom: {
     display: 'flex',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    marginTop: theme.spacing(6)
   },
   Cancel: {
     paddingLeft: 'unset'
@@ -52,7 +53,6 @@ const useStyles = makeStyles(theme => ({
   ImageButton: {
     color: '#FFFFFF',
     backgroundColor: '#000000',
-    marginTop: theme.spacing(1),
     padding: '4px 8px'
   }
 }));
