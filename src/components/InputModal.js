@@ -14,9 +14,9 @@ const modalStyle = {
   },
   content: {
     position: 'static',
-    margin: '5%',
-    padding: '4%',
-    height: '35%',
+    margin: '4%',
+    padding: '2%',
+    height: '25%',
     backgroundColor: '#FFDEDD',
     zIndex: 3
   }
@@ -28,10 +28,19 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between'
   },
+  modalBottom: {
+    display: 'flex',
+    justifyContent: 'flex-end'
+  },
+  Cancel: {
+    paddingLeft: 'unset'
+  },
   Button: {
     color: '#FFFFFF',
     backgroundColor: theme.secondary,
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
+    marginRight: 'unset',
+    padding: '4px 8px'
   },
   Icon: {
     paddingLeft: theme.spacing(1)
@@ -43,7 +52,8 @@ const useStyles = makeStyles(theme => ({
   ImageButton: {
     color: '#FFFFFF',
     backgroundColor: '#000000',
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
+    padding: '4px 8px'
   }
 }));
 
@@ -79,7 +89,7 @@ export default function InputModal(props) {
     <React.Fragment>
       <ReactModal isOpen={isOpen} style={modalStyle}>
         <div className={classes.modalTop}>
-          <IconButton onClick={onClose}>
+          <IconButton onClick={onClose} className={classes.Cancel}>
             <CloseIcon />
           </IconButton>
           <Button
@@ -99,15 +109,17 @@ export default function InputModal(props) {
           className={classes.Field}
           onChange={handleTextChange}
         />
-        <input type='file' ref={pickFile} style={{ display: 'none' }} />
-        <Button
-          variant='contained'
-          size='medium'
-          className={classes.ImageButton}
-          onClick={handlePictureButtonClick}
-        >
-          画像を追加
-        </Button>
+        <div className={classes.modalBottom}>
+          <input type='file' ref={pickFile} style={{ display: 'none' }} />
+          <Button
+            variant='contained'
+            size='medium'
+            className={classes.ImageButton}
+            onClick={handlePictureButtonClick}
+          >
+            画像を追加
+          </Button>
+        </div>
       </ReactModal>
     </React.Fragment>
   );
