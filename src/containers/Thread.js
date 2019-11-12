@@ -30,13 +30,10 @@ const useStyles = makeStyles(theme => ({
 
 const Thread = props => {
   const classes = useStyles();
-  const { user, post, replies, addMessage, loadMessage } = props;
+  const { user, post, replies } = props;
+  const { addMessage, loadMessage, goodButtonClick } = props;
   const { url } = useRouteMatch();
   const [isOpen, setIsOpen] = useState(false);
-  const [isGoodClicked, setIsGoodClicked] = useState(
-    // 配列に格納されているuidを探索をし見つかったらtrue,見つからなかったらfalse
-    replies.usersCliked
-  );
 
   useEffect(
     () => {
@@ -70,6 +67,28 @@ const Thread = props => {
   };
   // --- --- --- ---
 
+  // --- Message ---
+  const handleGoodClick = index => {
+    // goodClickedUseersが無い時のため
+    let goodClickedUsers = replies[index].goodClickedUsers
+      ? replies[index].goodClickedUsers
+      : {};
+
+    if (goodClickedUsers[user.uid] === true) {
+      // 押してあった時
+      const newClickedUsers = Object.assign({}, goodClickedUsers, {
+        [user.uid]: false
+      });
+      goodButtonClick(replies[index].id, newClickedUsers);
+    } else {
+      // 押してなかった時
+      const newClickedUsers = Object.assign({}, goodClickedUsers, {
+        [user.uid]: true
+      });
+      goodButtonClick(replies[index].id, newClickedUsers);
+    }
+  };
+  // --- --- --- ---
   return (
     <div className={classes.root}>
       <Header
@@ -78,7 +97,13 @@ const Thread = props => {
         onWriteButtonClick={handleModaleOpen}
         label={post.title}
       />
-      <MessageList listStyle={listSytle} post={post} replies={replies} />
+      <MessageList
+        listStyle={listSytle}
+        userUid={user.uid}
+        post={post}
+        replies={replies}
+        onGoodClick={handleGoodClick}
+      />
       {/* <ThreadFooter onSubmit={handleSubmit} /> */}
       <InputModal
         isOpen={isOpen}
@@ -101,7 +126,9 @@ const mapDispatchToProps = dispatch => {
   return {
     addMessage: (userUid, text) =>
       dispatch(threadActions.addMessage(userUid, text)),
-    loadMessage: replies => dispatch(threadActions.loadMessage(replies))
+    loadMessage: replies => dispatch(threadActions.loadMessage(replies)),
+    goodButtonClick: (docKey, goodClickedUsers) =>
+      dispatch(threadActions.goodButtonClick(docKey, goodClickedUsers))
   };
 };
 export default connect(

@@ -5,7 +5,7 @@ import Message from './Message';
 import FirstPost from './FirstPost';
 
 export default function MessageList(props) {
-  const { post, replies } = props;
+  const { post, replies, userUid, onGoodClick } = props;
   const { listStyle } = props;
 
   function itemKey(index) {
@@ -33,13 +33,36 @@ export default function MessageList(props) {
     } else {
       // repliesの時
       const arrIndex = index - 1; // postの分一個大きいため引く
+
+      // goodClickedUseersが無い時のため
+      let goodClickedUsers = replies[arrIndex].goodClickedUsers
+        ? replies[arrIndex].goodClickedUsers
+        : {};
+
+      // goodButtonを押したか判断する処理
+      let isGoodClicked = false;
+      let goodCount = 0;
+      if (goodClickedUsers[userUid] === true) {
+        // 押していた時
+        isGoodClicked = true;
+        // Objectのkeyのlengthを所得
+        goodCount = Object.keys(replies[arrIndex].goodClickedUsers).length;
+      } else {
+        // 押していなかった時
+        isGoodClicked = false;
+        // Objectのkeyのlengthを所得
+        goodCount = Object.keys(replies[arrIndex].goodClickedUsers).length - 1;
+      }
+
       return (
         <Message
           name=''
           icon=''
           text={replies[arrIndex].text}
           timeStamp={replies[arrIndex].timeStamp}
-          goodCount={replies[arrIndex].goodClickedUsers.length}
+          isGoodClicked={isGoodClicked}
+          goodCount={goodCount}
+          onClick={() => onGoodClick(arrIndex)}
         />
       );
     }
