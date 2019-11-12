@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ReactModal from 'react-modal';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,7 +13,11 @@ const modalStyle = {
     zIndex: 2
   },
   content: {
-    height: '140px',
+    position: 'static',
+    margin: '4%',
+    padding: '2%',
+    height: '32%',
+    backgroundColor: '#FFDEDD',
     zIndex: 3
   }
 };
@@ -23,6 +27,33 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+  modalBottom: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginTop: theme.spacing(6)
+  },
+  Cancel: {
+    paddingLeft: 'unset'
+  },
+  Button: {
+    color: '#FFFFFF',
+    backgroundColor: theme.secondary,
+    margin: theme.spacing(1),
+    marginRight: 'unset',
+    padding: '4px 8px'
+  },
+  Icon: {
+    paddingLeft: theme.spacing(1)
+  },
+  Field: {
+    width: '100%',
+    backgroundColor: '#FFFFFF'
+  },
+  ImageButton: {
+    color: '#FFFFFF',
+    backgroundColor: '#000000',
+    padding: '4px 8px'
   }
 }));
 
@@ -30,6 +61,7 @@ ReactModal.setAppElement('#root');
 
 export default function InputModal(props) {
   const classes = useStyles();
+  const pickFile = useRef(null);
   const { isOpen, onClose, onSubmit } = props;
 
   // modal
@@ -49,16 +81,24 @@ export default function InputModal(props) {
     setWritingText('');
   };
 
+  const handlePictureButtonClick = () => {
+    pickFile.current.click();
+  };
+
   return (
     <React.Fragment>
       <ReactModal isOpen={isOpen} style={modalStyle}>
         <div className={classes.modalTop}>
-          <IconButton onClick={onClose}>
+          <IconButton onClick={onClose} className={classes.Cancel}>
             <CloseIcon />
           </IconButton>
-          <Button onClick={handleSubmit}>
+          <Button
+            variant='contained'
+            className={classes.Button}
+            onClick={handleSubmit}
+          >
             送信
-            <SendIcon />
+            <SendIcon className={classes.Icon} />
           </Button>
         </div>
         <TextField
@@ -66,8 +106,20 @@ export default function InputModal(props) {
           rows='2'
           variant='outlined'
           value={writingText}
+          className={classes.Field}
           onChange={handleTextChange}
         />
+        <div className={classes.modalBottom}>
+          <input type='file' ref={pickFile} style={{ display: 'none' }} />
+          <Button
+            variant='contained'
+            size='medium'
+            className={classes.ImageButton}
+            onClick={handlePictureButtonClick}
+          >
+            画像を追加
+          </Button>
+        </div>
       </ReactModal>
     </React.Fragment>
   );
