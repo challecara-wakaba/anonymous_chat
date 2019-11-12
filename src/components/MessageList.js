@@ -39,19 +39,20 @@ export default function MessageList(props) {
         ? replies[arrIndex].goodClickedUsers
         : {};
 
+      // goodButtonが押された数を判断する処理
+      let goodCount = 0;
+      for (let i of Object.values(goodClickedUsers)) {
+        if (i === true) ++goodCount;
+      }
+
       // goodButtonを押したか判断する処理
       let isGoodClicked = false;
-      let goodCount = 0;
       if (goodClickedUsers[userUid] === true) {
         // 押していた時
         isGoodClicked = true;
-        // Objectのkeyのlengthを所得
-        goodCount = Object.keys(replies[arrIndex].goodClickedUsers).length;
       } else {
         // 押していなかった時
         isGoodClicked = false;
-        // Objectのkeyのlengthを所得
-        goodCount = Object.keys(replies[arrIndex].goodClickedUsers).length - 1;
       }
 
       return (
