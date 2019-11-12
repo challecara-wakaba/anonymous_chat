@@ -1,10 +1,10 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 
-const styles = {
+const useStyle = makeStyles(theme => ({
   ButtonCont: {
     display: 'inline-flex',
     border: 'solid thin #FF4500',
@@ -21,16 +21,17 @@ const styles = {
   goodCount: {
     color: '#FF4500'
   }
-};
+}));
 
 const GoodButton = props => {
-  const { classes, goodCount } = props;
+  const classes = useStyle();
+  const { goodCount, onClick } = props;
   return (
-    <Button className={classes.ButtonCont}>
+    <Button className={classes.ButtonCont} onClick={onClick}>
       <ThumbUpIcon className={classes.IconCont} />
       <Typography className={classes.goodCount}>{goodCount}</Typography>
     </Button>
   );
 };
 
-export default withStyles(styles)(GoodButton);
+export default GoodButton;
