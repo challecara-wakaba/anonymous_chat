@@ -75,7 +75,11 @@ const Message = props => {
             >
               {convertLineFeed(text)}
             </Typography>
-            <GoodButton goodCount={goodCount} onClick={onClick} />
+            <GoodButton
+              isGoodClicked={isGoodClicked}
+              goodCount={goodCount}
+              onClick={onClick}
+            />
           </React.Fragment>
         }
       />

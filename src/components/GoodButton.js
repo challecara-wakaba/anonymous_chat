@@ -5,27 +5,32 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import Typography from '@material-ui/core/Typography';
 
 const useStyle = makeStyles(theme => ({
-  ButtonCont: {
+  ButtonCont: ({ isGoodClicked }) => ({
     display: 'inline-flex',
-    border: 'solid thin #FF4500',
+    border: 'solid thin #95E8B8',
+    backgroundColor: isGoodClicked ? '#95E8B8' : '#FFFFFF',
     height: '24px',
     minWidth: '48px',
     padding: 'unset',
-    marginTop: '6px'
-  },
-  IconCont: {
+    marginTop: '6px',
+    '&:hover': {
+      borderColor: '#95E8B8',
+      backgroundColor: isGoodClicked ? '#95E8B8' : '#FFFFFF'
+    }
+  }),
+  IconCont: ({ isGoodClicked }) => ({
     height: '16px',
-    color: '#FF4500',
+    color: isGoodClicked ? '#FFFFFF' : '#95E8B8',
     width: '20px'
-  },
-  goodCount: {
-    color: '#FF4500'
-  }
+  }),
+  goodCount: ({ isGoodClicked }) => ({
+    color: isGoodClicked ? '#FFFFFF' : '#95E8B8'
+  })
 }));
 
 const GoodButton = props => {
-  const classes = useStyle();
-  const { goodCount, onClick } = props;
+  const { isGoodClicked, goodCount, onClick } = props;
+  const classes = useStyle({ isGoodClicked });
   return (
     <Button className={classes.ButtonCont} onClick={onClick}>
       <ThumbUpIcon className={classes.IconCont} />
