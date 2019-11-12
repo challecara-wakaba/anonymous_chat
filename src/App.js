@@ -91,7 +91,7 @@ function ClientThread(props) {
       <Route exact path={`${basePath}/${thread}`}>
         <Thread history={history} />
       </Route>
-      <Route render={() => <p>ページが見つかりませんんん</p>} />
+      {/* <Route render={() => <p>ページが見つかりませんんん</p>} /> */}
     </switch>
   );
 }
