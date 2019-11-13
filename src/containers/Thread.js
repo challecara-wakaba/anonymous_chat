@@ -5,7 +5,6 @@ import { useRouteMatch } from 'react-router-dom';
 
 import Header from '../components/Header';
 import MessageList from '../components/MessageList';
-// import ThreadFooter from '../components/ThreadFooter';
 import InputModal from '../components/InputModal';
 import * as threadActions from '../modules/threadModule';
 import changeUpperDirectory from '../functions/changeUpperDirectory';
@@ -104,7 +103,6 @@ const Thread = props => {
         replies={replies}
         onGoodClick={handleGoodClick}
       />
-      {/* <ThreadFooter onSubmit={handleSubmit} /> */}
       <InputModal
         isOpen={isModalOpen}
         onClose={handleModaleClose}
