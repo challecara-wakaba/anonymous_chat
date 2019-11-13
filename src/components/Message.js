@@ -25,7 +25,7 @@ const Message = props => {
     icon,
     timeStamp,
     text,
-    picURL,
+    pictureURL,
     isGoodClicked,
     goodCount
   } = props;
@@ -88,10 +88,10 @@ const Message = props => {
               {convertLineFeed(text)}
             </Typography>
             <br />
-            {!(picURL === '' || !picURL) && (
+            {!(pictureURL === '' || !pictureURL) && (
               /* 空文字列かundefindかnullじゃなかったら */
               <React.Fragment>
-                <img className={classes.iamge} src={picURL} alt=' ' />
+                <img className={classes.iamge} src={pictureURL} alt=' ' />
                 <br />
               </React.Fragment>
             )}
