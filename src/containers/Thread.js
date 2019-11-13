@@ -33,7 +33,7 @@ const Thread = props => {
   const { user, post, replies } = props;
   const { addMessage, loadMessage, goodButtonClick } = props;
   const { url } = useRouteMatch();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(
     () => {
@@ -52,8 +52,8 @@ const Thread = props => {
   );
 
   // --- modal window ---
-  const handleModaleOpen = () => setIsOpen(true);
-  const handleModaleClose = () => setIsOpen(false);
+  const handleModaleOpen = () => setIsModalOpen(true);
+  const handleModaleClose = () => setIsModalOpen(false);
   const submit = text => {
     addMessage(user.uid, text.trim());
   };
@@ -106,7 +106,7 @@ const Thread = props => {
       />
       {/* <ThreadFooter onSubmit={handleSubmit} /> */}
       <InputModal
-        isOpen={isOpen}
+        isOpen={isModalOpen}
         onClose={handleModaleClose}
         onSubmit={submit}
       />
