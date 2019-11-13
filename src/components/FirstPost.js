@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   },
   image: {
     margin: `${theme.spacing(2)}px auto`,
-    maxHeight: 135,
+    maxHeight: 200,
     maxWidth: 240
   }
 }));
@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 export default function FirstPost(props) {
   const classes = useStyles();
   const { name, details, pictureURL, timeStamp } = props;
+  const { onViewerOpen } = props;
 
   function convertDateFormat(date) {
     const month = date.getMonth() + 1;
@@ -62,7 +63,12 @@ export default function FirstPost(props) {
                 {details}
               </Typography>
               <br />
-              <img className={classes.image} src={pictureURL} alt=' ' />
+              <img
+                className={classes.image}
+                src={pictureURL}
+                alt=' '
+                onClick={() => onViewerOpen(pictureURL)}
+              />
             </React.Fragment>
           }
         ></ListItemText>

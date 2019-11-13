@@ -11,13 +11,25 @@ const useStyles = makeStyles(theme => ({
   inline: {
     display: 'inline',
     color: '#000000'
+  },
+  iamge: {
+    maxHeight: 200,
+    mexWidth: 240
   }
 }));
 
 const Message = props => {
   const classes = useStyles();
-  const { name, icon, timeStamp, text, isGoodClicked, goodCount } = props;
-  const { onClick } = props;
+  const {
+    name,
+    icon,
+    timeStamp,
+    text,
+    pictureURL,
+    isGoodClicked,
+    goodCount
+  } = props;
+  const { onGoodClick } = props;
 
   const convertDateFormat = timestamp => {
     const date = timestamp.toDate(); // firebaseのtimestamp型をDate型に変換
@@ -75,10 +87,18 @@ const Message = props => {
             >
               {convertLineFeed(text)}
             </Typography>
+            <br />
+            {!(pictureURL === '' || !pictureURL) && (
+              /* 空文字列かundefindかnullじゃなかったら */
+              <React.Fragment>
+                <img className={classes.iamge} src={pictureURL} alt=' ' />
+                <br />
+              </React.Fragment>
+            )}
             <GoodButton
               isGoodClicked={isGoodClicked}
               goodCount={goodCount}
-              onClick={onClick}
+              onClick={onGoodClick}
             />
           </React.Fragment>
         }

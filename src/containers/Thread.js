@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { useRouteMatch } from 'react-router-dom';
+import Viewer from 'react-viewer/dist/index';
 
 import Header from '../components/Header';
 import MessageList from '../components/MessageList';
-// import ThreadFooter from '../components/ThreadFooter';
 import InputModal from '../components/InputModal';
 import * as threadActions from '../modules/threadModule';
 import changeUpperDirectory from '../functions/changeUpperDirectory';
@@ -33,7 +33,9 @@ const Thread = props => {
   const { user, post, replies } = props;
   const { addMessage, loadMessage, goodButtonClick } = props;
   const { url } = useRouteMatch();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isvisiable, setIsVisiable] = useState(false);
+  const [viweingPicture, setViewingPicture] = useState('');
 
   useEffect(
     () => {
@@ -52,10 +54,23 @@ const Thread = props => {
   );
 
   // --- modal window ---
-  const handleModaleOpen = () => setIsOpen(true);
-  const handleModaleClose = () => setIsOpen(false);
+  const handleModaleOpen = () => setIsModalOpen(true);
+  const handleModaleClose = () => setIsModalOpen(false);
   const submit = text => {
     addMessage(user.uid, text.trim());
+  };
+  // --- --- --- ---
+
+  // --- react-viewer ---
+  const handleViewerOpen = pictureURL => {
+    // react-viewerで表示するpictureのURLを設定
+    setViewingPicture(pictureURL);
+    // viewerを起動
+    setIsVisiable(true);
+  };
+  const handleViewerClose = () => {
+    setViewingPicture('');
+    setIsVisiable(false);
   };
   // --- --- --- ---
 
@@ -103,12 +118,20 @@ const Thread = props => {
         post={post}
         replies={replies}
         onGoodClick={handleGoodClick}
+        onViewerOpen={handleViewerOpen}
       />
-      {/* <ThreadFooter onSubmit={handleSubmit} /> */}
       <InputModal
-        isOpen={isOpen}
+        isOpen={isModalOpen}
         onClose={handleModaleClose}
         onSubmit={submit}
+      />
+      <Viewer
+        visible={isvisiable}
+        drag={false}
+        noToolbar={true}
+        noFooter={true}
+        onClose={handleViewerClose}
+        images={[{ src: viweingPicture }]}
       />
     </div>
   );
