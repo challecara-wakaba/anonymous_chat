@@ -29,7 +29,7 @@ const Message = props => {
     isGoodClicked,
     goodCount
   } = props;
-  const { onClick } = props;
+  const { onGoodClick } = props;
 
   const convertDateFormat = timestamp => {
     const date = timestamp.toDate(); // firebaseのtimestamp型をDate型に変換
@@ -98,7 +98,7 @@ const Message = props => {
             <GoodButton
               isGoodClicked={isGoodClicked}
               goodCount={goodCount}
-              onClick={onClick}
+              onClick={onGoodClick}
             />
           </React.Fragment>
         }

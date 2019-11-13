@@ -5,7 +5,8 @@ import Message from './Message';
 import FirstPost from './FirstPost';
 
 export default function MessageList(props) {
-  const { post, replies, userUid, onGoodClick } = props;
+  const { post, replies, userUid } = props;
+  const { onGoodClick, onViewerOpen } = props;
   const { listStyle } = props;
 
   function itemKey(index) {
@@ -28,6 +29,7 @@ export default function MessageList(props) {
           details={post.details}
           timeStamp={post.timeStamp}
           pictureURL={post.pictureURL}
+          onViewerOpen={onViewerOpen}
         />
       );
     } else {
@@ -63,7 +65,8 @@ export default function MessageList(props) {
           timeStamp={replies[arrIndex].timeStamp}
           isGoodClicked={isGoodClicked}
           goodCount={goodCount}
-          onClick={() => onGoodClick(arrIndex)}
+          onGoodClick={() => onGoodClick(arrIndex)}
+          onViewerOpen={onViewerOpen}
         />
       );
     }

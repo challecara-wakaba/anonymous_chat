@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { useRouteMatch } from 'react-router-dom';
+import Viewer from 'react-viewer/dist/index';
 
 import Header from '../components/Header';
 import MessageList from '../components/MessageList';
@@ -33,6 +34,8 @@ const Thread = props => {
   const { addMessage, loadMessage, goodButtonClick } = props;
   const { url } = useRouteMatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isvisiable, setIsVisiable] = useState(false);
+  const [viweingPicture, setViewingPicture] = useState('');
 
   useEffect(
     () => {
@@ -55,6 +58,19 @@ const Thread = props => {
   const handleModaleClose = () => setIsModalOpen(false);
   const submit = text => {
     addMessage(user.uid, text.trim());
+  };
+  // --- --- --- ---
+
+  // --- react-viewer ---
+  const handleViewerOpen = pictureURL => {
+    // react-viewerで表示するpictureのURLを設定
+    setViewingPicture(pictureURL);
+    // viewerを起動
+    setIsVisiable(true);
+  };
+  const handleViewerClose = () => {
+    setViewingPicture('');
+    setIsVisiable(false);
   };
   // --- --- --- ---
 
@@ -102,11 +118,20 @@ const Thread = props => {
         post={post}
         replies={replies}
         onGoodClick={handleGoodClick}
+        onViewerOpen={handleViewerOpen}
       />
       <InputModal
         isOpen={isModalOpen}
         onClose={handleModaleClose}
         onSubmit={submit}
+      />
+      <Viewer
+        visible={isvisiable}
+        drag={false}
+        noToolbar={true}
+        noFooter={true}
+        onClose={handleViewerClose}
+        images={[{ src: viweingPicture }]}
       />
     </div>
   );
