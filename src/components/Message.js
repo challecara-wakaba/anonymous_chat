@@ -11,12 +11,24 @@ const useStyles = makeStyles(theme => ({
   inline: {
     display: 'inline',
     color: '#000000'
+  },
+  iamge: {
+    maxHeight: 200,
+    mexWidth: 240
   }
 }));
 
 const Message = props => {
   const classes = useStyles();
-  const { name, icon, timeStamp, text, isGoodClicked, goodCount } = props;
+  const {
+    name,
+    icon,
+    timeStamp,
+    text,
+    picURL,
+    isGoodClicked,
+    goodCount
+  } = props;
   const { onClick } = props;
 
   const convertDateFormat = timestamp => {
@@ -75,6 +87,14 @@ const Message = props => {
             >
               {convertLineFeed(text)}
             </Typography>
+            <br />
+            {!(picURL === '' || !picURL) && (
+              /* 空文字列かundefindかnullじゃなかったら */
+              <React.Fragment>
+                <img className={classes.iamge} src={picURL} alt=' ' />
+                <br />
+              </React.Fragment>
+            )}
             <GoodButton
               isGoodClicked={isGoodClicked}
               goodCount={goodCount}
