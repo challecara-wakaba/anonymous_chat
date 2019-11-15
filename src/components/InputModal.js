@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
+import UploadPicButton from './UploadPicButton';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
@@ -28,11 +29,6 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between'
   },
-  modalBottom: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginTop: theme.spacing(6)
-  },
   Cancel: {
     paddingLeft: 'unset'
   },
@@ -49,11 +45,6 @@ const useStyles = makeStyles(theme => ({
   Field: {
     width: '100%',
     backgroundColor: '#FFFFFF'
-  },
-  ImageButton: {
-    color: '#FFFFFF',
-    backgroundColor: '#000000',
-    padding: '4px 8px'
   }
 }));
 
@@ -61,7 +52,6 @@ ReactModal.setAppElement('#root');
 
 export default function InputModal(props) {
   const classes = useStyles();
-  const pickFile = useRef(null);
   const { isOpen, onClose, onSubmit } = props;
 
   // modal
@@ -79,10 +69,6 @@ export default function InputModal(props) {
     }
     onSubmit(writingText.trim()); // ストアに接続してないため上のコンポーネントに渡す
     setWritingText('');
-  };
-
-  const handlePictureButtonClick = () => {
-    pickFile.current.click();
   };
 
   return (
@@ -109,17 +95,7 @@ export default function InputModal(props) {
           className={classes.Field}
           onChange={handleTextChange}
         />
-        <div className={classes.modalBottom}>
-          <input type='file' ref={pickFile} style={{ display: 'none' }} />
-          <Button
-            variant='contained'
-            size='medium'
-            className={classes.ImageButton}
-            onClick={handlePictureButtonClick}
-          >
-            画像を追加
-          </Button>
-        </div>
+        <UploadPicButton />
       </ReactModal>
     </React.Fragment>
   );
