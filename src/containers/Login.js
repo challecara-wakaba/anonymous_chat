@@ -5,6 +5,8 @@ import { TextFields, Buttons } from '../components/LoginForm';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
+import * as userModules from '../modules/userModule';
+
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.background,
@@ -16,6 +18,7 @@ function Login(props) {
   // ログインに成功したときの異動先
   const DESTINATION = '/client/testChannel';
 
+  const { loggedIn } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isUserFound, setIsUserFound] = useState(true);
@@ -47,6 +50,8 @@ function Login(props) {
       .signInWithEmailAndPassword(email, password)
       .then(function() {
         // ログインできた時の処理
+        // ログインしたユーザーの情報をStoreに流す
+        loggedIn(firebase.auth().currentUser);
         // チャンネルに移動
         props.history.push(DESTINATION);
       })
@@ -85,4 +90,9 @@ function Login(props) {
   );
 }
 
-export default connect()(Login);
+const mapDipatchToProps = dispatch => {
+  return {
+    loggedIn: user => dispatch(userModules.loggedIn(user))
+  };
+};
+export default connect(null, mapDipatchToProps)(Login);
