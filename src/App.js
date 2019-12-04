@@ -15,7 +15,6 @@ import MakeThread from './containers/MakeThread';
 import Channel from './containers/Channel';
 
 import firebase from 'firebase/app';
-// import config from './config/firebaseconfig';
 
 import * as userActions from './modules/userModule';
 
@@ -38,8 +37,6 @@ class App extends Component {
       <React.Fragment>
         {/* ルーティング */}
         <Switch>
-          {/* 全て仮に用意したものです */}
-          {/* URLをブラウザに直打ちすると移動できます */}
           <Route exact path='/login' component={Login} />
           <LoggedInRoute user={this.props.user}>
             <Route exact path='/' render={() => <h1>Home</h1>} />
