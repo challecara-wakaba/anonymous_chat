@@ -26,14 +26,20 @@ const useStyles = makeStyles(theme => ({
 
 export default function Header(props) {
   const classes = useStyles();
-  const { location, onBuckButtonClick, onWriteButtonClick, label } = props;
+  const {
+    location,
+    onSideButtonClick,
+    onBuckButtonClick,
+    onWriteButtonClick,
+    label
+  } = props;
 
   let leftButton, rightButton, onLeftClick, onRightClick;
   switch (location) {
     case 'channel':
       leftButton = <MenuIcon />;
       rightButton = <SearchIcon />;
-      onLeftClick = null;
+      onLeftClick = onSideButtonClick;
       onRightClick = null;
       break;
     case 'thread':

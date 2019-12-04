@@ -154,7 +154,4 @@ const mapDispatchToProps = dispatch => {
       dispatch(threadActions.goodButtonClick(docKey, goodClickedUsers))
   };
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Thread);
+export default connect(mapStateToProps, mapDispatchToProps)(Thread);
