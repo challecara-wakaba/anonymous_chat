@@ -39,7 +39,7 @@ function Channel(props) {
         label={LABEL}
         onSideButtonClick={handleSideMenuOpen}
       />
-      <SideMenu isOpen={isSideMenuOpen} onClick={handleSideMenuClose} />
+      <SideMenu isOpen={isSideMenuOpen} onClose={handleSideMenuClose} />
       <ThreadCardList listStyle={listStyle} threads={threads} />
       <Link to={`${url}/makeThread`}>
         <ThreadAddButton />
