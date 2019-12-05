@@ -56,19 +56,26 @@ export default function InputModal(props) {
 
   // modal
   const [writingText, setWritingText] = useState('');
+  const [picture, setPicture] = useState(null);
 
   const handleTextChange = e => {
     setWritingText(e.target.value);
   };
 
+  const handlePictureChange = e => {
+    e.preventDefault();
+    setPicture(e.target.files[0]);
+  };
+
   const handleSubmit = () => {
-    // 入力欄が空だったりホワイトスペースばっかりだったら送信しない
+    // 入力欄が空やホワイトスペースばっかりだったり、写真も選択していなかったら送信しない
     // String.tirm() で文字列の先頭と最後にある改行は空白を取り除く
-    if (writingText.trim() === '') {
+    if (writingText.trim() === '' && picture === null) {
       return;
     }
     onSubmit(writingText.trim()); // ストアに接続してないため上のコンポーネントに渡す
     setWritingText('');
+    setPicture(null);
   };
 
   return (
@@ -95,7 +102,7 @@ export default function InputModal(props) {
           className={classes.Field}
           onChange={handleTextChange}
         />
-        <UploadPicButton />
+        <UploadPicButton onChange={handlePictureChange} />
       </ReactModal>
     </React.Fragment>
   );
