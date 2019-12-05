@@ -51,9 +51,17 @@ class App extends Component {
 
 function LoggedInRoute({ children, user, ...rest }) {
   // ログインしているか判定する
-  // user.uidが存在するかで判定する
-  const flag = user.uid !== null ? true : false;
-  return <Route render={() => (flag ? children : <Redirect to='/login' />)} />;
+  if (user.isCommunicated === false) {
+    // firebaseとの非同期通信が終了していない場合
+    return <Route render={() => <p>通信中</p>} />;
+  } else {
+    // ログインしていなければログイン画面にリダイレクトする
+    // user.uidが存在するかで判定する
+    const flag = user.uid !== null ? true : false;
+    return (
+      <Route render={() => (flag ? children : <Redirect to='/login' />)} />
+    );
+  }
 }
 
 function ClientChannel(props) {

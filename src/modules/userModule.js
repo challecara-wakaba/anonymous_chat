@@ -8,6 +8,7 @@ const NOT_LOGGED_IN = 'NOT_LOGGED_IN';
 
 const initialState = {
   user: {
+    isCommunicated: false, // firebaseと通信したか
     displayName: null,
     email: null,
     emailVerified: null,
@@ -24,6 +25,7 @@ export default function reducer(state = initialState, action) {
     case LOGGED_IN:
     case NOT_LOGGED_IN:
       const user = {
+        isCommunicated: action.isCommunicated,
         displayName: action.displayName,
         email: action.email,
         emailVerified: action.emailVerified,
@@ -44,6 +46,7 @@ export default function reducer(state = initialState, action) {
 export function loggedIn(user) {
   return {
     type: LOGGED_IN,
+    isCommunicated: true,
     displayName: user.displayName,
     email: user.email,
     emailVerified: user.emailVerified,
@@ -57,6 +60,7 @@ export function loggedIn(user) {
 export function notLoggedIn() {
   return {
     type: NOT_LOGGED_IN,
+    isCommunicated: true,
     displayName: null,
     email: null,
     emailVerified: null,
