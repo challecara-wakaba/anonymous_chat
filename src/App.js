@@ -41,7 +41,7 @@ class App extends Component {
           <LoggedInRoute user={this.props.user}>
             <Route exact path='/' render={() => <h1>Home</h1>} />
             <Route path='/client/:channel' component={ClientChannel} />
-            <Route render={() => <p>ページが見つかりません</p>} />
+            {/* <Route render={() => <p>ページが見つかりません</p>} /> */}
           </LoggedInRoute>
         </Switch>
       </React.Fragment>
