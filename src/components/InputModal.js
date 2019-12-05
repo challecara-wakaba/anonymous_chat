@@ -63,7 +63,7 @@ export default function InputModal(props) {
 
   const handleSubmit = () => {
     // 入力欄が空だったりホワイトスペースばっかりだったら送信しない
-    // String.tirm() で文字列の銭湯と最後にある改行は空白を取り除く
+    // String.tirm() で文字列の先頭と最後にある改行は空白を取り除く
     if (writingText.trim() === '') {
       return;
     }
