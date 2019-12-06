@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { TextFields, Buttons } from '../components/LoginForm';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -9,12 +9,12 @@ import * as userModules from '../modules/userModule';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: theme.background,
     minHeight: '100vh'
   }
 }));
 function Login(props) {
   const classes = useStyles();
+  const theme = useTheme();
   // ログインに成功したときの異動先
   const DESTINATION = '/client/testChannel';
 
@@ -78,6 +78,7 @@ function Login(props) {
   }
   return (
     <div className={classes.root}>
+      <style>{`body {background-color: ${theme.background}}`}</style>
       <TextFields
         email={email}
         password={password}
