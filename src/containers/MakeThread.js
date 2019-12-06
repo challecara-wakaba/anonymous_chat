@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import changeUpperDirectory from '../functions/changeUpperDirectory';
 
@@ -24,13 +24,13 @@ const useStyles = makeStyles(theme => ({
     padding: '0 16px'
   },
   root: {
-    backgroundColor: theme.background,
     minHeight: '100vh'
   }
 }));
 
 function MakeThread(props) {
   const classes = useStyles();
+  const theme = useTheme();
   const { url } = useRouteMatch();
   const { addThread } = props;
   // TextFieldsに渡す
@@ -123,6 +123,7 @@ function MakeThread(props) {
 
   return (
     <div className={classes.root}>
+      <style>{`body {background-color: ${theme.background}}`}</style>
       <TextFields
         title={title}
         details={details}
@@ -162,7 +163,4 @@ function mapDispatchToProps(dispatch) {
       dispatch(channelActions.addThread(title, details, pictureURL))
   };
 }
-export default connect(
-  null,
-  mapDispatchToProps
-)(MakeThread);
+export default connect(null, mapDispatchToProps)(MakeThread);
