@@ -15,8 +15,8 @@ const initialState = {
     id: shortid.generate(),
     name: 'annin',
     timeStamp: new Date(),
-    title: 'ショッパーズ',
-    details: 'ンョ゛ハー　゛',
+    title: '物理',
+    details: 'この問題がわかりません',
     pictureURL: 'http://img-cdn.jg.jugem.jp/993/154735/20101224_1438937.jpg'
   },
   replies: []

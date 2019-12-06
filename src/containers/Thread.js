@@ -13,18 +13,12 @@ import changeUpperDirectory from '../functions/changeUpperDirectory';
 import firebase from 'firebase';
 var db = firebase.firestore();
 
-const listSytle = {
-  // VirtuosoはmakeStyleで高さと幅指定ができないためオブジェクトを作り
-  // propsで渡しinlineCSSで適応させる
-  marginTop: 56,
-  height: document.documentElement.clientHeight - 64, //headerの高さ分引く
-  width: '100%'
-};
-
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: theme.background,
-    minHeight: '100vh'
+    backgroundColor: theme.background
+  },
+  list: {
+    marginTop: '56px'
   }
 }));
 
@@ -112,14 +106,15 @@ const Thread = props => {
         onWriteButtonClick={handleModaleOpen}
         label={post.title}
       />
-      <MessageList
-        listStyle={listSytle}
-        userUid={user.uid}
-        post={post}
-        replies={replies}
-        onGoodClick={handleGoodClick}
-        onViewerOpen={handleViewerOpen}
-      />
+      <div className={classes.list}>
+        <MessageList
+          userUid={user.uid}
+          post={post}
+          replies={replies}
+          onGoodClick={handleGoodClick}
+          onViewerOpen={handleViewerOpen}
+        />
+      </div>
       <InputModal
         isOpen={isModalOpen}
         onClose={handleModaleClose}
@@ -154,7 +149,4 @@ const mapDispatchToProps = dispatch => {
       dispatch(threadActions.goodButtonClick(docKey, goodClickedUsers))
   };
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Thread);
+export default connect(mapStateToProps, mapDispatchToProps)(Thread);
