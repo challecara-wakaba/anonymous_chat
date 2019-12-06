@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useRouteMatch } from 'react-router-dom';
 import Viewer from 'react-viewer/dist/index';
 
@@ -14,9 +14,6 @@ import firebase from 'firebase';
 var db = firebase.firestore();
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    backgroundColor: theme.background
-  },
   list: {
     marginTop: '56px'
   }
@@ -24,6 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 const Thread = props => {
   const classes = useStyles();
+  const theme = useTheme();
   const { user, post, replies } = props;
   const { addMessage, loadMessage, goodButtonClick } = props;
   const { url } = useRouteMatch();
@@ -99,7 +97,8 @@ const Thread = props => {
   };
   // --- --- --- ---
   return (
-    <div className={classes.root}>
+    <div>
+      <style>{`body {background-color: ${theme.background}}`}</style>
       <Header
         location='thread'
         onBuckButtonClick={handleBuckButtonClick}
