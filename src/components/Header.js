@@ -11,10 +11,13 @@ import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    zIndex: 1
+    zIndex: 1,
+    position: 'fixed',
+    height: '56px'
   },
   ToolBar: {
-    backgroundColor: theme.primary
+    backgroundColor: theme.primary,
+    height: '56px'
   },
   IconButton: {
     color: '#FFFFFF'

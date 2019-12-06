@@ -1,28 +1,24 @@
 import React from 'react';
-import { Virtuoso } from 'react-virtuoso';
+import { List } from '@material-ui/core';
 
 import ThreadCard from './ThreadCard';
 
 export default function ThreadCardList(props) {
-  const { listStyle, threads } = props;
-
-  function generateItem(index) {
-    return (
-      <ThreadCard
-        timeStamp={threads[index].timeStamp}
-        title={threads[index].title}
-        details={threads[index].details}
-        pictureURL={threads[index].pictureURL}
-      />
-    );
-  }
+  const { threads } = props;
 
   return (
-    <Virtuoso
-      style={listStyle}
-      totalCount={threads.length}
-      computeItemKey={index => threads[index].id}
-      item={generateItem}
-    />
+    <List>
+      {threads.map((item, index) => {
+        return (
+          <ThreadCard
+            key={item.id}
+            timeStamp={item.timeStamp}
+            title={item.title}
+            details={item.details}
+            pictureURL={item.pictureURL}
+          />
+        );
+      })}
+    </List>
   );
 }
