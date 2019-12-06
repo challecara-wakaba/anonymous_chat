@@ -73,7 +73,7 @@ export default function InputModal(props) {
     if (writingText.trim() === '' && picture === null) {
       return;
     }
-    onSubmit(writingText.trim()); // ストアに接続してないため上のコンポーネントに渡す
+    onSubmit(writingText.trim(), picture); // ストアに接続してないため上のコンポーネントに渡す
     setWritingText('');
     setPicture(null);
   };

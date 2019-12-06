@@ -46,21 +46,43 @@ export function loadMessage(replies) {
     replies: replies
   };
 }
-export const addMessage = (userUid, text) => {
-  const docKey = Date.now().toString();
-  // サーバーにメッセージを送る
-  db.collection('message')
-    .doc(docKey)
-    .set({
-      id: docKey,
-      userUid: userUid,
-      text: text,
-      timeStamp: new Date(),
-      goodClickedUsers: {}
-    })
-    .catch(function(error) {
-      console.log('Error adding document: ', error);
-    });
+export const addMessage = (userUid, text, picture) => {
+  async function sendMessage() {
+    let pictureURL = null;
+    // 写真がある場合、写真をアップロード
+    if (picture !== null) {
+      try {
+        //画像のパス
+        const filePath = `Pictures/${picture.name}`;
+        const Ref = firebase.storage().ref(filePath);
+
+        //送信
+        await Ref.put(picture);
+        // 画像のurlを所得
+        pictureURL = await Ref.getDownloadURL();
+      } catch (error) {
+        console.log(error);
+        return;
+      }
+    }
+
+    const docKey = Date.now().toString();
+    // サーバーにメッセージを送る
+    db.collection('message')
+      .doc(docKey)
+      .set({
+        id: docKey,
+        userUid: userUid,
+        text: text,
+        timeStamp: new Date(),
+        goodClickedUsers: {},
+        pictureURL: pictureURL
+      })
+      .catch(function(error) {
+        console.log('Error adding document: ', error);
+      });
+  }
+  sendMessage();
   return {
     type: ADD_MESSAGE
   };
