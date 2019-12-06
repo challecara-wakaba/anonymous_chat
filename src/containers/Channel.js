@@ -7,18 +7,12 @@ import Header from '../components/Header';
 import ThreadCardList from '../components/ThreadCardList';
 import ThreadAddButton from '../components/ThreadAddButton';
 
-const listStyle = {
-  // VirtuosoはmakeStyleで高さと幅指定ができないためオブジェクトを作り
-  // propsで渡しinlineCSSで適応させる
-  marginTop: 56,
-  height: document.documentElement.clientHeight - 64, //headerとfooterの高さ分引く
-  width: '100%'
-};
-
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: theme.threadBackground,
-    minHeight: '100vh'
+    backgroundColor: theme.threadBackground
+  },
+  list: {
+    marginTop: '56px'
   }
 }));
 
@@ -31,7 +25,9 @@ function Channel(props) {
   return (
     <div className={classes.root}>
       <Header location='channel' label={LABEL} />
-      <ThreadCardList listStyle={listStyle} threads={threads} />
+      <div className={classes.list}>
+        <ThreadCardList threads={threads} />
+      </div>
       <Link to={`${url}/makeThread`}>
         <ThreadAddButton />
       </Link>
