@@ -80,16 +80,19 @@ const Message = props => {
         }
         secondary={
           <React.Fragment>
-            <Typography
-              component='span'
-              variant='body2'
-              className={classes.inline}
-            >
-              {convertLineFeed(text)}
-            </Typography>
+            {text !== '' && (
+              /* 空文字列だったら表示しない*/
+              <Typography
+                component='span'
+                variant='body2'
+                className={classes.inline}
+              >
+                {convertLineFeed(text)}
+              </Typography>
+            )}
             <br />
             {!(pictureURL === '' || !pictureURL) && (
-              /* 空文字列かundefindかnullじゃなかったら */
+              /* 空文字列かundefindかnullだったら表示しない */
               <React.Fragment>
                 <img className={classes.iamge} src={pictureURL} alt=' ' />
                 <br />
