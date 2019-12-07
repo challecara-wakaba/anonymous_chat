@@ -46,7 +46,6 @@ export default function UploadPicButton(props) {
       >
         画像を追加
       </Button>
-      <Button type='submit'>send</Button>
     </div>
   );
 }
