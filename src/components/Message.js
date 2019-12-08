@@ -13,8 +13,9 @@ const useStyles = makeStyles(theme => ({
     color: '#000000'
   },
   iamge: {
-    maxHeight: 200,
-    mexWidth: 240
+    objectFit: 'contain',
+    height: 200,
+    width: 240
   }
 }));
 
