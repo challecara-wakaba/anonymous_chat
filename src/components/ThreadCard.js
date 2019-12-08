@@ -44,8 +44,9 @@ const useStyles = makeStyles(theme => ({
     marginRight: 'auto',
     marginBottom: theme.spacing(2),
     marginLeft: 'auto',
-    maxHeight: 135,
-    maxWidth: 240
+    objectFit: 'contain',
+    height: 135,
+    width: 240
   },
   newsBar: {
     paddingTop: theme.spacing(1),
