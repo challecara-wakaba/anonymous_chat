@@ -15,9 +15,9 @@ const modalStyle = {
   },
   content: {
     position: 'static',
-    margin: '4%',
-    padding: '2%',
-    height: '32%',
+    margin: '12px',
+    padding: '12px',
+    height: '190px',
     backgroundColor: '#FFDEDD',
     zIndex: 3
   }
@@ -45,6 +45,23 @@ const useStyles = makeStyles(theme => ({
   Field: {
     width: '100%',
     backgroundColor: '#FFFFFF'
+  },
+  clickedModalBottom: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(2)
+  },
+  unclickedPicButton: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginTop: theme.spacing(2)
+  },
+  preview: {
+    marginLeft: '21px',
+    marginRight: 'auto',
+    objectFit: 'contain',
+    height: '40px',
+    width: '70px'
   }
 }));
 
@@ -57,6 +74,12 @@ export default function InputModal(props) {
   // modal
   const [writingText, setWritingText] = useState('');
   const [picture, setPicture] = useState(null);
+  const [blobURL, setBlobURL] = useState(null); // 選択した画像のプレビュー用の変数
+
+  const handleClose = () => {
+    onClose();
+    setBlobURL(null);
+  };
 
   const handleTextChange = e => {
     setWritingText(e.target.value);
@@ -64,7 +87,15 @@ export default function InputModal(props) {
 
   const handlePictureChange = e => {
     e.preventDefault();
-    setPicture(e.target.files[0]);
+
+    // 選択したファイルを所得
+    const file = e.target.files[0];
+
+    // ファイルのブラウザ上でのURLを取得
+    setBlobURL(window.URL.createObjectURL(file));
+
+    // stateの更新
+    setPicture(file);
   };
 
   const handleSubmit = () => {
@@ -74,19 +105,23 @@ export default function InputModal(props) {
       return;
     }
     onSubmit(writingText.trim(), picture); // ストアに接続してないため上のコンポーネントに渡す
+
+    // stateを初期化する
     setWritingText('');
     setPicture(null);
+    // 所得したブラウザ上でのオブジェクトURLを開放
+    window.URL.revokeObjectURL(blobURL);
   };
 
   return (
     <React.Fragment>
       <ReactModal isOpen={isOpen} style={modalStyle}>
         <div className={classes.modalTop}>
-          <IconButton onClick={onClose} className={classes.Cancel}>
+          <IconButton onClick={handleClose} className={classes.Cancel}>
             <CloseIcon />
           </IconButton>
           <Button
-            variant='contained'
+            variant='contined'
             className={classes.Button}
             onClick={handleSubmit}
           >
@@ -102,7 +137,16 @@ export default function InputModal(props) {
           className={classes.Field}
           onChange={handleTextChange}
         />
-        <UploadPicButton onChange={handlePictureChange} />
+        {blobURL ? (
+          <div className={classes.clickedModalBottom}>
+            <img src={blobURL} alt='' className={classes.preview} />
+            <UploadPicButton onChange={handlePictureChange} />
+          </div>
+        ) : (
+          <div className={classes.unclickedPicButton}>
+            <UploadPicButton onChange={handlePictureChange} />
+          </div>
+        )}
       </ReactModal>
     </React.Fragment>
   );

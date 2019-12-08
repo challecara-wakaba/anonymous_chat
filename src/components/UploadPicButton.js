@@ -4,15 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 //スタイル
 const useStyles = makeStyles(theme => ({
-  modalBottom: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginTop: theme.spacing(6)
-  },
   ImageButton: {
     color: '#FFFFFF',
     backgroundColor: '#000000',
-    padding: '4px 8px'
+    padding: '8px 8px'
   }
 }));
 
@@ -30,7 +25,7 @@ export default function UploadPicButton(props) {
   };
   //描画するとこ
   return (
-    <div className={classes.modalBottom}>
+    <div>
       <input
         type='file'
         ref={pickFile}
