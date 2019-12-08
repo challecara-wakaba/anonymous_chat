@@ -43,6 +43,7 @@ export default function MessageList(props) {
             name=''
             icon=''
             text={item.text}
+            pictureURL={item.pictureURL}
             timeStamp={item.timeStamp}
             isGoodClicked={isGoodClicked}
             goodCount={goodCount}

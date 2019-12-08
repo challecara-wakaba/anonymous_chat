@@ -29,7 +29,7 @@ const Message = props => {
     isGoodClicked,
     goodCount
   } = props;
-  const { onGoodClick } = props;
+  const { onGoodClick, onViewerOpen } = props;
 
   const convertDateFormat = timestamp => {
     const date = timestamp.toDate(); // firebaseのtimestamp型をDate型に変換
@@ -80,18 +80,26 @@ const Message = props => {
         }
         secondary={
           <React.Fragment>
-            <Typography
-              component='span'
-              variant='body2'
-              className={classes.inline}
-            >
-              {convertLineFeed(text)}
-            </Typography>
+            {text !== '' && (
+              /* 空文字列だったら表示しない*/
+              <Typography
+                component='span'
+                variant='body2'
+                className={classes.inline}
+              >
+                {convertLineFeed(text)}
+              </Typography>
+            )}
             <br />
             {!(pictureURL === '' || !pictureURL) && (
-              /* 空文字列かundefindかnullじゃなかったら */
+              /* 空文字列かundefindかnullだったら表示しない */
               <React.Fragment>
-                <img className={classes.iamge} src={pictureURL} alt=' ' />
+                <img
+                  className={classes.iamge}
+                  src={pictureURL}
+                  alt=' '
+                  onClick={() => onViewerOpen(pictureURL)}
+                />
                 <br />
               </React.Fragment>
             )}
