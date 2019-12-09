@@ -14,25 +14,20 @@ const useStyles = makeStyles({
   }
 });
 //サイドメニュー本体部分
-export default function SideMenu() {
+export default function SideMenu(props) {
   const classes = useStyles();
-  //stateの設定
-  const [state, setState] = React.useState({
-    left: false
-  });
-  //サイドメニューのstateを切り替える関数
-  const toggleDrawer = open => event => {
-    setState({ left: open });
-  };
+  const isOpen = props.isOpen;
+  const SideMenutrue = props.SideMenutrue;
+  const SideMenufalse = props.SideMenufalse;
   //メニューの中身をdivタグに書く
   const Menu = <div className={classes.list}></div>;
+  //描画
   return (
     <div>
-      <Button onClick={toggleDrawer(true)}>Open Left</Button>
       <SwipeableDrawer
-        open={state.left}
-        onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}
+        open={isOpen}
+        onClose={SideMenufalse}
+        onOpen={SideMenutrue}
       >
         {Menu}
       </SwipeableDrawer>
