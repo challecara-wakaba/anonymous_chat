@@ -4,9 +4,9 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link, useRouteMatch } from 'react-router-dom';
 
 import Header from '../components/Header';
-import SideMenu from '../components/SideMenu';
-import ThreadCardList from '../components/ThreadCardList';
-import ThreadAddButton from '../components/ThreadAddButton';
+import SideMenu from '../components/Channel/SideMenu';
+import ThreadCardList from '../components/Channel/ThreadCardList';
+import ThreadAddButton from '../components/Channel/ThreadAddButton';
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -32,7 +32,7 @@ function Channel(props) {
     <div>
       <style>{`body {background-color: ${theme.threadBackground}}`}</style>
       <Header location='channel' label={LABEL} SideMenutrue={handletrue} />
-      //stateを渡す
+      {/*stateを渡す*/}
       <SideMenu
         isOpen={state.left}
         SideMenutrue={handletrue}
