@@ -11,7 +11,7 @@ import {
   Checkboxs,
   CancelButton,
   SendButton
-} from '../components/MakeThreadForm';
+} from '../components/MakeThread/MakeThreadForm';
 import * as channelActions from '../modules/channelModule';
 
 const useStyles = makeStyles(theme => ({

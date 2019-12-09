@@ -4,8 +4,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link, useRouteMatch } from 'react-router-dom';
 
 import Header from '../components/Header';
-import ThreadCardList from '../components/ThreadCardList';
-import ThreadAddButton from '../components/ThreadAddButton';
+import ThreadCardList from '../components/Channel/ThreadCardList';
+import ThreadAddButton from '../components/Channel/ThreadAddButton';
 
 const useStyles = makeStyles(theme => ({
   list: {
