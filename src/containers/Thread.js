@@ -5,8 +5,8 @@ import { useRouteMatch } from 'react-router-dom';
 import Viewer from 'react-viewer/dist/index';
 
 import Header from '../components/Header';
-import MessageList from '../components/MessageList';
-import InputModal from '../components/InputModal';
+import MessageList from '../components/Thread/MessageList';
+import InputModal from '../components/Thread/InputModal';
 import * as threadActions from '../modules/threadModule';
 import changeUpperDirectory from '../functions/changeUpperDirectory';
 //cloudfirestoreの初期化
