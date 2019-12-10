@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "anonymouschat-6df30"
+    "default": "anonymouschat-6df30",
+    "staging": "lask-83286"
   }
 }
