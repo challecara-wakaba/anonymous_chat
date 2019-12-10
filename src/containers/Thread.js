@@ -34,6 +34,7 @@ const Thread = props => {
   const [isvisiable, setIsVisiable] = useState(false);
   const [viweingPicture, setViewingPicture] = useState('');
   useEffect(
+    // リスナーの設定
     () => {
       db.collection('message').onSnapshot(function(querySnapshot) {
         let replies = [];
