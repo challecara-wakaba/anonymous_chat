@@ -10,7 +10,7 @@ import InputModal from '../components/Thread/InputModal';
 import * as threadActions from '../modules/threadModule';
 import changeUpperDirectory from '../functions/changeUpperDirectory';
 //cloudfirestoreの初期化
-import firebase from 'firebase';
+import firebase from '../Firebase';
 var db = firebase.firestore();
 
 const useStyles = makeStyles(theme => ({

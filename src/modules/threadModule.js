@@ -1,8 +1,5 @@
 import shortid from 'shortid';
-//cloudfirestoreの初期化
-import firebase from 'firebase';
-import config from '../config/firebaseconfig';
-firebase.initializeApp(config);
+import firebase from '../Firebase';
 var db = firebase.firestore();
 
 // action type
