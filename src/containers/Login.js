@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { TextFields, Buttons } from '../components/Login/LoginForm';
-import firebase from 'firebase/app';
+import firebase from '../Firebase';
 import 'firebase/auth';
 
 import * as userModules from '../modules/userModule';

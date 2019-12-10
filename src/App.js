@@ -14,7 +14,7 @@ import Thread from './containers/Thread';
 import MakeThread from './containers/MakeThread';
 import Channel from './containers/Channel';
 
-import firebase from 'firebase/app';
+import firebase from './Firebase';
 
 import * as userActions from './modules/userModule';
 
