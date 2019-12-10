@@ -32,6 +32,7 @@ function MakeThread(props) {
   const classes = useStyles();
   const theme = useTheme();
   const { url } = useRouteMatch();
+  const { user } = props;
   const { addThread } = props;
   // TextFieldsに渡す
   const [title, setTitle] = useState('');
@@ -114,7 +115,7 @@ function MakeThread(props) {
       setIsTitileFilled(false);
       return;
     }
-    addThread(title.trim(), details.trim(), pictureURL);
+    addThread(user.uid, title.trim(), details.trim(), pictureURL);
 
     // 送信したらチャンネル画面に戻る
     // sendButtonのpropsにhistoryが渡されている
@@ -157,10 +158,15 @@ function MakeThread(props) {
   );
 }
 
-function mapDispatchToProps(dispatch) {
+function mapStateToProps(state) {
   return {
-    addThread: (title, details, pictureURL) =>
-      dispatch(channelActions.addThread(title, details, pictureURL))
+    user: state.user.user
   };
 }
-export default connect(null, mapDispatchToProps)(MakeThread);
+function mapDispatchToProps(dispatch) {
+  return {
+    addThread: (userUid, title, details, pictureURL) =>
+      dispatch(channelActions.addThread(userUid, title, details, pictureURL))
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(MakeThread);
