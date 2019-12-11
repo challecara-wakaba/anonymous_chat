@@ -38,18 +38,18 @@ class App extends Component {
         {/* ルーティング */}
         <Switch>
           <Route exact path='/login' component={Login} />
-          <LoggedInRoute user={this.props.user}>
+          <AuthRoute user={this.props.user}>
             <Route exact path='/' render={() => <h1>Home</h1>} />
             <Route path='/client/:channel' component={ClientChannel} />
             {/* <Route render={() => <p>ページが見つかりません</p>} /> */}
-          </LoggedInRoute>
+          </AuthRoute>
         </Switch>
       </React.Fragment>
     );
   }
 }
 
-function LoggedInRoute({ children, user, ...rest }) {
+function AuthRoute({ children, user, ...rest }) {
   // ログインしているか判定する
   if (user.isCommunicated === false) {
     // firebaseとの非同期通信が終了していない場合
