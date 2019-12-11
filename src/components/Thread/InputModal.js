@@ -78,7 +78,12 @@ export default function InputModal(props) {
 
   const handleClose = () => {
     onClose();
+    // 所得したブラウザ上でのオブジェクトURLを開放
+    window.URL.revokeObjectURL(blobURL);
+    //stateの開放
     setBlobURL(null);
+    setPicture(null);
+    setWritingText('');
   };
 
   const handleTextChange = e => {
@@ -109,8 +114,10 @@ export default function InputModal(props) {
     // stateを初期化する
     setWritingText('');
     setPicture(null);
+
     // 所得したブラウザ上でのオブジェクトURLを開放
     window.URL.revokeObjectURL(blobURL);
+    setBlobURL(null);
   };
 
   return (
