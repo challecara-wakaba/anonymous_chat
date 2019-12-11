@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link, useRouteMatch } from 'react-router-dom';
+import firebase from '../Firebase';
 
 import Header from '../components/Header';
 import SideMenu from '../components/Channel/SideMenu';
 import ThreadCardList from '../components/Channel/ThreadCardList';
 import ThreadAddButton from '../components/Channel/ThreadAddButton';
+import * as channelActions from '../modules/channelModule';
+
+const db = firebase.firestore();
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -17,6 +21,7 @@ const useStyles = makeStyles(theme => ({
 const LABEL = '# 英語';
 function Channel(props) {
   const { threads } = props;
+  const { loadThread } = props;
   const theme = useTheme();
   const classes = useStyles();
   const { url } = useRouteMatch();
@@ -24,6 +29,27 @@ function Channel(props) {
   const [state, setState] = React.useState({
     left: false
   });
+
+  useEffect(
+    // リスナーの設定
+    () => {
+      db.collection('channels')
+        .doc('testChannel')
+        .collection('threads')
+        .onSnapshot(querySnapshot => {
+          // チャンネルのconfigの配列を作る
+          let threads = [];
+          querySnapshot.forEach(doc => {
+            if (doc.data) {
+              threads.push(doc.data().config);
+            }
+          });
+          loadThread(threads);
+        });
+    },
+    []
+  );
+
   //サイドメニューが開く
   const handletrue = () => setState({ left: true });
   //サイドメニューが閉じる
@@ -53,5 +79,9 @@ function mapStateToProps(state) {
     threads: state.channel.threads
   };
 }
-
-export default connect(mapStateToProps)(Channel);
+function mapDispatchToProps(dispatch) {
+  return {
+    loadThread: threads => dispatch(channelActions.loadThread(threads))
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Channel);

@@ -87,7 +87,8 @@ const ThreadCard = props => {
     </Menu>
   );
 
-  const convertDateFormat = date => {
+  const convertDateFormat = timestamp => {
+    const date = timestamp.toDate(); // firebaseのtimestamp型をDate型に変換
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();

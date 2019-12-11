@@ -34,14 +34,21 @@ export function loadThread(threads) {
 }
 
 export function addThread(userUid, title, details, pictureURL) {
-  db.collection('testChannel')
-    .doc('config')
+  const docKey = Date.now().toString();
+
+  // サーバーに送信
+  db.collection('channels')
+    .doc('testChannel')
+    .collection('threads')
+    .doc(docKey)
     .set({
-      userUid: userUid,
-      title: title,
-      details: details,
-      pictureURL: pictureURL,
-      timeStamp: new Date()
+      config: {
+        userUid: userUid,
+        title: title,
+        details: details,
+        pictureURL: pictureURL,
+        timeStamp: new Date()
+      }
     })
     .catch(error => {
       console.log('Error adding Thread: ', error);
