@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
@@ -12,6 +12,13 @@ import firebase from 'firebase/app';
 const useStyles = makeStyles({
   list: {
     width: 250
+  },button:{
+    width:'100%',
+    color:'#FF5F58',
+    backgroundColor:'#F7F3EF',
+    fontSize:'16px',
+    position:'relative',
+    top:'6%',
   }
 });
 //サイドメニュー本体部分
@@ -34,7 +41,7 @@ export default function SideMenu(props) {
   //メニューの中身をdivタグに書く
   const Menu = (
     <div className={classes.list}>
-      <Button onClick={signout()}>Logout</Button>
+      <Button onClick={signout()}className={classes.button}>Logout</Button>
     </div>
   );
   //描画
