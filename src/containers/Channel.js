@@ -30,25 +30,34 @@ function Channel(props) {
     left: false
   });
 
-  useEffect(
-    // リスナーの設定
-    () => {
-      db.collection('channels')
-        .doc('testChannel')
-        .collection('threads')
-        .onSnapshot(querySnapshot => {
-          // チャンネルのconfigの配列を作る
-          let threads = [];
-          querySnapshot.forEach(doc => {
-            if (doc.data) {
-              threads.push(doc.data().config);
-            }
-          });
-          loadThread(threads);
+  useEffect(() => {
+    let unsbscribe = null;
+
+    // チャンネルのリスナーの設定
+    const subscribe = async () => {
+      // '/client/:channel'の:channelを取り出す
+      const id = url.split('/').slice(-1)[0];
+      // urlで指定されたチャンネルのfirebase参照を取得
+      const ref = db.collection('channels').doc(id);
+
+      // 指定されたチャンネルが存在するか確認
+      const isExist = (await ref.get()).exists;
+      if (isExist) {
+        // onSnapshotの返り値にunsbscribeする関数が返ってくる
+        unsbscribe = ref.onSnapshot(querySnapshot => {
+          // スレッドのメタデータをStoreに流す
+          loadThread(querySnapshot.data().metas);
         });
-    },
-    []
-  );
+      } else {
+      }
+    };
+    subscribe();
+
+    return () => {
+      // コンポーネントがunmountされる時に実行
+      if (unsbscribe) unsbscribe();
+    };
+  }, []);
 
   //サイドメニューが開く
   const handletrue = () => setState({ left: true });
