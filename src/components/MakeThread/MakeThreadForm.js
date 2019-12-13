@@ -33,12 +33,6 @@ const useStyles = makeStyles(theme => ({
   Margin: {
     margin: theme.spacing(1)
   },
-  AddButton: {
-    display: 'flex',
-    alignItems: 'center',
-    margin: '12px 8px',
-    backgroundColor: '#000000'
-  },
   FieldText: {
     color: '#FFFFFF'
   },
@@ -55,13 +49,28 @@ const useStyles = makeStyles(theme => ({
   EndExamBox: {
     marginLeft: theme.spacing(13)
   },
+  AddButton: {
+    display: 'flex',
+    alignItems: 'center',
+    margin: '12px 8px',
+    backgroundColor: '#000000',
+    '&:hover': {
+      backgroundColor: '#000000'
+    }
+  },
   CancelButton: {
     marginRight: theme.spacing(3),
-    backgroundColor: theme.secondary
+    backgroundColor: theme.secondary,
+    '&:hover': {
+      backgroundColor: theme.secondary
+    }
   },
   SendButton: {
     marginRight: theme.spacing(3),
-    backgroundColor: theme.primary
+    backgroundColor: theme.primary,
+    '&:hover': {
+      backgroundColor: theme.primary
+    }
   },
   PaperPlane: {
     marginLeft: theme.spacing(2),
