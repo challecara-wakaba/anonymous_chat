@@ -6,6 +6,7 @@ var db = firebase.firestore();
 const LOAD_MESSAGE = 'LOAD_MESSAGE';
 const ADD_MESSAGE = 'ADD_MESSAGE';
 const GOOD_BUTTON_CLICK = 'GOOD_BUTTON_CLICK';
+const KININARU_BUTTON_CLICK = 'KININARU_BUTTON_CLICK';
 
 const initialState = {
   post: {
@@ -29,6 +30,7 @@ const reducer = (state = initialState, action) => {
 
     case ADD_MESSAGE:
     case GOOD_BUTTON_CLICK:
+    case KININARU_BUTTON_CLICK:
     default:
       return state;
   }
@@ -73,6 +75,7 @@ export const addMessage = (userUid, text, picture) => {
         text: text,
         timeStamp: new Date(),
         goodClickedUsers: {},
+        KininaruClickedUsers: {},
         pictureURL: pictureURL
       })
       .catch(function(error) {
@@ -95,5 +98,18 @@ export function goodButtonClick(docKey, goodClickedUsers) {
     });
   return {
     type: GOOD_BUTTON_CLICK
+  };
+}
+export function KininaruButtonClick(docKey, KininaruClickedUsers) {
+  db.collection('message')
+    .doc(docKey)
+    .update({
+      KininaruClickedUsers: KininaruClickedUsers
+    })
+    .catch(error => {
+      console.log('Error updating document: ', error);
+    });
+  return {
+    type: KININARU_BUTTON_CLICK
   };
 }

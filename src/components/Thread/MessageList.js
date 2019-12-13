@@ -6,7 +6,7 @@ import FirstPost from './FirstPost';
 
 export default function MessageList(props) {
   const { post, replies, userUid } = props;
-  const { onGoodClick, onViewerOpen } = props;
+  const { onKininaruClick, onGoodClick, onViewerOpen } = props;
 
   return (
     <List>
@@ -37,6 +37,24 @@ export default function MessageList(props) {
           // 押していなかった時
           isGoodClicked = false;
         }
+        // goodClickedUseersが無い時のため
+        let KininaruClickedUsers = item.KininaruClickedUsers
+          ? item.KininaruClickedUsers
+          : {};
+        // 気になるButtonが押された数を判断する処理
+        let KininaruCount = 0;
+        for (let i of Object.values(KininaruClickedUsers)) {
+          if (i === true) ++KininaruCount;
+        }
+        // 気になるButtonを押したか判断する処理
+        let isKininaruClicked = false;
+        if (KininaruClickedUsers[userUid] === true) {
+          // 押していた時
+          isKininaruClicked = true;
+        } else {
+          // 押していなかった時
+          isKininaruClicked = false;
+        }
         return (
           <Message
             key={item.id}
@@ -45,10 +63,15 @@ export default function MessageList(props) {
             text={item.text}
             pictureURL={item.pictureURL}
             timeStamp={item.timeStamp}
+            onViewerOpen={onViewerOpen}
+            //GoodButtonのprops
             isGoodClicked={isGoodClicked}
             goodCount={goodCount}
             onGoodClick={() => onGoodClick(index)}
-            onViewerOpen={onViewerOpen}
+            //気になるボタンのprops
+            isKininaruClicked={isKininaruClicked}
+            KininaruCount={KininaruCount}
+            onKininaruClick={() => onKininaruClick(index)}
           />
         );
       })}

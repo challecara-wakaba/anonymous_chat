@@ -6,6 +6,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import GoodButton from './GoodButton';
+import KininaruButton from './KininaruButton';
 
 const useStyles = makeStyles(theme => ({
   inline: {
@@ -28,9 +29,11 @@ const Message = props => {
     text,
     pictureURL,
     isGoodClicked,
-    goodCount
+    goodCount,
+    KininaruCount,
+    isKininaruClicked
   } = props;
-  const { onGoodClick, onViewerOpen } = props;
+  const { onGoodClick, onKininaruClick, onViewerOpen } = props;
 
   const convertDateFormat = timestamp => {
     const date = timestamp.toDate(); // firebaseのtimestamp型をDate型に変換
@@ -108,6 +111,11 @@ const Message = props => {
               isGoodClicked={isGoodClicked}
               goodCount={goodCount}
               onClick={onGoodClick}
+            />
+            <KininaruButton
+              isGoodClicked={isKininaruClicked}
+              KininaruCount={KininaruCount}
+              onClick={onKininaruClick}
             />
           </React.Fragment>
         }
