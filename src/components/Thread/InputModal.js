@@ -37,7 +37,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.secondary,
     margin: theme.spacing(1),
     marginRight: 'unset',
-    padding: '4px 8px'
+    padding: '4px 8px',
+    '&:hover': {
+      backgroundColor: theme.secondary
+    }
   },
   Icon: {
     paddingLeft: theme.spacing(1)

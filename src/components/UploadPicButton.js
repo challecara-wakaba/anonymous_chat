@@ -7,7 +7,10 @@ const useStyles = makeStyles(theme => ({
   ImageButton: {
     color: '#FFFFFF',
     backgroundColor: '#000000',
-    padding: '8px 8px'
+    padding: '8px 8px',
+    '&:hover': {
+      backgroundColor: '#000000'
+    }
   }
 }));
 

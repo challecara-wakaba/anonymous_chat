@@ -32,7 +32,10 @@ const useStyles = makeStyles(theme => ({
   },
   Button: {
     marginBottom: theme.spacing(1),
-    backgroundColor: '#000000'
+    backgroundColor: '#000000',
+    '&:hover': {
+      backgroundColor: '#000000'
+    }
   },
   FieldText: {
     color: '#FFFFFF'
