@@ -80,7 +80,7 @@ export function TextFields(props) {
         error={!isTitleFilled}
         id='outlined-required'
         label='題名（必須）'
-        placeholder='過去問　[2]-(1) 力のモーメント'
+        placeholder='（例）過去問　[2]-(1) 力のモーメント'
         margin='normal'
         className={classes.Margin}
         variant='outlined'
