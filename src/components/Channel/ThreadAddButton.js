@@ -10,7 +10,10 @@ const useStyles = makeStyles(theme => ({
     bottom: theme.spacing(2),
     height: 80,
     width: 80,
-    backgroundColor: '#000000'
+    backgroundColor: '#000000',
+    '&:hover': {
+      backgroundColor: '#000000'
+    }
   },
   label: {
     height: 60,
