@@ -44,9 +44,13 @@ function Channel(props) {
       const isExist = (await ref.get()).exists;
       if (isExist) {
         // onSnapshotの返り値にunsbscribeする関数が返ってくる
-        unsbscribe = ref.onSnapshot(querySnapshot => {
+        unsbscribe = ref.collection('metas').onSnapshot(querySnapshot => {
           // スレッドのメタデータをStoreに流す
-          loadThread(querySnapshot.data().metas);
+          let threads = [];
+          querySnapshot.forEach(doc => {
+            threads.push(doc.data());
+          });
+          loadThread(threads);
         });
       } else {
       }
