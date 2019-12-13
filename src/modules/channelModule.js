@@ -1,4 +1,3 @@
-import shortid from 'shortid';
 import firebase from '../Firebase';
 const db = firebase.firestore();
 
@@ -33,33 +32,41 @@ export function loadThread(threads) {
   };
 }
 
-export function addThread(userUid, title, details, pictureURL) {
-  const docKey = Date.now().toString();
+export function addThread(url, userUid, title, details, pictureURL) {
+  // '/client/:channel/makeThread'の:channelを取り出す
+  const channelKey = url.split('/').slice(-2)[0];
+  // threadKeyは現在時刻から生成
+  const threadKey = Date.now().toString();
+  // チャンネルのfirebase参照を取得
+  const ref = db.collection('channels').doc(channelKey);
 
-  // サーバーに送信
-  db.collection('channels')
-    .doc('testChannel')
-    .collection('threads')
-    .doc(docKey)
+  // meta情報を管理するcollectionに追加
+  ref
+    .collection('metas')
+    .doc(threadKey)
     .set({
-      config: {
-        userUid: userUid,
-        title: title,
-        details: details,
-        pictureURL: pictureURL,
-        timeStamp: new Date()
-      }
+      id: threadKey,
+      userUid: userUid,
+      title: title,
+      details: details,
+      pictureURL: pictureURL,
+      timeStamp: new Date()
+    })
+    .then(() => {
+      // threadsを管理するcollectionに追加
+      ref
+        .collection('threads')
+        .doc(threadKey)
+        .set([])
+        .catch(error => {
+          console.log('Error adding Thread: ', error);
+        });
     })
     .catch(error => {
       console.log('Error adding Thread: ', error);
     });
 
   return {
-    type: ADD_THREAD,
-    id: shortid.generate(),
-    timeStamp: new Date(),
-    title: title,
-    details: details,
-    pictureURL: pictureURL
+    type: ADD_THREAD
   };
 }

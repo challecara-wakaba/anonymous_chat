@@ -115,7 +115,7 @@ function MakeThread(props) {
       setIsTitileFilled(false);
       return;
     }
-    addThread(user.uid, title.trim(), details.trim(), pictureURL);
+    addThread(url, user.uid, title.trim(), details.trim(), pictureURL);
 
     // 送信したらチャンネル画面に戻る
     // sendButtonのpropsにhistoryが渡されている
@@ -165,8 +165,10 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    addThread: (userUid, title, details, pictureURL) =>
-      dispatch(channelActions.addThread(userUid, title, details, pictureURL))
+    addThread: (url, userUid, title, details, pictureURL) =>
+      dispatch(
+        channelActions.addThread(url, userUid, title, details, pictureURL)
+      )
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MakeThread);
