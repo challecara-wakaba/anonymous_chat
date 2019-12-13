@@ -23,12 +23,16 @@ const Thread = props => {
   const classes = useStyles();
   const theme = useTheme();
   const { user, post, replies } = props;
-  const { addMessage, loadMessage, goodButtonClick } = props;
+  const {
+    addMessage,
+    loadMessage,
+    goodButtonClick,
+    KininaruButtonClick
+  } = props;
   const { url } = useRouteMatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isvisiable, setIsVisiable] = useState(false);
   const [viweingPicture, setViewingPicture] = useState('');
-
   useEffect(
     () => {
       db.collection('message').onSnapshot(function(querySnapshot) {
@@ -76,7 +80,7 @@ const Thread = props => {
 
   // --- Message ---
   const handleGoodClick = index => {
-    // goodClickedUseersが無い時のため
+    // goodClickedUsersが無い時のため
     let goodClickedUsers = replies[index].goodClickedUsers
       ? replies[index].goodClickedUsers
       : {};
@@ -96,6 +100,28 @@ const Thread = props => {
     }
   };
   // --- --- --- ---
+  // --- Kininaru ---
+  const handleKininaruClick = index => {
+    // KininaruClickedUsersが無い時のため
+    let KininaruClickedUsers = replies[index].KininaruClickedUsers
+      ? replies[index].KininaruClickedUsers
+      : {};
+
+    if (KininaruClickedUsers[user.uid] === true) {
+      // 押してあった時
+      const newClickedUsers = Object.assign({}, KininaruClickedUsers, {
+        [user.uid]: false
+      });
+      KininaruButtonClick(replies[index].id, newClickedUsers);
+    } else {
+      // 押してなかった時
+      const newClickedUsers = Object.assign({}, KininaruClickedUsers, {
+        [user.uid]: true
+      });
+      KininaruButtonClick(replies[index].id, newClickedUsers);
+    }
+  };
+  // --- --- --- ---
   return (
     <div>
       <style>{`body {background-color: ${theme.background}}`}</style>
@@ -111,6 +137,7 @@ const Thread = props => {
           post={post}
           replies={replies}
           onGoodClick={handleGoodClick}
+          onKininaruClick={handleKininaruClick}
           onViewerOpen={handleViewerOpen}
         />
       </div>
@@ -145,7 +172,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(threadActions.addMessage(userUid, text, picture)),
     loadMessage: replies => dispatch(threadActions.loadMessage(replies)),
     goodButtonClick: (docKey, goodClickedUsers) =>
-      dispatch(threadActions.goodButtonClick(docKey, goodClickedUsers))
+      dispatch(threadActions.goodButtonClick(docKey, goodClickedUsers)),
+    KininaruButtonClick: (docKey, KininaruClickedUsers) =>
+      dispatch(threadActions.KininaruButtonClick(docKey, KininaruClickedUsers))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Thread);

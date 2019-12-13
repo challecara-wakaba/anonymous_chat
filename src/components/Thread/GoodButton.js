@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import Typography from '@material-ui/core/Typography';
 
+//スタイル
 const useStyle = makeStyles(theme => ({
   ButtonCont: ({ isGoodClicked }) => ({
     display: 'inline-flex',
@@ -28,9 +29,13 @@ const useStyle = makeStyles(theme => ({
   })
 }));
 
+//コンポーネント本体
 const GoodButton = props => {
+  //props
   const { isGoodClicked, goodCount, onClick } = props;
+  //スタイル適用
   const classes = useStyle({ isGoodClicked });
+  //描画
   return (
     <Button className={classes.ButtonCont} onClick={onClick}>
       <ThumbUpIcon className={classes.IconCont} />
