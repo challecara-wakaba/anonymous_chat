@@ -5,6 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import KininaruButton from './KininaruButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,8 +23,15 @@ const useStyles = makeStyles(theme => ({
 
 export default function FirstPost(props) {
   const classes = useStyles();
-  const { name, details, pictureURL, timeStamp } = props;
-  const { onViewerOpen } = props;
+  const {
+    name,
+    details,
+    pictureURL,
+    timeStamp,
+    KininaruCount,
+    isKininaruClicked
+  } = props;
+  const { onKininaruClick, onViewerOpen } = props;
 
   function convertDateFormat(date) {
     const month = date.getMonth() + 1;
@@ -68,6 +76,12 @@ export default function FirstPost(props) {
                 src={pictureURL}
                 alt=' '
                 onClick={() => onViewerOpen(pictureURL)}
+              />
+              <br />
+              <KininaruButton
+                isGoodClicked={isKininaruClicked}
+                KininaruCount={KininaruCount}
+                onClick={onKininaruClick}
               />
             </React.Fragment>
           }
