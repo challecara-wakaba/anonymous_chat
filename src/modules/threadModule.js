@@ -11,7 +11,7 @@ const KININARU_BUTTON_CLICK = 'KININARU_BUTTON_CLICK';
 const initialState = {
   post: {
     id: shortid.generate(),
-    name: 'annin',
+    name: decodeURIComponent('%E3%81%8A%E3%81%AB%E3%81%8D%E3%82%99%E3%82%8A'),
     timeStamp: new Date(),
     title: '物理',
     details: 'この問題がわかりません',

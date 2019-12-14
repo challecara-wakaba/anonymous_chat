@@ -1,5 +1,3 @@
-https://firebasestorage.googleapis.com/v0/b/lask-83286.appspot.com/o/icons%2FDNA.jpg?alt=media&token=258ff83d-7246-49e0-aa82-b8c39fc5afc1
-https://firebasestorage.googleapis.com/v0/b/lask-83286.appspot.com/o/icons%2FUFO.jpg?alt=media&token=0fd1705f-dc99-477d-b0bb-ee4969021726
 https://firebasestorage.googleapis.com/v0/b/lask-83286.appspot.com/o/icons%2F%E3%81%88%E3%81%9F%E3%82%99%E8%B1%86.jpg?alt=media&token=b8b1e4fc-cfd6-431b-bfae-6b41f5b761d9
 https://firebasestorage.googleapis.com/v0/b/lask-83286.appspot.com/o/icons%2F%E3%81%88%E3%81%B2%E3%82%99.jpg?alt=media&token=f154a97e-f168-43b0-a7ed-080886be4a2f
 https://firebasestorage.googleapis.com/v0/b/lask-83286.appspot.com/o/icons%2F%E3%81%8A%E3%81%AB%E3%81%8D%E3%82%99%E3%82%8A.jpg?alt=media&token=522db73e-c00c-4e36-9538-b5d73a6c2323
