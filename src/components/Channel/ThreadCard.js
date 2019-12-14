@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -63,8 +64,13 @@ const NOTIS = '2件の返信';
 
 const ThreadCard = props => {
   const classes = useStyles();
-  const { timeStamp, title, details, pictureURL } = props;
+  const { url } = useRouteMatch();
+  const { threadId, timeStamp, title, details, pictureURL } = props;
   const [anchorEl, setAnchorEl] = useState(null); // あくまで開いているボタンの場所のstateのためrリフトアップしてない
+
+  // console.log(threadId);
+  // const jumpURL = url +
+  let jumpURL = `${url}/${threadId}`;
 
   const handleMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -113,14 +119,16 @@ const ThreadCard = props => {
       <Divider className={classes.divider} />
       <CardContent className={classes.topAreaContainer}>
         <div className={classes.titleAreaContainer}>
-          <Typography
-            className={classes.title}
-            variant='subtitle1'
-            components='h2'
-            gutterBottom
-          >
-            {title}
-          </Typography>
+          <Link to={jumpURL}>
+            <Typography
+              className={classes.title}
+              variant='subtitle1'
+              components='h2'
+              gutterBottom
+            >
+              {title}
+            </Typography>
+          </Link>
           <Typography
             className={classes.timeStamp}
             components='span'

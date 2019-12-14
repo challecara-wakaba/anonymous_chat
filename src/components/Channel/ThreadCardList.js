@@ -12,6 +12,7 @@ export default function ThreadCardList(props) {
         return (
           <ThreadCard
             key={item.id}
+            threadId={item.id}
             timeStamp={item.timeStamp}
             title={item.title}
             details={item.details}
