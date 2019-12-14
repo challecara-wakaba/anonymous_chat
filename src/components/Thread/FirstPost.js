@@ -11,8 +11,17 @@ const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.threadBackground
   },
+  middleContainer: {
+    // これを指定しておかないとoverflowWrapが効かない
+    // ListItemAvatorのmin-widthが56pxのため56px引く
+    minWidth: 'calc(100% - 56px)'
+  },
   Name: {
     color: '#142471'
+  },
+  details: {
+    whiteSpace: 'pre-wrap',
+    overflowWrap: 'break-word'
   },
   image: {
     margin: `${theme.spacing(2)}px auto`,
@@ -49,43 +58,49 @@ export default function FirstPost(props) {
         <ListItemAvatar>
           <Avatar /* alt={} src={} */ />
         </ListItemAvatar>
-        <ListItemText
-          primary={
-            <React.Fragment>
-              <Typography
-                component='span'
-                variant='subtitle1'
-                className={classes.Name}
-              >
-                {name}
-              </Typography>
-              {'  ' /*nameとtimeStampの間の余白*/}
-              <Typography component='span' variant='caption'>
-                {convertDateFormat(timeStamp)}
-              </Typography>
-            </React.Fragment>
-          }
-          secondary={
-            <React.Fragment>
-              <Typography component='span' variant='body2'>
-                {details}
-              </Typography>
-              <br />
-              <img
-                className={classes.image}
-                src={pictureURL}
-                alt=' '
-                onClick={() => onViewerOpen(pictureURL)}
-              />
-              <br />
-              <KininaruButton
-                isGoodClicked={isKininaruClicked}
-                KininaruCount={KininaruCount}
-                onClick={onKininaruClick}
-              />
-            </React.Fragment>
-          }
-        ></ListItemText>
+        <div className={classes.middleContainer}>
+          <ListItemText
+            primary={
+              <React.Fragment>
+                <Typography
+                  component='span'
+                  variant='subtitle1'
+                  className={classes.Name}
+                >
+                  {name}
+                </Typography>
+                {'  ' /*nameとtimeStampの間の余白*/}
+                <Typography component='span' variant='caption'>
+                  {convertDateFormat(timeStamp)}
+                </Typography>
+              </React.Fragment>
+            }
+            secondary={
+              <React.Fragment>
+                <Typography
+                  component='span'
+                  variant='body2'
+                  className={classes.details}
+                >
+                  {details}
+                </Typography>
+                <br />
+              </React.Fragment>
+            }
+          />
+          <img
+            className={classes.image}
+            src={pictureURL}
+            alt=' '
+            onClick={() => onViewerOpen(pictureURL)}
+          />
+          <br />
+          <KininaruButton
+            isGoodClicked={isKininaruClicked}
+            KininaruCount={KininaruCount}
+            onClick={onKininaruClick}
+          />
+        </div>
       </ListItem>
     </div>
   );
