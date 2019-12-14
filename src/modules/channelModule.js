@@ -1,48 +1,81 @@
-import shortid from 'shortid';
+import firebase from '../Firebase';
+const db = firebase.firestore();
 
 // action type
+const LOAD_THREAD = 'LOAD_THREAD';
 const ADD_THREAD = 'ADD_THREAD';
 
 const initialState = {
-  threads: [
-    {
-      id: shortid.generate(),
-      timeStamp: new Date(),
-      title: 'ドリルp53 [B]-(1)',
-      details: 'この英文の訳がわかりません',
-      pictureURL: 'http://img-cdn.jg.jugem.jp/993/154735/20101224_1438937.jpg'
-    }
-  ]
+  threads: []
 };
 
 // reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_THREAD:
-      const newThread = {
-        id: action.id,
-        timeStamp: action.timeStamp,
-        title: action.title,
-        details: action.details,
-        pictureURL: action.pictureURL
-      };
+    case LOAD_THREAD:
       return Object.assign({}, state, {
-        threads: [newThread, ...state.threads]
+        threads: action.threads
       });
 
+    case ADD_THREAD:
     default:
       return state;
   }
 }
 
 // Action Creators
-export function addThread(title, details, pictureURL) {
+
+export function loadThread(threads) {
   return {
-    type: ADD_THREAD,
-    id: shortid.generate(),
-    timeStamp: new Date(),
-    title: title,
-    details: details,
-    pictureURL: pictureURL
+    type: LOAD_THREAD,
+    threads: threads
+  };
+}
+
+export function addThread(url, userUid, title, details, pictureURL) {
+  // '/client/:channel/makeThread'の:channelを取り出す
+  const channelKey = url.split('/').slice(-2)[0];
+  // threadKeyは現在時刻から生成
+  const threadKey = Date.now().toString();
+  // チャンネルのfirebase参照を取得
+  const ref = db.collection('channels').doc(channelKey);
+
+  // meta情報を管理するcollectionに追加
+  ref
+    .collection('metas')
+    .doc(threadKey)
+    .set({
+      id: threadKey,
+      userUid: userUid,
+      title: title,
+      details: details,
+      pictureURL: pictureURL,
+      timeStamp: new Date()
+    })
+    .then(() => {
+      // threadsを管理するcollectionに追加
+      ref
+        .collection('threads')
+        .doc(threadKey)
+        .set({
+          meta: {
+            id: threadKey,
+            userUid: userUid,
+            title: title,
+            details: details,
+            pictureURL: pictureURL,
+            timeStamp: new Date()
+          }
+        })
+        .catch(error => {
+          console.log('Error adding Thread: ', error);
+        });
+    })
+    .catch(error => {
+      console.log('Error adding Thread: ', error);
+    });
+
+  return {
+    type: ADD_THREAD
   };
 }

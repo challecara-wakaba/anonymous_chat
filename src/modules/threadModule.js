@@ -45,7 +45,16 @@ export function loadMessage(replies) {
     replies: replies
   };
 }
-export const addMessage = (userUid, text, picture) => {
+export const addMessage = (url, userUid, text, picture) => {
+  // '/client/:channel/:thread'の:channelと:threadを取り出す
+  const [channelId, threadId] = url.split('/').slice(-2);
+  // urlで指定されたチャンネルのfirebase参照を取得
+  const ref = db
+    .collection('channels')
+    .doc(channelId)
+    .collection('threads')
+    .doc(threadId);
+
   async function sendMessage() {
     let pictureURL = null;
     // 写真がある場合、写真をアップロード
@@ -65,12 +74,15 @@ export const addMessage = (userUid, text, picture) => {
       }
     }
 
-    const docKey = Date.now().toString();
+    // messagesのid
+    const messageId = Date.now().toString();
+
     // サーバーにメッセージを送る
-    db.collection('message')
-      .doc(docKey)
+    ref
+      .collection('messages')
+      .doc(messageId)
       .set({
-        id: docKey,
+        id: messageId,
         userUid: userUid,
         text: text,
         timeStamp: new Date(),

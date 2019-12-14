@@ -35,15 +35,51 @@ const Thread = props => {
   const [viweingPicture, setViewingPicture] = useState('');
   useEffect(
     () => {
-      db.collection('message').onSnapshot(function(querySnapshot) {
-        let replies = [];
-        querySnapshot.forEach(function(doc) {
-          replies.push(doc.data());
-        });
-        loadMessage(replies);
-      });
+      let unsbscribe = null;
+
+      // スレッドのリスナーの設定
+      const subscribe = async () => {
+        // '/client/:channel/:thread'の:channelと:threadを取り出す
+        const [channelId, threadId] = url.split('/').slice(-2);
+        // urlで指定されたチャンネルのfirebase参照を取得
+        const ref = db
+          .collection('channels')
+          .doc(channelId)
+          .collection('threads')
+          .doc(threadId);
+
+        // 指定されたチャンネルが存在するか確認
+        const isExist = (await ref.get()).exists;
+        console.log(
+          // .doc('1576232835990')
+          // .get()
+          (
+            await db
+              .collection('channels')
+              .doc(channelId)
+              .collection('threads')
+              .doc('1576232835990')
+              .get()
+          ).exists
+        );
+        if (isExist) {
+          // onSnapshotの返り値にunsbscribeする関数が返ってくる
+          unsbscribe = ref.collection('messages').onSnapshot(querySnapshot => {
+            // スレッドを取得してStoreに流す
+            let messages = [];
+            querySnapshot.forEach(doc => {
+              messages.push(doc.data());
+            });
+            loadMessage(messages);
+          });
+        } else {
+        }
+      };
+      subscribe();
+
       return () => {
-        db.collection('message').onSnapshot(function() {});
+        // コンポーネントがunmountされる時に実行
+        if (unsbscribe) unsbscribe();
       };
     },
     [] /*useEffectをcomponentDidMountのように扱うためにから配列を渡している*/
@@ -53,7 +89,7 @@ const Thread = props => {
   const handleModaleOpen = () => setIsModalOpen(true);
   const handleModaleClose = () => setIsModalOpen(false);
   const submit = (text, picture) => {
-    addMessage(user.uid, text.trim(), picture);
+    addMessage(url, user.uid, text.trim(), picture);
   };
   // --- --- --- ---
 
@@ -168,8 +204,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    addMessage: (userUid, text, picture) =>
-      dispatch(threadActions.addMessage(userUid, text, picture)),
+    addMessage: (url, userUid, text, picture) =>
+      dispatch(threadActions.addMessage(url, userUid, text, picture)),
     loadMessage: replies => dispatch(threadActions.loadMessage(replies)),
     goodButtonClick: (docKey, goodClickedUsers) =>
       dispatch(threadActions.goodButtonClick(docKey, goodClickedUsers)),
