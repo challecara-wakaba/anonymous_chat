@@ -45,12 +45,13 @@ function Channel(props) {
       if (isExist) {
         // onSnapshotの返り値にunsbscribeする関数が返ってくる
         unsbscribe = ref
-          .collection('metas')
-          .orderBy('id', 'desc') // データを降順で並び替える
+          .collection('threads')
+          // .orderBy('id', 'desc') // データを降順で並び替える
           .onSnapshot(querySnapshot => {
             // スレッドのメタデータをStoreに流す
             let threads = [];
             querySnapshot.forEach(doc => {
+              console.log(doc.data());
               threads.push(doc.data());
             });
             loadThread(threads);
