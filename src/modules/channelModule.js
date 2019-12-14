@@ -57,7 +57,16 @@ export function addThread(url, userUid, title, details, pictureURL) {
       ref
         .collection('threads')
         .doc(threadKey)
-        .set([])
+        .set({
+          meta: {
+            id: threadKey,
+            userUid: userUid,
+            title: title,
+            details: details,
+            pictureURL: pictureURL,
+            timeStamp: new Date()
+          }
+        })
         .catch(error => {
           console.log('Error adding Thread: ', error);
         });
