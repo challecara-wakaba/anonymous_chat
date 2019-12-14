@@ -43,6 +43,9 @@ const useStyles = makeStyles(theme => ({
   MesText: {
     color: theme.primary
   },
+  normalBox: {
+    color: '#000000'
+  },
   errorMessage: {
     color: theme.error
   }
