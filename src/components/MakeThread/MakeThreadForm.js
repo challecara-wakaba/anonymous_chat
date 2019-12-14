@@ -33,12 +33,6 @@ const useStyles = makeStyles(theme => ({
   Margin: {
     margin: theme.spacing(1)
   },
-  AddButton: {
-    display: 'flex',
-    alignItems: 'center',
-    margin: '12px 8px',
-    backgroundColor: '#000000'
-  },
   FieldText: {
     color: '#FFFFFF'
   },
@@ -55,23 +49,44 @@ const useStyles = makeStyles(theme => ({
   EndExamBox: {
     marginLeft: theme.spacing(13)
   },
+  AddButton: {
+    display: 'flex',
+    alignItems: 'center',
+    margin: '12px 8px',
+    backgroundColor: '#000000',
+    '&:hover': {
+      backgroundColor: '#000000'
+    }
+  },
   CancelButton: {
     marginRight: theme.spacing(3),
-    backgroundColor: theme.secondary
+    backgroundColor: theme.secondary,
+    '&:hover': {
+      backgroundColor: theme.secondary
+    }
   },
   SendButton: {
     marginRight: theme.spacing(3),
-    backgroundColor: theme.primary
+    backgroundColor: theme.primary,
+    '&:hover': {
+      backgroundColor: theme.primary
+    }
   },
   PaperPlane: {
     marginLeft: theme.spacing(2),
     color: '#FFFFFF'
+  },
+  TextLabel: {
+    color: '#000000 !important'
+  },
+  TextBox: {
+    borderColor: '#000000 !important'
   }
 }));
 
 export function TextFields(props) {
   const classes = useStyles();
-  const { title, details, isTitleFilled, onChange } = props;
+  const { title, details, isTitleFilled, onChange, onClick } = props;
 
   return (
     <div className={classes.FirstCont}>
@@ -80,13 +95,21 @@ export function TextFields(props) {
         error={!isTitleFilled}
         id='outlined-required'
         label='題名（必須）'
-        placeholder='過去問　[2]-(1) 力のモーメント'
+        placeholder='（例）過去問　[2]-(1) 力のモーメント'
         margin='normal'
         className={classes.Margin}
         variant='outlined'
         name='title' // 入力をstateで管理するのに用いる
         value={title}
         onChange={onChange}
+        InputLabelProps={{
+          className: classes.TextLabel
+        }}
+        InputProps={{
+          classes: {
+            notchedOutline: classes.TextBox
+          }
+        }}
       />
       {!isTitleFilled && (
         <Typography className={classes.errorMessage} variant='body2'>
@@ -105,6 +128,14 @@ export function TextFields(props) {
         name='details' // 入力をstataeで管理するのに用いる
         value={details}
         onChange={onChange}
+        InputLabelProps={{
+          className: classes.TextLabel
+        }}
+        InputProps={{
+          classes: {
+            notchedOutline: classes.TextBox
+          }
+        }}
       />
     </div>
   );
@@ -146,11 +177,11 @@ export function Checkboxs(props) {
         control={
           <CheckBox
             value='checkedA'
-            color='primary'
             name='first' // 入力をstataeで管理するのに用いる
             checked={isFirst}
             onChange={onChange}
             className={classes.ClassBox}
+            color='#000000'
           />
         }
         label='#１年'
@@ -160,11 +191,11 @@ export function Checkboxs(props) {
         control={
           <CheckBox
             value='checkedB'
-            color='primary'
             name='second' // 入力をstataeで管理するのに用いる
             checked={isSecond}
             onChange={onChange}
             className={classes.ClassBox}
+            color='#000000'
           />
         }
         label='#２年'
@@ -174,7 +205,7 @@ export function Checkboxs(props) {
         control={
           <CheckBox
             value='checkedC'
-            color='primary'
+            color='#000000'
             name='third' // 入力をstataeで管理するのに用いる
             checked={isThird}
             onChange={onChange}
@@ -188,7 +219,7 @@ export function Checkboxs(props) {
         control={
           <CheckBox
             value='checkedD'
-            color='primary'
+            color='#000000'
             name='fourth' // 入力をstataeで管理するのに用いる
             checked={isFourth}
             onChange={onChange}
@@ -202,7 +233,7 @@ export function Checkboxs(props) {
         control={
           <CheckBox
             value='checkedE'
-            color='primary'
+            color='#000000'
             name='fifth' // 入力をstataeで管理するのに用いる
             checked={isFifth}
             onChange={onChange}
@@ -216,7 +247,7 @@ export function Checkboxs(props) {
         control={
           <CheckBox
             value='checkedF'
-            color='primary'
+            color='#000000'
             name='fastHalf' // 入力をstataeで管理するのに用いる
             fhecked={isFastHalf}
             onChange={onChange}
@@ -230,7 +261,7 @@ export function Checkboxs(props) {
         control={
           <CheckBox
             value='checkedG'
-            color='primary'
+            color='#000000'
             name='fastEnd' // 入力をstataeで管理するのに用いる
             checked={isFastEnd}
             onChange={onChange}
@@ -244,7 +275,7 @@ export function Checkboxs(props) {
         control={
           <CheckBox
             value='checkedH'
-            color='primary'
+            color='#000000'
             name='lateHalf' // 入力をstataeで管理するのに用いる
             checked={isLateHalf}
             onChange={onChange}
@@ -258,7 +289,7 @@ export function Checkboxs(props) {
         control={
           <CheckBox
             value='checkedI'
-            color='primary'
+            color='#000000'
             name='lateEnd' // 入力をstataeで管理するのに用いる
             checked={isLateEnd}
             onChange={onChange}

@@ -32,7 +32,10 @@ const useStyles = makeStyles(theme => ({
   },
   Button: {
     marginBottom: theme.spacing(1),
-    backgroundColor: '#000000'
+    backgroundColor: '#000000',
+    '&:hover': {
+      backgroundColor: '#000000'
+    }
   },
   FieldText: {
     color: '#FFFFFF'
@@ -40,8 +43,17 @@ const useStyles = makeStyles(theme => ({
   MesText: {
     color: theme.primary
   },
+  normalBox: {
+    color: '#000000'
+  },
   errorMessage: {
     color: theme.error
+  },
+  TextLabel: {
+    color: '#000000 !important'
+  },
+  TextBox: {
+    borderColor: '#000000 !important'
   }
 }));
 
@@ -71,6 +83,14 @@ export function TextFields(props) {
         error={!isUserFound} // tureの時赤枠にする
         value={email}
         onChange={onTextChange}
+        InputLabelProps={{
+          className: classes.TextLabel
+        }}
+        InputProps={{
+          classes: {
+            notchedOutline: classes.TextBox
+          }
+        }}
       />
       {!isUserFound && (
         <Typography className={classes.errorMessage} variant='body2'>
@@ -89,6 +109,14 @@ export function TextFields(props) {
         error={!isCorrectPassword} // tureの時赤枠にする
         value={password}
         onChange={onTextChange}
+        InputLabelProps={{
+          className: classes.TextLabel
+        }}
+        InputProps={{
+          classes: {
+            notchedOutline: classes.TextBox
+          }
+        }}
       />
       {!isCorrectPassword && (
         <Typography className={classes.errorMessage} variant='body2'>
