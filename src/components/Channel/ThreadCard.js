@@ -68,8 +68,6 @@ const ThreadCard = props => {
   const { threadId, timeStamp, title, details, pictureURL } = props;
   const [anchorEl, setAnchorEl] = useState(null); // あくまで開いているボタンの場所のstateのためrリフトアップしてない
 
-  // console.log(threadId);
-  // const jumpURL = url +
   let jumpURL = `${url}/${threadId}`;
 
   const handleMenuOpen = event => {

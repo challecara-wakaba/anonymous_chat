@@ -51,7 +51,6 @@ function Channel(props) {
             // スレッドのメタデータをStoreに流す
             let threads = [];
             querySnapshot.forEach(doc => {
-              console.log(doc.data());
               threads.push(doc.data());
             });
             loadThread(threads);
