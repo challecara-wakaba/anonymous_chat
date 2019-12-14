@@ -76,9 +76,11 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(2),
     color: '#FFFFFF'
   },
-  TextBox: {
-    borderColor: '#000000 !important',
+  TextLabel: {
     color: '#000000 !important'
+  },
+  TextBox: {
+    borderColor: '#000000 !important'
   }
 }));
 
@@ -100,6 +102,9 @@ export function TextFields(props) {
         name='title' // 入力をstateで管理するのに用いる
         value={title}
         onChange={onChange}
+        InputLabelProps={{
+          className: classes.TextLabel
+        }}
         InputProps={{
           classes: {
             notchedOutline: classes.TextBox
@@ -123,6 +128,9 @@ export function TextFields(props) {
         name='details' // 入力をstataeで管理するのに用いる
         value={details}
         onChange={onChange}
+        InputLabelProps={{
+          className: classes.TextLabel
+        }}
         InputProps={{
           classes: {
             notchedOutline: classes.TextBox

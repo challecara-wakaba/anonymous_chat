@@ -48,6 +48,12 @@ const useStyles = makeStyles(theme => ({
   },
   errorMessage: {
     color: theme.error
+  },
+  TextLabel: {
+    color: '#000000 !important'
+  },
+  TextBox: {
+    borderColor: '#000000 !important'
   }
 }));
 
@@ -77,6 +83,14 @@ export function TextFields(props) {
         error={!isUserFound} // tureの時赤枠にする
         value={email}
         onChange={onTextChange}
+        InputLabelProps={{
+          className: classes.TextLabel
+        }}
+        InputProps={{
+          classes: {
+            notchedOutline: classes.TextBox
+          }
+        }}
       />
       {!isUserFound && (
         <Typography className={classes.errorMessage} variant='body2'>
@@ -95,6 +109,14 @@ export function TextFields(props) {
         error={!isCorrectPassword} // tureの時赤枠にする
         value={password}
         onChange={onTextChange}
+        InputLabelProps={{
+          className: classes.TextLabel
+        }}
+        InputProps={{
+          classes: {
+            notchedOutline: classes.TextBox
+          }
+        }}
       />
       {!isCorrectPassword && (
         <Typography className={classes.errorMessage} variant='body2'>
