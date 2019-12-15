@@ -9,6 +9,7 @@ import MessageList from '../components/Thread/MessageList';
 import InputModal from '../components/Thread/InputModal';
 import * as threadActions from '../modules/threadModule';
 import changeUpperDirectory from '../functions/changeUpperDirectory';
+import extractId from '../functions/extractId';
 //cloudfirestoreの初期化
 import firebase from '../Firebase';
 var db = firebase.firestore();
@@ -41,7 +42,7 @@ const Thread = props => {
       // スレッドのリスナーの設定
       const subscribe = async () => {
         // '/client/:channel/:thread'の:channelと:threadを取り出す
-        const [channelId, threadId] = url.split('/').slice(-2);
+        const [channelId, threadId] = extractId(url);
         // urlで指定されたチャンネルのfirebase参照を取得
         const ref = db
           .collection('channels')
