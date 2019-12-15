@@ -2,28 +2,39 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 
 import changeUpperDirectory from '../functions/changeUpperDirectory';
 
 import {
   TextFields,
-  ImageButton,
   CancelButton,
   SendButton
 } from '../components/MakeThread/MakeThreadForm';
+import UploadPicButton from '../components/UploadPicButton';
 import * as channelActions from '../modules/channelModule';
 
 const useStyles = makeStyles(theme => ({
   bottomContainer: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     margin: '48px 0',
     marginBottom: 'unset',
-    paddingBottom: '48px',
-    padding: '0 16px'
+    paddingBottom: '48px'
   },
   root: {
     minHeight: '100vh'
+  },
+  title: {
+    margin: '12px 12px 12px 12px'
+  },
+  canncelButton: {
+    marginLeft: '12px',
+    textDecoration: 'none' // リンクの下線を消す
+  },
+  middleContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start'
   }
 }));
 
@@ -77,22 +88,32 @@ function MakeThread(props) {
   return (
     <div className={classes.root}>
       <style>{`body {background-color: ${theme.background}}`}</style>
+      <Typography component='h1' variant='h3'>
+        ＃testChannel
+      </Typography>
       <TextFields
         title={title}
         details={details}
         isTitleFilled={isTitleFilled}
         onChange={handleTextChange}
       />
-      <ImageButton />
+      <div className={classes.middleContainer}>
+        <div style={{ margin: '4px 12px' }}>
+          <UploadPicButton />
+        </div>
+        <p>一枚だけ追加できます</p>
+      </div>
       <div className={classes.bottomContainer}>
         <Link
           to={`${changeUpperDirectory(url)}`}
-          style={{ textDecoration: 'none' } /*下線を消す*/}
+          className={classes.canncelButton}
         >
           <CancelButton />
         </Link>
-        {/* SendButtonはLinkを用いずonClick時にhistory.pushを発火する */}
-        <SendButton onClick={handleSubmit} />
+        <div style={{ marginRight: '12px' }}>
+          {/* SendButtonはLinkを用いずonClick時にhistory.pushを発火する */}
+          <SendButton onClick={handleSubmit} />
+        </div>
       </div>
     </div>
   );
