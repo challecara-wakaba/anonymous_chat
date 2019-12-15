@@ -121,13 +121,13 @@ const Thread = props => {
       const newClickedUsers = Object.assign({}, goodClickedUsers, {
         [user.uid]: false
       });
-      goodButtonClick(replies[index].id, newClickedUsers);
+      goodButtonClick(url, replies[index].id, newClickedUsers);
     } else {
       // 押してなかった時
       const newClickedUsers = Object.assign({}, goodClickedUsers, {
         [user.uid]: true
       });
-      goodButtonClick(replies[index].id, newClickedUsers);
+      goodButtonClick(url, replies[index].id, newClickedUsers);
     }
   };
   // --- --- --- ---
@@ -203,8 +203,10 @@ const mapDispatchToProps = dispatch => {
       dispatch(threadActions.addMessage(url, userUid, text, picture)),
     loadMessage: (post, replies) =>
       dispatch(threadActions.loadMessage(post, replies)),
-    goodButtonClick: (docKey, goodClickedUsers) =>
-      dispatch(threadActions.goodButtonClick(docKey, goodClickedUsers)),
+    goodButtonClick: (url, messageKey, goodClickedUsers) =>
+      dispatch(
+        threadActions.goodButtonClick(url, messageKey, goodClickedUsers)
+      ),
     KininaruButtonClick: (docKey, KininaruClickedUsers) =>
       dispatch(threadActions.KininaruButtonClick(docKey, KininaruClickedUsers))
   };
