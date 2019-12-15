@@ -47,7 +47,7 @@ export function addThread(url, userUid, title, details, picture) {
     if (picture !== null) {
       try {
         // 画像のパス
-        const filePath = `Pictures/${channelKey}/${threadKey}`;
+        const filePath = `Pictures/${channelKey}/${threadKey}/${picture.name}`;
         const Ref = firebase.storage().ref(filePath);
 
         // 送信
