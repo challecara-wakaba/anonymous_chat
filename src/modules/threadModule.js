@@ -57,7 +57,7 @@ export const addMessage = (url, userUid, text, picture) => {
     if (picture !== null) {
       try {
         //画像のパス
-        const filePath = `Pictures/${picture.name}`;
+        const filePath = `Pictures/${channelId}/${threadId}/${picture.name}`;
         const Ref = firebase.storage().ref(filePath);
 
         //送信
