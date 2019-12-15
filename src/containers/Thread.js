@@ -72,6 +72,8 @@ const Thread = props => {
       return () => {
         // コンポーネントがunmountされる時に実行
         if (unsbscribe) unsbscribe();
+        // Storeから今読み込んでいるものを消す
+        loadMessage({}, []);
       };
     },
     [] /*useEffectをcomponentDidMountのように扱うためにから配列を渡している*/
