@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.error
   },
   TextLabel: {
-    color: '#000000 !important'
+    color: '#979797 !important'
   },
   TextBox: {
     borderColor: '#000000 !important'
