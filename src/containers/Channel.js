@@ -46,7 +46,7 @@ function Channel(props) {
         // onSnapshotの返り値にunsbscribeする関数が返ってくる
         unsbscribe = ref
           .collection('threads')
-          // .orderBy('id', 'desc') // データを降順で並び替える
+          .orderBy('id', 'desc') // データを降順で並び替える
           .onSnapshot(querySnapshot => {
             // スレッドのメタデータをStoreに流す
             let threads = [];
