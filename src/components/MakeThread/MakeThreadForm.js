@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.error
   },
   Margin: {
-    margin: theme.spacing(1)
+    margin: '6px 12px'
   },
   FieldText: {
     color: '#FFFFFF'
@@ -59,14 +59,12 @@ const useStyles = makeStyles(theme => ({
     }
   },
   CancelButton: {
-    marginRight: theme.spacing(3),
     backgroundColor: theme.secondary,
     '&:hover': {
       backgroundColor: theme.secondary
     }
   },
   SendButton: {
-    marginRight: theme.spacing(3),
     backgroundColor: theme.primary,
     '&:hover': {
       backgroundColor: theme.primary
@@ -86,11 +84,10 @@ const useStyles = makeStyles(theme => ({
 
 export function TextFields(props) {
   const classes = useStyles();
-  const { title, details, isTitleFilled, onChange, onClick } = props;
+  const { title, details, isTitleFilled, onChange } = props;
 
   return (
     <div className={classes.FirstCont}>
-      <h1 className={classes.Margin}>#物理</h1>
       <TextField
         error={!isTitleFilled}
         id='outlined-required'

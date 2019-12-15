@@ -89,12 +89,14 @@ export default function FirstPost(props) {
               </React.Fragment>
             }
           />
-          <img
-            className={classes.image}
-            src={pictureURL}
-            alt=' '
-            onClick={() => onViewerOpen(pictureURL)}
-          />
+          {pictureURL && (
+            <img
+              className={classes.image}
+              src={pictureURL}
+              alt=' '
+              onClick={() => onViewerOpen(pictureURL)}
+            />
+          )}
           <br />
           <KininaruButton
             isGoodClicked={isKininaruClicked}

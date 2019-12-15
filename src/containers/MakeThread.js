@@ -2,29 +2,45 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 
 import changeUpperDirectory from '../functions/changeUpperDirectory';
 
 import {
   TextFields,
-  ImageButton,
-  Checkboxs,
   CancelButton,
   SendButton
 } from '../components/MakeThread/MakeThreadForm';
+import UploadPicButton from '../components/UploadPicButton';
 import * as channelActions from '../modules/channelModule';
 
 const useStyles = makeStyles(theme => ({
   bottomContainer: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     margin: '48px 0',
     marginBottom: 'unset',
-    paddingBottom: '48px',
-    padding: '0 16px'
+    paddingBottom: '48px'
   },
   root: {
     minHeight: '100vh'
+  },
+  title: {
+    margin: '12px 12px 12px 12px'
+  },
+  preview: {
+    objectFit: 'contain',
+    height: '100px',
+    width: '100px',
+    marginLeft: '12px'
+  },
+  canncelButton: {
+    marginLeft: '12px',
+    textDecoration: 'none' // リンクの下線を消す
+  },
+  middleContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start'
   }
 }));
 
@@ -39,19 +55,9 @@ function MakeThread(props) {
   const [details, setDetails] = useState('');
   const [isTitleFilled, setIsTitileFilled] = useState(true); // 訪問した最初にはエラーは出さない
 
-  // ImageButtonに渡す
-  const [pictureURL /*setPictureURL*/] = useState('');
-
-  // checkBoxに渡す
-  const [isFirst, setIsFirst] = useState(false);
-  const [isSecond, setIsSecond] = useState(false);
-  const [isThird, setIsThird] = useState(false);
-  const [isFourth, setIsFourth] = useState(false);
-  const [isFifth, setIsFifth] = useState(false);
-  const [isFastHalf, setIsFastHalf] = useState(false);
-  const [isFastEnd, setIsFastEnd] = useState(false);
-  const [isLateHalf, setIsLateHalf] = useState(false);
-  const [isLateEnd, setIsLateEnd] = useState(false);
+  // UploadPicButtonに渡す
+  const [picture, setPicture] = useState(null);
+  const [blobURL, setBlobURL] = useState(null);
 
   function handleTextChange(event) {
     const targetName = event.target.name;
@@ -72,40 +78,15 @@ function MakeThread(props) {
     }
   }
 
-  function handleCheckChange(event) {
-    const targetName = event.target.name;
-    const checked = event.target.checked;
-    switch (targetName) {
-      case 'first':
-        setIsFirst(checked);
-        return;
-      case 'second':
-        setIsSecond(checked);
-        return;
-      case 'third':
-        setIsThird(checked);
-        return;
-      case 'fourth':
-        setIsFourth(checked);
-        return;
-      case 'fifth':
-        setIsFifth(checked);
-        return;
-      case 'fastHalf':
-        setIsFastHalf(checked);
-        return;
-      case 'fastEnd':
-        setIsFastEnd(checked);
-        return;
-      case 'lateHalf':
-        setIsLateHalf(checked);
-        return;
-      case 'lateEnd':
-        setIsLateEnd(checked);
-        return;
-      default:
-        return;
-    }
+  function handlePictureChange(e) {
+    e.preventDefault();
+
+    // 選択したファイルを所得
+    const file = e.target.files[0];
+    // ファイルのブラウザ上でのURLを取得
+    setBlobURL(window.URL.createObjectURL(file));
+    // stateの更新
+    setPicture(file);
   }
 
   function handleSubmit() {
@@ -115,7 +96,10 @@ function MakeThread(props) {
       setIsTitileFilled(false);
       return;
     }
-    addThread(url, user.uid, title.trim(), details.trim(), pictureURL);
+    addThread(url, user.uid, title.trim(), details.trim(), picture);
+
+    // 所得したブラウザ上でのオブジェクトURLを開放
+    window.URL.revokeObjectURL(blobURL);
 
     // 送信したらチャンネル画面に戻る
     // sendButtonのpropsにhistoryが渡されている
@@ -125,34 +109,33 @@ function MakeThread(props) {
   return (
     <div className={classes.root}>
       <style>{`body {background-color: ${theme.background}}`}</style>
+      <Typography component='h1' variant='h3'>
+        ＃testChannel
+      </Typography>
       <TextFields
         title={title}
         details={details}
         isTitleFilled={isTitleFilled}
         onChange={handleTextChange}
       />
-      <ImageButton />
-      <Checkboxs
-        isFirst={isFirst}
-        isSecond={isSecond}
-        isThird={isThird}
-        isFourth={isFourth}
-        isFifth={isFifth}
-        isFastHalf={isFastHalf}
-        isFastEnd={isFastEnd}
-        isLateHalf={isLateHalf}
-        isLateEnd={isLateEnd}
-        onChange={handleCheckChange}
-      />
+      <div className={classes.middleContainer}>
+        <div style={{ margin: '4px 12px' }}>
+          <UploadPicButton onChange={handlePictureChange} />
+        </div>
+        <p>一枚だけ追加できます</p>
+      </div>
+      {blobURL && <img src={blobURL} alt='' className={classes.preview} />}
       <div className={classes.bottomContainer}>
         <Link
           to={`${changeUpperDirectory(url)}`}
-          style={{ textDecoration: 'none' } /*下線を消す*/}
+          className={classes.canncelButton}
         >
           <CancelButton />
         </Link>
-        {/* SendButtonはLinkを用いずonClick時にhistory.pushを発火する */}
-        <SendButton onClick={handleSubmit} />
+        <div style={{ marginRight: '12px' }}>
+          {/* SendButtonはLinkを用いずonClick時にhistory.pushを発火する */}
+          <SendButton onClick={handleSubmit} />
+        </div>
       </div>
     </div>
   );
@@ -165,10 +148,8 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    addThread: (url, userUid, title, details, pictureURL) =>
-      dispatch(
-        channelActions.addThread(url, userUid, title, details, pictureURL)
-      )
+    addThread: (url, userUid, title, details, picture) =>
+      dispatch(channelActions.addThread(url, userUid, title, details, picture))
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MakeThread);
