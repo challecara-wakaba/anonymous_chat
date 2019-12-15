@@ -69,7 +69,7 @@ const Thread = props => {
       };
       subscribe();
 
-      return () => {
+      return function cleanUp() {
         // コンポーネントがunmountされる時に実行
         if (unsbscribe) unsbscribe();
         // Storeから今読み込んでいるものを消す
