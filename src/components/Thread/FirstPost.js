@@ -42,7 +42,8 @@ export default function FirstPost(props) {
   } = props;
   const { onKininaruClick, onViewerOpen } = props;
 
-  function convertDateFormat(date) {
+  function convertDateFormat(timestamp) {
+    const date = timestamp.toDate(); // firebaseのtimestamp型をDate型に変換
     const month = date.getMonth() + 1;
     const day = date.getDate();
     const hour = ('0' + date.getHours()).slice(-2); // 一桁の時は0を埋めて2桁にする
