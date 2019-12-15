@@ -1,4 +1,3 @@
-import shortid from 'shortid';
 import firebase from '../Firebase';
 var db = firebase.firestore();
 
