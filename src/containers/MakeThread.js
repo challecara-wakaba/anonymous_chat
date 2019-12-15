@@ -8,7 +8,6 @@ import changeUpperDirectory from '../functions/changeUpperDirectory';
 import {
   TextFields,
   ImageButton,
-  Checkboxs,
   CancelButton,
   SendButton
 } from '../components/MakeThread/MakeThreadForm';
@@ -42,17 +41,6 @@ function MakeThread(props) {
   // ImageButtonに渡す
   const [pictureURL /*setPictureURL*/] = useState('');
 
-  // checkBoxに渡す
-  const [isFirst, setIsFirst] = useState(false);
-  const [isSecond, setIsSecond] = useState(false);
-  const [isThird, setIsThird] = useState(false);
-  const [isFourth, setIsFourth] = useState(false);
-  const [isFifth, setIsFifth] = useState(false);
-  const [isFastHalf, setIsFastHalf] = useState(false);
-  const [isFastEnd, setIsFastEnd] = useState(false);
-  const [isLateHalf, setIsLateHalf] = useState(false);
-  const [isLateEnd, setIsLateEnd] = useState(false);
-
   function handleTextChange(event) {
     const targetName = event.target.name;
     const value = event.target.value;
@@ -66,42 +54,6 @@ function MakeThread(props) {
         return;
       case 'details':
         setDetails(value);
-        return;
-      default:
-        return;
-    }
-  }
-
-  function handleCheckChange(event) {
-    const targetName = event.target.name;
-    const checked = event.target.checked;
-    switch (targetName) {
-      case 'first':
-        setIsFirst(checked);
-        return;
-      case 'second':
-        setIsSecond(checked);
-        return;
-      case 'third':
-        setIsThird(checked);
-        return;
-      case 'fourth':
-        setIsFourth(checked);
-        return;
-      case 'fifth':
-        setIsFifth(checked);
-        return;
-      case 'fastHalf':
-        setIsFastHalf(checked);
-        return;
-      case 'fastEnd':
-        setIsFastEnd(checked);
-        return;
-      case 'lateHalf':
-        setIsLateHalf(checked);
-        return;
-      case 'lateEnd':
-        setIsLateEnd(checked);
         return;
       default:
         return;
@@ -132,18 +84,6 @@ function MakeThread(props) {
         onChange={handleTextChange}
       />
       <ImageButton />
-      <Checkboxs
-        isFirst={isFirst}
-        isSecond={isSecond}
-        isThird={isThird}
-        isFourth={isFourth}
-        isFifth={isFifth}
-        isFastHalf={isFastHalf}
-        isFastEnd={isFastEnd}
-        isLateHalf={isLateHalf}
-        isLateEnd={isLateEnd}
-        onChange={handleCheckChange}
-      />
       <div className={classes.bottomContainer}>
         <Link
           to={`${changeUpperDirectory(url)}`}

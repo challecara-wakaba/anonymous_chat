@@ -86,7 +86,7 @@ const useStyles = makeStyles(theme => ({
 
 export function TextFields(props) {
   const classes = useStyles();
-  const { title, details, isTitleFilled, onChange, onClick } = props;
+  const { title, details, isTitleFilled, onChange } = props;
 
   return (
     <div className={classes.FirstCont}>
