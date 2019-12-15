@@ -9,6 +9,7 @@ import SideMenu from '../components/Channel/SideMenu';
 import ThreadCardList from '../components/Channel/ThreadCardList';
 import ThreadAddButton from '../components/Channel/ThreadAddButton';
 import * as channelActions from '../modules/channelModule';
+import extractId from '../functions/extractId';
 
 const db = firebase.firestore();
 
@@ -36,9 +37,9 @@ function Channel(props) {
     // チャンネルのリスナーの設定
     const subscribe = async () => {
       // '/client/:channel'の:channelを取り出す
-      const id = url.split('/').slice(-1)[0];
+      const [channelId] = extractId(url);
       // urlで指定されたチャンネルのfirebase参照を取得
-      const ref = db.collection('channels').doc(id);
+      const ref = db.collection('channels').doc(channelId);
 
       // 指定されたチャンネルが存在するか確認
       const isExist = (await ref.get()).exists;

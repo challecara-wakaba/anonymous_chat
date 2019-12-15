@@ -1,3 +1,4 @@
+import extractId from '../functions/extractId';
 import firebase from '../Firebase';
 const db = firebase.firestore();
 
@@ -34,7 +35,7 @@ export function loadThread(threads) {
 
 export function addThread(url, userUid, title, details, pictureURL) {
   // '/client/:channel/makeThread'の:channelを取り出す
-  const channelKey = url.split('/').slice(-2)[0];
+  const [channelKey] = extractId(url);
   // threadKeyは現在時刻から生成
   const threadKey = Date.now().toString();
   // チャンネルのfirebase参照を取得

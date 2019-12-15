@@ -1,3 +1,4 @@
+import extractId from '../functions/extractId';
 import firebase from '../Firebase';
 var db = firebase.firestore();
 
@@ -42,7 +43,7 @@ export function loadMessage(post, replies) {
 
 export const addMessage = (url, userUid, text, picture) => {
   // '/client/:channel/:thread'の:channelと:threadを取り出す
-  const [channelId, threadId] = url.split('/').slice(-2);
+  const [channelId, threadId] = extractId(url);
   // urlで指定されたチャンネルのfirebase参照を取得
   const ref = db
     .collection('channels')
