@@ -55,6 +55,38 @@ export function addThread(url, userUid, title, details, pictureURL) {
       pictureURL: pictureURL,
       timeStamp: new Date()
     })
+    .then(() => {
+      //127個の整数配列Aを用意
+      let Shuffled = [];
+      for (let i = 0; i < 127; i++) {
+        Shuffled.push(i);
+      }
+      //Aをシャッフル
+      for (var i = Shuffled.length - 1; i > 0; i--) {
+        var r = Math.floor(Math.random() * (i + 1));
+        var tmp = Shuffled[i];
+        Shuffled[i] = Shuffled[r];
+        Shuffled[r] = tmp;
+      }
+      // threadsを管理するcollectionに追加
+      ref
+        .collection('threads')
+        .doc(threadKey)
+        .set({
+          meta: {
+            id: threadKey,
+            userUid: userUid,
+            title: title,
+            details: details,
+            pictureURL: pictureURL,
+            timeStamp: new Date()
+          },
+          Shuffled
+        })
+        .catch(error => {
+          console.log('Error adding Thread: ', error);
+        });
+    })
     .catch(error => {
       console.log('Error adding Thread: ', error);
     });
