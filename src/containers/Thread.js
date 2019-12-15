@@ -33,6 +33,7 @@ const Thread = props => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isvisiable, setIsVisiable] = useState(false);
   const [viweingPicture, setViewingPicture] = useState('');
+
   useEffect(
     () => {
       let unsbscribe = null;
@@ -51,6 +52,9 @@ const Thread = props => {
         // 指定されたチャンネルが存在するか確認
         const isExist = (await ref.get()).exists;
         if (isExist) {
+          // threadのメタデータを取得
+          const threadMeta = (await ref.get()).data();
+
           // onSnapshotの返り値にunsbscribeする関数が返ってくる
           unsbscribe = ref.collection('messages').onSnapshot(querySnapshot => {
             // スレッドを取得してStoreに流す
@@ -58,7 +62,7 @@ const Thread = props => {
             querySnapshot.forEach(doc => {
               messages.push(doc.data());
             });
-            loadMessage(messages);
+            loadMessage(threadMeta, messages);
           });
         } else {
         }
@@ -194,7 +198,8 @@ const mapDispatchToProps = dispatch => {
   return {
     addMessage: (url, userUid, text, picture) =>
       dispatch(threadActions.addMessage(url, userUid, text, picture)),
-    loadMessage: replies => dispatch(threadActions.loadMessage(replies)),
+    loadMessage: (post, replies) =>
+      dispatch(threadActions.loadMessage(post, replies)),
     goodButtonClick: (docKey, goodClickedUsers) =>
       dispatch(threadActions.goodButtonClick(docKey, goodClickedUsers)),
     KininaruButtonClick: (docKey, KininaruClickedUsers) =>
