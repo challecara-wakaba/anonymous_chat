@@ -10,14 +10,16 @@ export default function MessageList(props) {
 
   return (
     <List>
-      <FirstPost
-        key={post.id}
-        name={post.name}
-        details={post.details}
-        timeStamp={post.timeStamp}
-        pictureURL={post.pictureURL}
-        onViewerOpen={onViewerOpen}
-      />
+      {Object.keys(post).length !== 0 && (
+        <FirstPost
+          key={post.id}
+          name={post.name}
+          details={post.details}
+          timeStamp={post.timeStamp}
+          pictureURL={post.pictureURL}
+          onViewerOpen={onViewerOpen}
+        />
+      )}
       {replies.map((item, index) => {
         // goodClickedUseersが無い時のため
         let goodClickedUsers = item.goodClickedUsers

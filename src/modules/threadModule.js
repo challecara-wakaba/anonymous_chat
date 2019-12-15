@@ -1,4 +1,3 @@
-import shortid from 'shortid';
 import firebase from '../Firebase';
 var db = firebase.firestore();
 
@@ -9,14 +8,7 @@ const GOOD_BUTTON_CLICK = 'GOOD_BUTTON_CLICK';
 const KININARU_BUTTON_CLICK = 'KININARU_BUTTON_CLICK';
 
 const initialState = {
-  post: {
-    id: shortid.generate(),
-    name: 'annin',
-    timeStamp: new Date(),
-    title: '物理',
-    details: 'この問題がわかりません',
-    pictureURL: 'http://img-cdn.jg.jugem.jp/993/154735/20101224_1438937.jpg'
-  },
+  post: {},
   replies: []
 };
 
@@ -25,6 +17,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_MESSAGE:
       return Object.assign({}, state, {
+        post: action.post,
         replies: action.replies
       });
 
@@ -38,13 +31,15 @@ const reducer = (state = initialState, action) => {
 export default reducer;
 
 // Action Creators
-export function loadMessage(replies) {
+export function loadMessage(post, replies) {
   // listenerから呼ばれるアクション
   return {
     type: LOAD_MESSAGE,
+    post: post,
     replies: replies
   };
 }
+
 export const addMessage = (url, userUid, text, picture) => {
   // '/client/:channel/:thread'の:channelと:threadを取り出す
   const [channelId, threadId] = url.split('/').slice(-2);
