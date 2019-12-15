@@ -50,18 +50,6 @@ const Thread = props => {
 
         // 指定されたチャンネルが存在するか確認
         const isExist = (await ref.get()).exists;
-        console.log(
-          // .doc('1576232835990')
-          // .get()
-          (
-            await db
-              .collection('channels')
-              .doc(channelId)
-              .collection('threads')
-              .doc('1576232835990')
-              .get()
-          ).exists
-        );
         if (isExist) {
           // onSnapshotの返り値にunsbscribeする関数が返ってくる
           unsbscribe = ref.collection('messages').onSnapshot(querySnapshot => {

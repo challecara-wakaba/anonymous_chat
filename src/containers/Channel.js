@@ -44,14 +44,17 @@ function Channel(props) {
       const isExist = (await ref.get()).exists;
       if (isExist) {
         // onSnapshotの返り値にunsbscribeする関数が返ってくる
-        unsbscribe = ref.collection('metas').onSnapshot(querySnapshot => {
-          // スレッドのメタデータをStoreに流す
-          let threads = [];
-          querySnapshot.forEach(doc => {
-            threads.push(doc.data());
+        unsbscribe = ref
+          .collection('threads')
+          // .orderBy('id', 'desc') // データを降順で並び替える
+          .onSnapshot(querySnapshot => {
+            // スレッドのメタデータをStoreに流す
+            let threads = [];
+            querySnapshot.forEach(doc => {
+              threads.push(doc.data());
+            });
+            loadThread(threads);
           });
-          loadThread(threads);
-        });
       } else {
       }
     };
