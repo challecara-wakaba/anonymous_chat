@@ -95,19 +95,33 @@ export const addMessage = (url, userUid, text, picture) => {
     type: ADD_MESSAGE
   };
 };
-export function goodButtonClick(docKey, goodClickedUsers) {
-  db.collection('message')
-    .doc(docKey)
+
+export function goodButtonClick(url, messageId, goodClickedUsers) {
+  // 'client/:channel/:thread'から:clientと:channelを取り出す
+  const [channelId, threadId] = extractId(url);
+  // 更新したいmessageのfirebase参照を取得
+  const ref = db
+    .collection('channels')
+    .doc(channelId)
+    .collection('threads')
+    .doc(threadId)
+    .collection('messages')
+    .doc(messageId);
+
+  // 更新
+  ref
     .update({
       goodClickedUsers: goodClickedUsers
     })
     .catch(error => {
-      console.log('Error updating document: ', error);
+      console.log('Error updatin document: ', error);
     });
+
   return {
     type: GOOD_BUTTON_CLICK
   };
 }
+
 export function KininaruButtonClick(docKey, KininaruClickedUsers) {
   db.collection('message')
     .doc(docKey)
