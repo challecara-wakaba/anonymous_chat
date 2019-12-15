@@ -28,6 +28,12 @@ const useStyles = makeStyles(theme => ({
   title: {
     margin: '12px 12px 12px 12px'
   },
+  preview: {
+    objectFit: 'contain',
+    height: '100px',
+    width: '100px',
+    marginLeft: '12px'
+  },
   canncelButton: {
     marginLeft: '12px',
     textDecoration: 'none' // リンクの下線を消す
@@ -49,8 +55,9 @@ function MakeThread(props) {
   const [details, setDetails] = useState('');
   const [isTitleFilled, setIsTitileFilled] = useState(true); // 訪問した最初にはエラーは出さない
 
-  // ImageButtonに渡す
-  const [pictureURL /*setPictureURL*/] = useState('');
+  // UploadPicButtonに渡す
+  const [picture, setPicture] = useState(null);
+  const [blobURL, setBlobURL] = useState(null);
 
   function handleTextChange(event) {
     const targetName = event.target.name;
@@ -71,6 +78,17 @@ function MakeThread(props) {
     }
   }
 
+  function handlePictureChange(e) {
+    e.preventDefault();
+
+    // 選択したファイルを所得
+    const file = e.target.files[0];
+    // ファイルのブラウザ上でのURLを取得
+    setBlobURL(window.URL.createObjectURL(file));
+    // stateの更新
+    setPicture(file);
+  }
+
   function handleSubmit() {
     // タイトルの入力欄が空だったりホワイトスペースばっかりだったら送信しない
     // String.tirm() で文字列の銭湯と最後にある改行は空白を取り除
@@ -78,7 +96,10 @@ function MakeThread(props) {
       setIsTitileFilled(false);
       return;
     }
-    addThread(url, user.uid, title.trim(), details.trim(), pictureURL);
+    addThread(url, user.uid, title.trim(), details.trim(), picture);
+
+    // 所得したブラウザ上でのオブジェクトURLを開放
+    window.URL.revokeObjectURL(blobURL);
 
     // 送信したらチャンネル画面に戻る
     // sendButtonのpropsにhistoryが渡されている
@@ -99,10 +120,11 @@ function MakeThread(props) {
       />
       <div className={classes.middleContainer}>
         <div style={{ margin: '4px 12px' }}>
-          <UploadPicButton />
+          <UploadPicButton onChange={handlePictureChange} />
         </div>
         <p>一枚だけ追加できます</p>
       </div>
+      {blobURL && <img src={blobURL} alt='' className={classes.preview} />}
       <div className={classes.bottomContainer}>
         <Link
           to={`${changeUpperDirectory(url)}`}
