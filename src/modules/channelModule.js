@@ -33,7 +33,7 @@ export function loadThread(threads) {
   };
 }
 
-export function addThread(url, userUid, title, details, pictureURL) {
+export function addThread(url, userUid, title, details, picture) {
   // '/client/:channel/makeThread'の:channelを取り出す
   const [channelKey] = extractId(url);
   // threadKeyは現在時刻から生成
@@ -41,24 +41,44 @@ export function addThread(url, userUid, title, details, pictureURL) {
   // チャンネルのfirebase参照を取得
   const ref = db.collection('channels').doc(channelKey);
 
-  // threadsを管理するcollectionに
-  // threadを表すドキュメントを追加
-  ref
-    .collection('threads')
-    .doc(threadKey)
-    .set({
-      // meta情報を格納
-      id: threadKey,
-      userUid: userUid,
-      title: title,
-      details: details,
-      pictureURL: pictureURL,
-      timeStamp: new Date()
-    })
-    .catch(error => {
-      console.log('Error adding Thread: ', error);
-    });
+  async function sendThread() {
+    let pictureURL = null;
+    // 写真がある場合、写真をアップロード
+    if (picture !== null) {
+      try {
+        // 画像のパス
+        const filePath = `Pictures/${channelKey}/${threadKey}`;
+        const Ref = firebase.storage().ref(filePath);
 
+        // 送信
+        await Ref.put(picture);
+        // 画像のurlを取得
+        pictureURL = await Ref.getDownloadURL();
+      } catch (error) {
+        console.log(error);
+        return;
+      }
+    }
+
+    // threadsを管理するcollectionに
+    // threadを表すドキュメントを追加
+    ref
+      .collection('threads')
+      .doc(threadKey)
+      .set({
+        // meta情報を格納
+        id: threadKey,
+        userUid: userUid,
+        title: title,
+        details: details,
+        pictureURL: pictureURL,
+        timeStamp: new Date()
+      })
+      .catch(error => {
+        console.log('Error adding Thread: ', error);
+      });
+  }
+  sendThread();
   return {
     type: ADD_THREAD
   };

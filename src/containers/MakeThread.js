@@ -148,10 +148,8 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    addThread: (url, userUid, title, details, pictureURL) =>
-      dispatch(
-        channelActions.addThread(url, userUid, title, details, pictureURL)
-      )
+    addThread: (url, userUid, title, details, picture) =>
+      dispatch(channelActions.addThread(url, userUid, title, details, picture))
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MakeThread);
