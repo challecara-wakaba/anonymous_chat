@@ -26,6 +26,7 @@ const Thread = props => {
   const { user, post, replies } = props;
   const {
     addMessage,
+    loadPost,
     loadMessage,
     goodButtonClick,
     KininaruButtonClick
@@ -37,7 +38,8 @@ const Thread = props => {
 
   useEffect(
     () => {
-      let unsbscribe = null;
+      let metaUnsbscribe = null;
+      let messagesUnsbscribe = null;
 
       // スレッドのリスナーの設定
       const subscribe = async () => {
@@ -53,28 +55,42 @@ const Thread = props => {
         // 指定されたチャンネルが存在するか確認
         const isExist = (await ref.get()).exists;
         if (isExist) {
+          let threadMeta = null;
           // threadのメタデータを取得
-          const threadMeta = (await ref.get()).data();
+          // onSnapshotの返り値にunsbscribeする関数が返ってくる
+          metaUnsbscribe = ref.onSnapshot(
+            {
+              // ドキュメントのメタデータもリッスンする設定
+              includeMetadataChanges: true
+            },
+            doc => {
+              threadMeta = doc.data();
+              loadPost(threadMeta);
+            }
+          );
 
           // onSnapshotの返り値にunsbscribeする関数が返ってくる
-          unsbscribe = ref.collection('messages').onSnapshot(querySnapshot => {
-            // スレッドを取得してStoreに流す
-            let messages = [];
-            querySnapshot.forEach(doc => {
-              messages.push(doc.data());
+          messagesUnsbscribe = ref
+            .collection('messages')
+            .onSnapshot(querySnapshot => {
+              // スレッドを取得してStoreに流す
+              let messages = [];
+              querySnapshot.forEach(doc => {
+                messages.push(doc.data());
+              });
+              loadMessage(messages);
             });
-            loadMessage(threadMeta, messages);
-          });
-        } else {
         }
       };
       subscribe();
 
       return function cleanUp() {
         // コンポーネントがunmountされる時に実行
-        if (unsbscribe) unsbscribe();
+        if (metaUnsbscribe) metaUnsbscribe();
+        if (messagesUnsbscribe) messagesUnsbscribe();
         // Storeから今読み込んでいるものを消す
-        loadMessage({}, []);
+        loadPost({});
+        loadMessage([]);
       };
     },
     [] /*useEffectをcomponentDidMountのように扱うためにから配列を渡している*/
@@ -132,10 +148,10 @@ const Thread = props => {
   };
   // --- --- --- ---
   // --- Kininaru ---
-  const handleKininaruClick = index => {
+  const handleKininaruClick = () => {
     // KininaruClickedUsersが無い時のため
-    let KininaruClickedUsers = replies[index].KininaruClickedUsers
-      ? replies[index].KininaruClickedUsers
+    let KininaruClickedUsers = post.KininaruClickedUsers
+      ? post.KininaruClickedUsers
       : {};
 
     if (KininaruClickedUsers[user.uid] === true) {
@@ -143,13 +159,13 @@ const Thread = props => {
       const newClickedUsers = Object.assign({}, KininaruClickedUsers, {
         [user.uid]: false
       });
-      KininaruButtonClick(replies[index].id, newClickedUsers);
+      KininaruButtonClick(url, newClickedUsers);
     } else {
       // 押してなかった時
       const newClickedUsers = Object.assign({}, KininaruClickedUsers, {
         [user.uid]: true
       });
-      KininaruButtonClick(replies[index].id, newClickedUsers);
+      KininaruButtonClick(url, newClickedUsers);
     }
   };
   // --- --- --- ---
@@ -201,14 +217,14 @@ const mapDispatchToProps = dispatch => {
   return {
     addMessage: (url, userUid, text, picture) =>
       dispatch(threadActions.addMessage(url, userUid, text, picture)),
-    loadMessage: (post, replies) =>
-      dispatch(threadActions.loadMessage(post, replies)),
+    loadPost: post => dispatch(threadActions.loadPost(post)),
+    loadMessage: replies => dispatch(threadActions.loadMessage(replies)),
     goodButtonClick: (url, messageKey, goodClickedUsers) =>
       dispatch(
         threadActions.goodButtonClick(url, messageKey, goodClickedUsers)
       ),
-    KininaruButtonClick: (docKey, KininaruClickedUsers) =>
-      dispatch(threadActions.KininaruButtonClick(docKey, KininaruClickedUsers))
+    KininaruButtonClick: (url, KininaruClickedUsers) =>
+      dispatch(threadActions.KininaruButtonClick(url, KininaruClickedUsers))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Thread);
