@@ -91,6 +91,7 @@ export function addThread(url, userUid, title, details, picture) {
         details: details,
         pictureURL: pictureURL,
         timeStamp: new Date(),
+        replyCount: 0,
         Shuffled,
         profile
       })
