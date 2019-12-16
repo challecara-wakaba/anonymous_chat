@@ -38,8 +38,10 @@ const useStyles = makeStyles(theme => ({
   Ver: {
     color: '#142471'
   },
-  Color: {
-    color: theme.primary
+  details: {
+    color: theme.text,
+    whiteSpace: 'pre-wrap',
+    overflowWrap: 'break-word'
   },
   image: {
     marginRight: 'auto',
@@ -139,7 +141,7 @@ const ThreadCard = props => {
         <Typography
           variant='body2'
           components='p'
-          className={classes.Color}
+          className={classes.details}
           gutterBottom
         >
           {convertLineFeed(details)}
