@@ -151,7 +151,7 @@ export function ImageButton() {
   );
 }
 
-export function Checkboxs(props) {
+/*export function Checkboxs(props) {
   const classes = useStyles();
   const {
     isFirst,
@@ -298,7 +298,7 @@ export function Checkboxs(props) {
     </FormGroup>
   );
 }
-
+*/
 export function CancelButton() {
   const classes = useStyles();
   return (
