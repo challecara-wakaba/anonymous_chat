@@ -42,43 +42,6 @@ export function addThread(url, userUid, title, details, picture) {
   // チャンネルのfirebase参照を取得
   const ref = db.collection('channels').doc(channelKey);
 
-  // threadsを管理するcollectionに
-  // threadを表すドキュメントを追加
-  ref
-    .collection('threads')
-    .doc(threadKey)
-    .set({
-      // meta情報を格納
-      id: threadKey,
-      userUid: userUid,
-      title: title,
-      details: details,
-      pictureURL: pictureURL,
-      timeStamp: new Date()
-    })
-    .then(() => {
-      // threadsを管理するcollectionに追加
-      ref
-        .collection('threads')
-        .doc(threadKey)
-        .set({
-          meta: {
-            id: threadKey,
-            userUid: userUid,
-            title: title,
-            details: details,
-            pictureURL: pictureURL,
-            timeStamp: new Date()
-          }
-        })
-        .catch(error => {
-          console.log('Error adding Thread: ', error);
-        });
-    })
-    .catch(error => {
-      console.log('Error adding Thread: ', error);
-    });
-
   async function sendThread() {
     let pictureURL = null;
     // 写真がある場合、写真をアップロード
