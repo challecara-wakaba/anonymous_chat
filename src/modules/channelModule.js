@@ -1,5 +1,6 @@
 import extractId from '../functions/extractId';
 import firebase from '../Firebase';
+import icons from '../icon.js';
 const db = firebase.firestore();
 
 // action type
@@ -41,6 +42,43 @@ export function addThread(url, userUid, title, details, picture) {
   // チャンネルのfirebase参照を取得
   const ref = db.collection('channels').doc(channelKey);
 
+  // threadsを管理するcollectionに
+  // threadを表すドキュメントを追加
+  ref
+    .collection('threads')
+    .doc(threadKey)
+    .set({
+      // meta情報を格納
+      id: threadKey,
+      userUid: userUid,
+      title: title,
+      details: details,
+      pictureURL: pictureURL,
+      timeStamp: new Date()
+    })
+    .then(() => {
+      // threadsを管理するcollectionに追加
+      ref
+        .collection('threads')
+        .doc(threadKey)
+        .set({
+          meta: {
+            id: threadKey,
+            userUid: userUid,
+            title: title,
+            details: details,
+            pictureURL: pictureURL,
+            timeStamp: new Date()
+          }
+        })
+        .catch(error => {
+          console.log('Error adding Thread: ', error);
+        });
+    })
+    .catch(error => {
+      console.log('Error adding Thread: ', error);
+    });
+
   async function sendThread() {
     let pictureURL = null;
     // 写真がある場合、写真をアップロード
@@ -59,7 +97,21 @@ export function addThread(url, userUid, title, details, picture) {
         return;
       }
     }
-
+    //127個の整数配列Aを用意
+    let Shuffled = [];
+    //profileオブジェクトを用意
+    let profile = {};
+    for (let i = 0; i < 127; i++) {
+      Shuffled.push(i);
+    }
+    //Aをシャッフル
+    for (var i = Shuffled.length - 1; i > 0; i--) {
+      var r = Math.floor(Math.random() * (i + 1));
+      var tmp = Shuffled[i];
+      Shuffled[i] = Shuffled[r];
+      Shuffled[r] = tmp;
+    }
+    profile[userUid] = icons[Shuffled[0]];
     // threadsを管理するcollectionに
     // threadを表すドキュメントを追加
     ref
@@ -72,7 +124,9 @@ export function addThread(url, userUid, title, details, picture) {
         title: title,
         details: details,
         pictureURL: pictureURL,
-        timeStamp: new Date()
+        timeStamp: new Date(),
+        Shuffled,
+        profile
       })
       .catch(error => {
         console.log('Error adding Thread: ', error);
