@@ -25,6 +25,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     minHeight: '100vh'
   },
+  tag: {
+    margin: '16px',
+    marginLeft: theme.spacing(3)
+  },
   title: {
     margin: '36px'
   },
@@ -109,7 +113,7 @@ function MakeThread(props) {
   return (
     <div className={classes.root}>
       <style>{`body {background-color: ${theme.background}}`}</style>
-      <Typography component='h1' variant='h4'>
+      <Typography component='h1' variant='h4' className={classes.tag}>
         ＃testChannel
       </Typography>
       <TextFields
