@@ -36,6 +36,9 @@ const useStyles = makeStyles(theme => ({
   FieldText: {
     color: '#FFFFFF'
   },
+  Text: {
+    color: theme.text
+  },
   Tag: {
     display: 'flex',
     flexDirection: 'row-reverse'
@@ -75,7 +78,7 @@ const useStyles = makeStyles(theme => ({
     color: '#FFFFFF'
   },
   TextLabel: {
-    color: '#979797 !important'
+    color: '#5F5F5F !important'
   },
   TextBox: {
     borderColor: '#000000 !important'
@@ -146,7 +149,7 @@ export function ImageButton() {
       <Button variant='contained' size='medium' className={classes.AddButton}>
         <span className={classes.FieldText}>画像を追加</span>
       </Button>
-      <h5>1枚追加できます</h5>
+      <h5 className={classes.Text}>1枚追加できます</h5>
     </div>
   );
 }
