@@ -34,7 +34,7 @@ function Channel(props) {
   useEffect(() => {
     let unsbscribe = null;
 
-    // チャンネルのリスナーの設定
+    // threadsのmetaのリスナーの設定
     const subscribe = async () => {
       // '/client/:channel'の:channelを取り出す
       const [channelId] = extractId(url);
