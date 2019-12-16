@@ -76,7 +76,6 @@ export function TextFields(props) {
         label='Email'
         type='email'
         name='email' // onTextChangeで使う
-        className={classes.FirstMargin}
         autoComplete='email'
         margin='normal'
         variant='outlined'
