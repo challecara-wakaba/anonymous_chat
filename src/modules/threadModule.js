@@ -85,7 +85,7 @@ export const addMessage = (url, userUid, text, picture) => {
     const messageId = Date.now().toString();
 
     // サーバーにメッセージを送る
-    ref
+    await ref
       .collection('messages')
       .doc(messageId)
       .set({
@@ -100,6 +100,11 @@ export const addMessage = (url, userUid, text, picture) => {
       .catch(function(error) {
         console.log('Error adding document: ', error);
       });
+
+    // 返信の総数を管理するフィールドを更新
+    await ref.update({
+      replyCount: firebase.firestore.FieldValue.increment(1)
+    });
   }
   sendMessage();
   return {

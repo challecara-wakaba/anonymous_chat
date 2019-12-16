@@ -38,8 +38,10 @@ const useStyles = makeStyles(theme => ({
   Ver: {
     color: '#142471'
   },
-  Color: {
-    color: theme.primary
+  details: {
+    color: theme.text,
+    whiteSpace: 'pre-wrap',
+    overflowWrap: 'break-word'
   },
   image: {
     marginRight: 'auto',
@@ -59,13 +61,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// テスト用
-const NOTIS = '2件の返信';
-
 const ThreadCard = props => {
   const classes = useStyles();
   const { url } = useRouteMatch();
-  const { threadId, timeStamp, title, details, pictureURL } = props;
+  const { threadId, timeStamp, title, details, pictureURL, replyCount } = props;
   const [anchorEl, setAnchorEl] = useState(null); // あくまで開いているボタンの場所のstateのためrリフトアップしてない
 
   let jumpURL = `${url}/${threadId}`;
@@ -142,7 +141,7 @@ const ThreadCard = props => {
         <Typography
           variant='body2'
           components='p'
-          className={classes.Color}
+          className={classes.details}
           gutterBottom
         >
           {convertLineFeed(details)}
@@ -158,7 +157,11 @@ const ThreadCard = props => {
       )}
       <Divider />
       <CardContent className={classes.newsBar}>
-        <Typography variant='body2'>{NOTIS}</Typography>
+        {replyCount === 0 ? (
+          <Typography variant='body2'>{'まだ返信がありません'}</Typography>
+        ) : (
+          <Typography variant='body2'>{`${replyCount}件の返信`}</Typography>
+        )}
       </CardContent>
       <Divider className={classes.divider} />
     </Card>

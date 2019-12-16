@@ -17,6 +17,7 @@ export default function ThreadCardList(props) {
             title={item.title}
             details={item.details}
             pictureURL={item.pictureURL}
+            replyCount={item.replyCount}
           />
         );
       })}
