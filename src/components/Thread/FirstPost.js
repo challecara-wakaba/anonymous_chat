@@ -32,14 +32,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function FirstPost(props) {
   const classes = useStyles();
-  const {
-    name,
-    details,
-    pictureURL,
-    timeStamp,
-    KininaruCount,
-    isKininaruClicked
-  } = props;
+  const { name, details, pictureURL, timeStamp, isKininaruClicked } = props;
   const { onKininaruClick, onViewerOpen } = props;
 
   function convertDateFormat(timestamp) {
@@ -99,8 +92,7 @@ export default function FirstPost(props) {
           )}
           <br />
           <KininaruButton
-            isGoodClicked={isKininaruClicked}
-            KininaruCount={KininaruCount}
+            isKininaruClicked={isKininaruClicked}
             onClick={onKininaruClick}
           />
         </div>

@@ -8,6 +8,18 @@ export default function MessageList(props) {
   const { post, replies, userUid } = props;
   const { onKininaruClick, onGoodClick, onViewerOpen } = props;
 
+  // kininaruClickedUsersがない時のため
+  let KininaruClickedUsers = post.KininaruClickedUsers
+    ? post.KininaruClickedUsers
+    : {};
+  // kininaruButtonを押したか判断する処理
+  let isKininaruClicked = false;
+  if (KininaruClickedUsers[userUid] === true) {
+    isKininaruClicked = true;
+  } else {
+    isKininaruClicked = false;
+  }
+
   const postDOM = Object.keys(post).length !== 0 && (
     <FirstPost
       key={post.id}
@@ -16,6 +28,8 @@ export default function MessageList(props) {
       timeStamp={post.timeStamp}
       pictureURL={post.pictureURL}
       onViewerOpen={onViewerOpen}
+      isKininaruClicked={isKininaruClicked}
+      onKininaruClick={onKininaruClick}
     />
   );
 

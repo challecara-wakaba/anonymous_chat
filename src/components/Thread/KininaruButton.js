@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 
 const useStyle = makeStyles(theme => ({
   ButtonCont: ({ isKininaruClicked }) => ({
@@ -28,12 +27,11 @@ const useStyle = makeStyles(theme => ({
 }));
 
 const KininaruButton = props => {
-  const { isKininaruClicked, KininaruCount, onClick } = props;
+  const { isKininaruClicked, onClick } = props;
   const classes = useStyle({ isKininaruClicked });
   return (
     <Button className={classes.ButtonCont} onClick={onClick}>
       気になる
-      <Typography className={classes.KininaruCount}>{KininaruCount}</Typography>
     </Button>
   );
 };

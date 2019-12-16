@@ -3,6 +3,7 @@ import firebase from '../Firebase';
 var db = firebase.firestore();
 
 // action type
+const LOAD_POST = 'LOAD_POST';
 const LOAD_MESSAGE = 'LOAD_MESSAGE';
 const ADD_MESSAGE = 'ADD_MESSAGE';
 const GOOD_BUTTON_CLICK = 'GOOD_BUTTON_CLICK';
@@ -16,9 +17,12 @@ const initialState = {
 // reducer
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOAD_POST:
+      return Object.assign({}, state, {
+        post: action.post
+      });
     case LOAD_MESSAGE:
       return Object.assign({}, state, {
-        post: action.post,
         replies: action.replies
       });
 
@@ -32,11 +36,18 @@ const reducer = (state = initialState, action) => {
 export default reducer;
 
 // Action Creators
-export function loadMessage(post, replies) {
+export function loadPost(post) {
+  // listenerから呼ばれるアクション
+  return {
+    type: LOAD_POST,
+    post: post
+  };
+}
+
+export function loadMessage(replies) {
   // listenerから呼ばれるアクション
   return {
     type: LOAD_MESSAGE,
-    post: post,
     replies: replies
   };
 }
@@ -122,15 +133,25 @@ export function goodButtonClick(url, messageId, goodClickedUsers) {
   };
 }
 
-export function KininaruButtonClick(docKey, KininaruClickedUsers) {
-  db.collection('message')
-    .doc(docKey)
+export function KininaruButtonClick(url, KininaruClickedUsers) {
+  // 'client/:channel/:thread'から:clientと:channelを取り出す
+  const [channelId, threadId] = extractId(url);
+  // 更新したいmessageのfirebase参照を取得
+  const ref = db
+    .collection('channels')
+    .doc(channelId)
+    .collection('threads')
+    .doc(threadId);
+
+  // 更新
+  ref
     .update({
       KininaruClickedUsers: KininaruClickedUsers
     })
     .catch(error => {
-      console.log('Error updating document: ', error);
+      console.log('Error updatin document: ', error);
     });
+
   return {
     type: KININARU_BUTTON_CLICK
   };
