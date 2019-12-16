@@ -128,6 +128,7 @@ function Channel(props) {
 
 function mapStateToProps(state) {
   return {
+    channels: state.channel.channel,
     threads: state.channel.threads
   };
 }

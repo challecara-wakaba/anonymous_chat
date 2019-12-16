@@ -4,16 +4,22 @@ import icons from '../icon.js';
 const db = firebase.firestore();
 
 // action type
+const LOAD_CHANNEL = 'LOAD_CHANNEL';
 const LOAD_THREAD = 'LOAD_THREAD';
 const ADD_THREAD = 'ADD_THREAD';
 
 const initialState = {
+  channels: [],
   threads: []
 };
 
 // reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case LOAD_CHANNEL:
+      return Object.assign({}, state, {
+        channels: action.channels
+      });
     case LOAD_THREAD:
       return Object.assign({}, state, {
         threads: action.threads
@@ -26,6 +32,12 @@ export default function reducer(state = initialState, action) {
 }
 
 // Action Creators
+export function loadChannel(channels) {
+  return {
+    type: LOAD_CHANNEL,
+    channels: channels
+  };
+}
 
 export function loadThread(threads) {
   return {
