@@ -69,6 +69,39 @@ function Channel(props) {
     };
   }, []);
 
+  useEffect(() => {
+    let unsbscribe = null;
+
+    // チャンネル切り替えようのリスナーの設定
+    const subscribe = async () => {
+      // チャンネルがまとめられたコレクションのfirebase参照を所得
+      const ref = db.collection('channels');
+
+      // 指定されたチャンネルが存在するか確認
+      const isExist = (await ref.get()).exists;
+      if (isExist) {
+        // onSnapshotの返り値にunsbscribeする関数が返ってくる
+        unsbscribe = ref.onSnapshot(querySnapshot => {
+          // チャンネルのメタデータをStoreに流す
+          let channels = [];
+          querySnapshot.forEach(doc => {
+            threads.push(doc.data());
+          });
+          // loadChannel(channels);
+        });
+      } else {
+      }
+    };
+    subscribe();
+
+    return function cleanUp() {
+      // コンポーネントがunmountされる時に実行
+      if (unsbscribe) unsbscribe();
+      // Storeから今読み込んでいるものを消す
+      // loadChannel([]);
+    };
+  }, []);
+
   //サイドメニューが開く
   const handletrue = () => setState({ left: true });
   //サイドメニューが閉じる
