@@ -60,6 +60,8 @@ export function addThread(url, userUid, title, details, picture) {
         return;
       }
     }
+
+    // ランダムアイコンのために用意する
     //127個の整数配列Aを用意
     let Shuffled = [];
     //profileオブジェクトを用意
@@ -75,6 +77,7 @@ export function addThread(url, userUid, title, details, picture) {
       Shuffled[r] = tmp;
     }
     profile[userUid] = icons[Shuffled[0]];
+
     // threadsを管理するcollectionに
     // threadを表すドキュメントを追加
     ref
