@@ -19,17 +19,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LABEL = '# 英語';
 function Channel(props) {
   const { channels, threads } = props;
   const { loadChannel, loadThread } = props;
   const theme = useTheme();
   const classes = useStyles();
   const { url } = useRouteMatch();
-  //stateの設定
+  //サイドメニューのstateの設定
   const [state, setState] = React.useState({
     left: false
   });
+  const [channelName, setChannelName] = React.useState('');
 
   useEffect(
     () => {
@@ -43,7 +43,8 @@ function Channel(props) {
         const ref = db.collection('channels').doc(channelId);
 
         // 指定されたチャンネルが存在するか確認
-        const isExist = (await ref.get()).exists;
+        const docSnapshot = await ref.get();
+        const isExist = docSnapshot.exists;
         if (isExist) {
           // onSnapshotの返り値にunsbscribeする関数が返ってくる
           unsbscribe = ref
@@ -57,6 +58,7 @@ function Channel(props) {
               });
               loadThread(threads);
             });
+          setChannelName(`# ${docSnapshot.data().name}`); // ヘッダーに表示するチャンネル名を更新
         } else {
         }
       };
@@ -107,7 +109,11 @@ function Channel(props) {
   return (
     <div>
       <style>{`body {background-color: ${theme.threadBackground}}`}</style>
-      <Header location='channel' label={LABEL} SideMenutrue={handletrue} />
+      <Header
+        location='channel'
+        label={channelName}
+        SideMenutrue={handletrue}
+      />
       {/*stateを渡す*/}
       <SideMenu
         isOpen={state.left}
