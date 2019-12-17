@@ -102,17 +102,6 @@ const ThreadCard = props => {
     return `${year}年${month}月${day}日(${dayOfWeek})`;
   };
 
-  const convertLineFeed = text => {
-    // 改行コード\nを<br />に変換
-    // これを行わないとテキストが改行されない
-    return text.split('\n').map((line, key) => (
-      <span key={key}>
-        {line}
-        <br />
-      </span>
-    ));
-  };
-
   return (
     <Card className={classes.root} elevation={1} square>
       <Divider className={classes.divider} />
@@ -146,7 +135,7 @@ const ThreadCard = props => {
           className={classes.details}
           gutterBottom
         >
-          {convertLineFeed(details)}
+          {details}
         </Typography>
       </CardContent>
       {!(!pictureURL || pictureURL === '') && (
