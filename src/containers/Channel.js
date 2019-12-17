@@ -32,9 +32,9 @@ function Channel(props) {
   });
 
   useEffect(() => {
-    let unsbscribe = null;
-
     // threadsのmetaのリスナーの設定
+
+    let unsbscribe = null;
     const subscribe = async () => {
       // '/client/:channel'の:channelを取り出す
       const [channelId] = extractId(url);
@@ -70,9 +70,9 @@ function Channel(props) {
   }, []);
 
   useEffect(() => {
-    let unsbscribe = null;
-
     // チャンネル切り替えようのリスナーの設定
+
+    let unsbscribe = null;
     const subscribe = async () => {
       // チャンネルがまとめられたコレクションのfirebase参照を所得
       const ref = db.collection('channels');
