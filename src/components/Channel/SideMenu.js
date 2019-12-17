@@ -1,12 +1,15 @@
 ﻿import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
 import firebase from 'firebase/app';
 import { Typography } from '@material-ui/core';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import { Virtuoso } from 'react-virtuoso';
+import extractId from '../../functions/extractId';
+
+import SideMenuItem from './SideMenuItem';
 
 //サイドメニューのcss
 const useStyles = makeStyles(theme => ({
@@ -18,12 +21,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.background,
     width: 250
   },
-  titleText: {
+  listTitle: {
     color: theme.text,
-    marginLeft: '10px'
-  },
-  itemText: {
-    color: theme.text
+    marginLeft: '12px'
   },
   button: {
     width: '100%',
@@ -43,10 +43,15 @@ const listStyle = {
 //サイドメニュー本体部分
 export default function SideMenu(props) {
   const classes = useStyles();
+  const { url } = useRouteMatch();
   const isOpen = props.isOpen;
   const channels = props.channels;
   const SideMenutrue = props.SideMenutrue;
   const SideMenufalse = props.SideMenufalse;
+
+  // channelIdを取得
+  const [channelId] = extractId(url);
+
   const signout = () => event => {
     firebase
       .auth()
@@ -58,11 +63,12 @@ export default function SideMenu(props) {
         console.log(error);
       });
   };
+
   //メニューの中身をdivタグに書く
   const Menu = (
     <React.Fragment>
       <div className={classes.tmp}></div>
-      <Typography variant='subtitle2' className={classes.titleText}>
+      <Typography variant='subtitle2' className={classes.listTitle}>
         チャンネル
       </Typography>
       <nav>
@@ -73,11 +79,19 @@ export default function SideMenu(props) {
             overscan={200}
             computeItemKey={i => channels[i].id}
             item={i => (
-              <ListItem button component='li'>
-                <Typography variant='body1' className={classes.itemText}>
-                  {`# ${channels[i].name}`}
-                </Typography>
-              </ListItem>
+              <SideMenuItem
+                isSelected={channels[i].id === channelId}
+                name={channels[i].name}
+              />
+              // <ListItem
+              //   button
+              //   component='li'
+              //   className={classes.listItem(channelId === channels[i].id)} // 現在いるチャンネルの背景色を変える
+              // >
+              //   <Typography variant='body1' className={classes.itemText}>
+              //     {`# ${channels[i].name}`}
+              //   </Typography>
+              // </ListItem>
             )}
           />
         </List>
