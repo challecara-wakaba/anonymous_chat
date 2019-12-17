@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import firebase from 'firebase/app';
 // import List from '@material-ui/core/List';
@@ -12,19 +13,21 @@ import firebase from 'firebase/app';
 const useStyles = makeStyles({
   list: {
     width: 250
-  },button:{
-    width:'100%',
-    color:'#FF5F58',
-    backgroundColor:'#F7F3EF',
-    fontSize:'16px',
-    position:'relative',
-    top:'6%',
+  },
+  button: {
+    width: '100%',
+    color: '#FF5F58',
+    backgroundColor: '#F7F3EF',
+    fontSize: '16px',
+    position: 'relative',
+    top: '6%'
   }
 });
 //サイドメニュー本体部分
 export default function SideMenu(props) {
   const classes = useStyles();
   const isOpen = props.isOpen;
+  const channels = props.channels;
   const SideMenutrue = props.SideMenutrue;
   const SideMenufalse = props.SideMenufalse;
   const signout = () => event => {
@@ -41,7 +44,14 @@ export default function SideMenu(props) {
   //メニューの中身をdivタグに書く
   const Menu = (
     <div className={classes.list}>
-      <Button onClick={signout()}className={classes.button}>Logout</Button>
+      {channels.map(item => (
+        <ListItem key={item.id} button>
+          {item.name}
+        </ListItem>
+      ))}
+      <Button onClick={signout()} className={classes.button}>
+        Logout
+      </Button>
     </div>
   );
   //描画

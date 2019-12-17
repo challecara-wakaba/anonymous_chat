@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
 
 const LABEL = '# 英語';
 function Channel(props) {
-  const { threads } = props;
-  const { loadThread } = props;
+  const { channels, threads } = props;
+  const { loadChannel, loadThread } = props;
   const theme = useTheme();
   const classes = useStyles();
   const { url } = useRouteMatch();
@@ -77,20 +77,15 @@ function Channel(props) {
       // チャンネルがまとめられたコレクションのfirebase参照を所得
       const ref = db.collection('channels');
 
-      // 指定されたチャンネルが存在するか確認
-      const isExist = (await ref.get()).exists;
-      if (isExist) {
-        // onSnapshotの返り値にunsbscribeする関数が返ってくる
-        unsbscribe = ref.onSnapshot(querySnapshot => {
-          // チャンネルのメタデータをStoreに流す
-          let channels = [];
-          querySnapshot.forEach(doc => {
-            threads.push(doc.data());
-          });
-          // loadChannel(channels);
+      // onSnapshotの返り値にunsbscribeする関数が返ってくる
+      unsbscribe = ref.onSnapshot(querySnapshot => {
+        // チャンネルのメタデータをStoreに流す
+        let channels = [];
+        querySnapshot.forEach(doc => {
+          channels.push(doc.data());
         });
-      } else {
-      }
+        loadChannel(channels);
+      });
     };
     subscribe();
 
@@ -98,7 +93,7 @@ function Channel(props) {
       // コンポーネントがunmountされる時に実行
       if (unsbscribe) unsbscribe();
       // Storeから今読み込んでいるものを消す
-      // loadChannel([]);
+      loadChannel([]);
     };
   }, []);
 
@@ -115,6 +110,7 @@ function Channel(props) {
         isOpen={state.left}
         SideMenutrue={handletrue}
         SideMenufalse={handlefalse}
+        channels={channels}
       />
       <div className={classes.list}>
         <ThreadCardList threads={threads} />
@@ -128,12 +124,13 @@ function Channel(props) {
 
 function mapStateToProps(state) {
   return {
-    channels: state.channel.channel,
+    channels: state.channel.channels,
     threads: state.channel.threads
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
+    loadChannel: channels => dispatch(channelActions.loadChannel(channels)),
     loadThread: threads => dispatch(channelActions.loadThread(threads))
   };
 }
