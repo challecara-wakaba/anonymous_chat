@@ -8,16 +8,16 @@ const useStyles = makeStyles(theme => ({
     position: 'fixed',
     right: theme.spacing(2),
     bottom: theme.spacing(2),
-    height: 80,
-    width: 80,
+    height: 56,
+    width: 56,
     backgroundColor: '#000000',
     '&:hover': {
       backgroundColor: '#000000'
     }
   },
   label: {
-    height: 60,
-    width: 60
+    height: 42,
+    width: 42
   }
 }));
 

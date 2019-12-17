@@ -34,7 +34,7 @@ export function loadThread(threads) {
   };
 }
 
-export function addThread(url, userUid, title, details, picture) {
+export function addThread(url, userUid, title, details, pictureURL) {
   // '/client/:channel/makeThread'の:channelを取り出す
   const [channelKey] = extractId(url);
   // threadKeyは現在時刻から生成
@@ -45,14 +45,14 @@ export function addThread(url, userUid, title, details, picture) {
   async function sendThread() {
     let pictureURL = null;
     // 写真がある場合、写真をアップロード
-    if (picture !== null) {
+    if (pictureURL !== null) {
       try {
         // 画像のパス
-        const filePath = `Pictures/${channelKey}/${threadKey}/${picture.name}`;
+        const filePath = `Pictures/${channelKey}/${threadKey}/${pictureURL.name}`;
         const Ref = firebase.storage().ref(filePath);
 
         // 送信
-        await Ref.put(picture);
+        await Ref.put(pictureURL);
         // 画像のurlを取得
         pictureURL = await Ref.getDownloadURL();
       } catch (error) {

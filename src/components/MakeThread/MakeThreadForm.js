@@ -2,9 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import CheckBox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import SendIcon from '@material-ui/icons/Send';
 const useStyles = makeStyles(theme => ({
@@ -12,7 +9,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    paddingTop: theme.spacing(1)
+    paddingTop: theme.spacing(1),
+    marginLeft: 'auto'
   },
   SecondCont: {
     display: 'flex',
@@ -30,11 +28,20 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     color: theme.error
   },
+  TextLabel: {
+    color: '#5F5F5F !important'
+  },
+  TextBox: {
+    borderColor: '#000000 !important'
+  },
   Margin: {
-    margin: '6px 12px'
+    margin: '6px 36px'
   },
   FieldText: {
     color: '#FFFFFF'
+  },
+  Text: {
+    color: theme.text
   },
   Tag: {
     display: 'flex',
@@ -73,12 +80,6 @@ const useStyles = makeStyles(theme => ({
   PaperPlane: {
     marginLeft: theme.spacing(2),
     color: '#FFFFFF'
-  },
-  TextLabel: {
-    color: '#000000 !important'
-  },
-  TextBox: {
-    borderColor: '#000000 !important'
   }
 }));
 
@@ -146,156 +147,8 @@ export function ImageButton() {
       <Button variant='contained' size='medium' className={classes.AddButton}>
         <span className={classes.FieldText}>画像を追加</span>
       </Button>
-      <h5>1枚追加できます</h5>
+      <h5 className={classes.Text}>1枚追加できます</h5>
     </div>
-  );
-}
-
-export function Checkboxs(props) {
-  const classes = useStyles();
-  const {
-    isFirst,
-    isSecond,
-    isThird,
-    isFourth,
-    isFifth,
-    isFastHalf,
-    isFastEnd,
-    isLateHalf,
-    isLateEnd,
-    onChange
-  } = props;
-
-  return (
-    <FormGroup className={classes.ThirdCont}>
-      <h2>タグを選択してください</h2>
-      <FormControlLabel
-        className={classes.Tag}
-        control={
-          <CheckBox
-            value='checkedA'
-            name='first' // 入力をstataeで管理するのに用いる
-            checked={isFirst}
-            onChange={onChange}
-            className={classes.ClassBox}
-            color='#000000'
-          />
-        }
-        label='#１年'
-      />
-      <FormControlLabel
-        className={classes.Tag}
-        control={
-          <CheckBox
-            value='checkedB'
-            name='second' // 入力をstataeで管理するのに用いる
-            checked={isSecond}
-            onChange={onChange}
-            className={classes.ClassBox}
-            color='#000000'
-          />
-        }
-        label='#２年'
-      />
-      <FormControlLabel
-        className={classes.Tag}
-        control={
-          <CheckBox
-            value='checkedC'
-            color='#000000'
-            name='third' // 入力をstataeで管理するのに用いる
-            checked={isThird}
-            onChange={onChange}
-            className={classes.ClassBox}
-          />
-        }
-        label='#３年'
-      />
-      <FormControlLabel
-        className={classes.Tag}
-        control={
-          <CheckBox
-            value='checkedD'
-            color='#000000'
-            name='fourth' // 入力をstataeで管理するのに用いる
-            checked={isFourth}
-            onChange={onChange}
-            className={classes.ClassBox}
-          />
-        }
-        label='#４年'
-      />
-      <FormControlLabel
-        className={classes.Tag}
-        control={
-          <CheckBox
-            value='checkedE'
-            color='#000000'
-            name='fifth' // 入力をstataeで管理するのに用いる
-            checked={isFifth}
-            onChange={onChange}
-            className={classes.ClassBox}
-          />
-        }
-        label='#５年'
-      />
-      <FormControlLabel
-        className={classes.Tag}
-        control={
-          <CheckBox
-            value='checkedF'
-            color='#000000'
-            name='fastHalf' // 入力をstataeで管理するのに用いる
-            fhecked={isFastHalf}
-            onChange={onChange}
-            className={classes.ExamBox}
-          />
-        }
-        label='#前期中間'
-      />
-      <FormControlLabel
-        className={classes.Tag}
-        control={
-          <CheckBox
-            value='checkedG'
-            color='#000000'
-            name='fastEnd' // 入力をstataeで管理するのに用いる
-            checked={isFastEnd}
-            onChange={onChange}
-            className={classes.ExamBox}
-          />
-        }
-        label='#前期期末'
-      />
-      <FormControlLabel
-        className={classes.Tag}
-        control={
-          <CheckBox
-            value='checkedH'
-            color='#000000'
-            name='lateHalf' // 入力をstataeで管理するのに用いる
-            checked={isLateHalf}
-            onChange={onChange}
-            className={classes.ExamBox}
-          />
-        }
-        label='#後期中間'
-      />
-      <FormControlLabel
-        className={classes.Tag}
-        control={
-          <CheckBox
-            value='checkedI'
-            color='#000000'
-            name='lateEnd' // 入力をstataeで管理するのに用いる
-            checked={isLateEnd}
-            onChange={onChange}
-            className={classes.EndExamBox}
-          />
-        }
-        label='#年度末'
-      />
-    </FormGroup>
   );
 }
 

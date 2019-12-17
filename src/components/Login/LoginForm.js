@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.error
   },
   TextLabel: {
-    color: '#000000 !important'
+    color: '#5F5F5F !important'
   },
   TextBox: {
     borderColor: '#000000 !important'
@@ -76,7 +76,6 @@ export function TextFields(props) {
         label='Email'
         type='email'
         name='email' // onTextChangeで使う
-        className={classes.FirstMargin}
         autoComplete='email'
         margin='normal'
         variant='outlined'

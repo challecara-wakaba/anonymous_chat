@@ -7,7 +7,6 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditIcon from '@material-ui/icons/Edit';
-import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,7 +34,7 @@ export default function Header(props) {
   switch (location) {
     case 'channel':
       leftButton = <MenuIcon />;
-      rightButton = <SearchIcon />;
+      rightButton = null;
       onLeftClick = SideMenutrue;
       onRightClick = null;
       break;

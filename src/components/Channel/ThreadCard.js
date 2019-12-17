@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
   timeStamp: {
     fontSize: 10,
-    color: theme.primary
+    color: theme.text
   },
   Ver: {
     color: '#142471'

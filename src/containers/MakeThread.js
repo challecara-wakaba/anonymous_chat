@@ -25,17 +25,21 @@ const useStyles = makeStyles(theme => ({
   root: {
     minHeight: '100vh'
   },
+  tag: {
+    margin: '16px',
+    marginLeft: theme.spacing(3)
+  },
   title: {
-    margin: '12px 12px 12px 12px'
+    margin: '36px'
   },
   preview: {
     objectFit: 'contain',
     height: '100px',
     width: '100px',
-    marginLeft: '12px'
+    marginLeft: '36px'
   },
   canncelButton: {
-    marginLeft: '12px',
+    marginLeft: '36px',
     textDecoration: 'none' // リンクの下線を消す
   },
   middleContainer: {
@@ -109,7 +113,7 @@ function MakeThread(props) {
   return (
     <div className={classes.root}>
       <style>{`body {background-color: ${theme.background}}`}</style>
-      <Typography component='h1' variant='h3'>
+      <Typography component='h1' variant='h4' className={classes.tag}>
         ＃testChannel
       </Typography>
       <TextFields
@@ -119,7 +123,7 @@ function MakeThread(props) {
         onChange={handleTextChange}
       />
       <div className={classes.middleContainer}>
-        <div style={{ margin: '4px 12px' }}>
+        <div style={{ margin: '4px 4px 4px 36px' }}>
           <UploadPicButton onChange={handlePictureChange} />
         </div>
         <p>一枚だけ追加できます</p>
@@ -132,7 +136,7 @@ function MakeThread(props) {
         >
           <CancelButton />
         </Link>
-        <div style={{ marginRight: '12px' }}>
+        <div style={{ marginRight: '36px' }}>
           {/* SendButtonはLinkを用いずonClick時にhistory.pushを発火する */}
           <SendButton onClick={handleSubmit} />
         </div>

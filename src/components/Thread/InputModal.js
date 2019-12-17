@@ -65,6 +65,9 @@ const useStyles = makeStyles(theme => ({
     objectFit: 'contain',
     height: '40px',
     width: '70px'
+  },
+  TextBox: {
+    borderColor: '#000000 !important'
   }
 }));
 
@@ -146,6 +149,11 @@ export default function InputModal(props) {
           value={writingText}
           className={classes.Field}
           onChange={handleTextChange}
+          InputProps={{
+            classes: {
+              notchedOutline: classes.TextBox
+            }
+          }}
         />
         {blobURL ? (
           <div className={classes.clickedModalBottom}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import AddAlertIcon from '@material-ui/icons/AddAlert';
 
 const useStyle = makeStyles(theme => ({
   ButtonCont: ({ isKininaruClicked }) => ({
@@ -20,9 +21,6 @@ const useStyle = makeStyles(theme => ({
     height: '16px',
     color: isKininaruClicked ? '#FFFFFF' : '#95E8B8',
     width: '20px'
-  }),
-  KininaruCount: ({ isKininaruClicked }) => ({
-    color: isKininaruClicked ? '#FFFFFF' : '#95E8B8'
   })
 }));
 
@@ -31,7 +29,7 @@ const KininaruButton = props => {
   const classes = useStyle({ isKininaruClicked });
   return (
     <Button className={classes.ButtonCont} onClick={onClick}>
-      気になる
+      <AddAlertIcon className={classes.IconCont} />
     </Button>
   );
 };
