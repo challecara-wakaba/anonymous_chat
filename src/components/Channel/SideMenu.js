@@ -6,13 +6,13 @@ import firebase from 'firebase/app';
 import { Typography } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
+import { Virtuoso } from 'react-virtuoso';
+
 //サイドメニューのcss
 const useStyles = makeStyles(theme => ({
   tmp: {
     // 本当はロゴが入るスペース
-    marginTop: '140px'
+    height: '140px'
   },
   listPaper: {
     backgroundColor: theme.background,
@@ -34,6 +34,12 @@ const useStyles = makeStyles(theme => ({
     top: '6%'
   }
 }));
+const listStyle = {
+  // heightは、これだとうまくいった、なんでかはわからない
+  height: 'calc(100vh - 140px - 40px - 100px)',
+  width: '100%'
+};
+
 //サイドメニュー本体部分
 export default function SideMenu(props) {
   const classes = useStyles();
@@ -54,25 +60,32 @@ export default function SideMenu(props) {
   };
   //メニューの中身をdivタグに書く
   const Menu = (
-    <div className={classes.tmp}>
+    <React.Fragment>
+      <div className={classes.tmp}></div>
       <Typography variant='subtitle2' className={classes.titleText}>
         チャンネル
       </Typography>
       <nav>
         <List>
-          {channels.map(item => (
-            <ListItem key={item.id} button component='li'>
-              <Typography variant='body1' className={classes.itemText}>
-                {`# ${item.name}`}
-              </Typography>
-            </ListItem>
-          ))}
+          <Virtuoso
+            totalCount={channels.length}
+            style={listStyle}
+            overscan={200}
+            computeItemKey={i => channels[i].id}
+            item={i => (
+              <ListItem button component='li'>
+                <Typography variant='body1' className={classes.itemText}>
+                  {`# ${channels[i].name}`}
+                </Typography>
+              </ListItem>
+            )}
+          />
         </List>
       </nav>
       <Button onClick={signout()} className={classes.button}>
         Logout
       </Button>
-    </div>
+    </React.Fragment>
   );
   //描画
   return (
