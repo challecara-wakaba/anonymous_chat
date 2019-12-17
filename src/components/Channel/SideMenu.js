@@ -80,6 +80,7 @@ export default function SideMenu(props) {
             computeItemKey={i => channels[i].id}
             item={i => (
               <SideMenuItem
+                id={channels[i].id}
                 isSelected={channels[i].id === channelId}
                 name={channels[i].name}
               />

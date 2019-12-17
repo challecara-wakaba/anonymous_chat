@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import ListItem from '@material-ui/core/ListItem';
@@ -17,14 +18,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function SideMenuItem(props) {
-  const { isSelected, name } = props;
+  const { isSelected, name, id } = props;
   const classes = useStyles({ isSelected });
 
   return (
-    <ListItem button component='li' className={classes.root}>
-      <Typography variant='body1' className={classes.text}>
-        {`# ${name}`}
-      </Typography>
-    </ListItem>
+    <Link to={`/client/${id}`} style={{ textDecoration: 'none' }}>
+      <ListItem button component='li' className={classes.root}>
+        <Typography variant='body1' className={classes.text}>
+          {`# ${name}`}
+        </Typography>
+      </ListItem>
+    </Link>
   );
 }
