@@ -31,43 +31,46 @@ function Channel(props) {
     left: false
   });
 
-  useEffect(() => {
-    // threadsのmetaのリスナーの設定
+  useEffect(
+    () => {
+      // threadsのmetaのリスナーの設定
 
-    let unsbscribe = null;
-    const subscribe = async () => {
-      // '/client/:channel'の:channelを取り出す
-      const [channelId] = extractId(url);
-      // urlで指定されたチャンネルのfirebase参照を取得
-      const ref = db.collection('channels').doc(channelId);
+      let unsbscribe = null;
+      const subscribe = async () => {
+        // '/client/:channel'の:channelを取り出す
+        const [channelId] = extractId(url);
+        // urlで指定されたチャンネルのfirebase参照を取得
+        const ref = db.collection('channels').doc(channelId);
 
-      // 指定されたチャンネルが存在するか確認
-      const isExist = (await ref.get()).exists;
-      if (isExist) {
-        // onSnapshotの返り値にunsbscribeする関数が返ってくる
-        unsbscribe = ref
-          .collection('threads')
-          .orderBy('id', 'desc') // データを降順で並び替える
-          .onSnapshot(querySnapshot => {
-            // スレッドのメタデータをStoreに流す
-            let threads = [];
-            querySnapshot.forEach(doc => {
-              threads.push(doc.data());
+        // 指定されたチャンネルが存在するか確認
+        const isExist = (await ref.get()).exists;
+        if (isExist) {
+          // onSnapshotの返り値にunsbscribeする関数が返ってくる
+          unsbscribe = ref
+            .collection('threads')
+            .orderBy('id', 'desc') // データを降順で並び替える
+            .onSnapshot(querySnapshot => {
+              // スレッドのメタデータをStoreに流す
+              let threads = [];
+              querySnapshot.forEach(doc => {
+                threads.push(doc.data());
+              });
+              loadThread(threads);
             });
-            loadThread(threads);
-          });
-      } else {
-      }
-    };
-    subscribe();
+        } else {
+        }
+      };
+      subscribe();
 
-    return function cleanUp() {
-      // コンポーネントがunmountされる時に実行
-      if (unsbscribe) unsbscribe();
-      // Storeから今読み込んでいるものを消す
-      loadThread([]);
-    };
-  }, []);
+      return function cleanUp() {
+        // コンポーネントがunmountされる時に実行
+        if (unsbscribe) unsbscribe();
+        // Storeから今読み込んでいるものを消す
+        loadThread([]);
+      };
+    },
+    [url] /*URLが変わった時(チャンネルを切り替えた時実行する)*/
+  );
 
   useEffect(() => {
     // チャンネル切り替えようのリスナーの設定
