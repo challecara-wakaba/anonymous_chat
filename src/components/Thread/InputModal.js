@@ -7,6 +7,12 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
+//アイコンの準備
+import icons from '../../icon';
+import { useRouteMatch } from 'react-router-dom';
+import firebase from 'firebase';
+import extractId from '../../functions/extractId';
+const db = firebase.firestore();
 
 const modalStyle = {
   overlay: {
@@ -75,7 +81,17 @@ ReactModal.setAppElement('#root');
 
 export default function InputModal(props) {
   const classes = useStyles();
-  const { isOpen, onClose, onSubmit } = props;
+  const { isOpen, onClose, onSubmit, userUid, post } = props;
+  //アイコン用
+  const { url } = useRouteMatch();
+  const [channelId, threadId] = extractId(url);
+  const ref = db
+    .collection('channels')
+    .doc(channelId)
+    .collection('threads')
+    .doc(threadId);
+  let profile = {};
+  let counticons = 0;
 
   // modal
   const [writingText, setWritingText] = useState('');
@@ -116,6 +132,30 @@ export default function InputModal(props) {
       return;
     }
     onSubmit(writingText.trim(), picture); // ストアに接続してないため上のコンポーネントに渡す
+    let profile = {};
+
+    profile = post.profile;
+    let Shuffledindex = post.Shuffledindex;
+    let Shuffled = post.Shuffled;
+    //profileにuidがなければ追加
+    if (profile[userUid]) {
+      console.log('ただのしかばねのようだ');
+    } else {
+      profile[userUid] = icons[Shuffled[Shuffledindex]];
+      Shuffledindex += 1;
+      //profileをアップロード
+      ref
+        .set({
+          profile,
+          Shuffledindex
+        })
+        .catch(error => {
+          console.log(
+            'profileオブジェクトのアップロード中にエラーが発生',
+            error
+          );
+        });
+    }
 
     // stateを初期化する
     setWritingText('');

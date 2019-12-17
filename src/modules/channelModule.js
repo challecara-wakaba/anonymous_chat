@@ -1,6 +1,6 @@
 import extractId from '../functions/extractId';
 import firebase from '../Firebase';
-import icons from '../icon.js';
+import icons from '../icon';
 const db = firebase.firestore();
 
 // action type
@@ -77,7 +77,7 @@ export function addThread(url, userUid, title, details, pictureURL) {
       Shuffled[r] = tmp;
     }
     profile[userUid] = icons[Shuffled[0]];
-
+    let Shuffledindex = 1;
     // threadsを管理するcollectionに
     // threadを表すドキュメントを追加
     ref
@@ -93,7 +93,8 @@ export function addThread(url, userUid, title, details, pictureURL) {
         timeStamp: new Date(),
         replyCount: 0,
         Shuffled,
-        profile
+        profile,
+        Shuffledindex
       })
       .catch(error => {
         console.log('Error adding Thread: ', error);
