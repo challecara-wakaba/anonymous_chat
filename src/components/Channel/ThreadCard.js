@@ -97,9 +97,8 @@ const ThreadCard = props => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'][date.getDay()];
 
-    return `${year}年${month}月${day}日(${dayOfWeek})`;
+    return `${year}年${month}月${day}日`;
   };
 
   return (

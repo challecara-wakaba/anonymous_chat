@@ -125,7 +125,7 @@ function MakeThread(props) {
     if (title.trim() === '') {
       setIsTitileFilled(false);
       return;
-    } else if (title.length > 12) {
+    } else if (title.length > 10) {
       setIsTitileFilled(false);
       return;
     }
