@@ -192,6 +192,8 @@ const Thread = props => {
         isOpen={isModalOpen}
         onClose={handleModaleClose}
         onSubmit={submit}
+        userUid={user.uid}
+        post={post}
       />
       <Viewer
         visible={isvisiable}
