@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.threadBackground
   },
   errorMessage: {
-    marginLeft: theme.spacing(1),
+    marginLeft: theme.spacing(5),
     color: theme.error
   },
   TextLabel: {
