@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
 export default function SideMenuItem(props) {
   const { isSelected, name } = props;
   const classes = useStyles({ isSelected });
-  console.log(isSelected);
 
   return (
     <ListItem button component='li' className={classes.root}>

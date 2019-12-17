@@ -83,15 +83,6 @@ export default function SideMenu(props) {
                 isSelected={channels[i].id === channelId}
                 name={channels[i].name}
               />
-              // <ListItem
-              //   button
-              //   component='li'
-              //   className={classes.listItem(channelId === channels[i].id)} // 現在いるチャンネルの背景色を変える
-              // >
-              //   <Typography variant='body1' className={classes.itemText}>
-              //     {`# ${channels[i].name}`}
-              //   </Typography>
-              // </ListItem>
             )}
           />
         </List>
