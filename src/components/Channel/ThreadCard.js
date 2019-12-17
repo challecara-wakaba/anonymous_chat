@@ -33,7 +33,9 @@ const useStyles = makeStyles(theme => ({
   },
   timeStamp: {
     fontSize: 10,
-    color: theme.text
+    color: theme.text,
+    marginLeft: 'auto',
+    marginRight: 'unset'
   },
   Ver: {
     color: '#142471'
