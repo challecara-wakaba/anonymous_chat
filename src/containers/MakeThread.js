@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
+import firebase from '../Firebase';
 
 import changeUpperDirectory from '../functions/changeUpperDirectory';
+import extractId from '../functions/extractId';
 
 import {
   TextFields,
@@ -13,6 +15,8 @@ import {
 } from '../components/MakeThread/MakeThreadForm';
 import UploadPicButton from '../components/UploadPicButton';
 import * as channelActions from '../modules/channelModule';
+
+const db = firebase.firestore();
 
 const useStyles = makeStyles(theme => ({
   bottomContainer: {
@@ -55,6 +59,7 @@ function MakeThread(props) {
   const { user } = props;
   const { addThread } = props;
   // TextFieldsに渡す
+  const [channelName, setChannelName] = useState('');
   const [title, setTitle] = useState('');
   const [details, setDetails] = useState('');
   const [isTitleFilled, setIsTitileFilled] = useState(true); // 訪問した最初にはエラーは出さない
@@ -62,6 +67,19 @@ function MakeThread(props) {
   // UploadPicButtonに渡す
   const [picture, setPicture] = useState(null);
   const [blobURL, setBlobURL] = useState(null);
+
+  useEffect(() => {
+    // '/client/:channel'の:channelを取り出す
+    const [channelId] = extractId(url);
+    // urlで指定されたチャンネルのfirebase参照を取得
+    const ref = db.collection('channels').doc(channelId);
+
+    // 指定されたチャンネルが存在するか確認
+    ref.get().then(docSnapshot => {
+      // 表示するチャンネル名を更新
+      setChannelName(docSnapshot.data().name);
+    });
+  }, []);
 
   function handleTextChange(event) {
     const targetName = event.target.name;
@@ -114,7 +132,7 @@ function MakeThread(props) {
     <div className={classes.root}>
       <style>{`body {background-color: ${theme.background}}`}</style>
       <Typography component='h1' variant='h4' className={classes.tag}>
-        ＃testChannel
+        {`# ${channelName}`}
       </Typography>
       <TextFields
         title={title}
