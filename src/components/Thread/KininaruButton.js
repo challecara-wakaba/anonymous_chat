@@ -22,9 +22,6 @@ const useStyle = makeStyles(theme => ({
     height: '16px',
     color: isKininaruClicked ? '#FFFFFF' : '#95E8B8',
     width: '20px'
-  }),
-  KininaruCount: ({ isKininaruClicked }) => ({
-    color: isKininaruClicked ? '#FFFFFF' : '#95E8B8'
   })
 }));
 
@@ -34,7 +31,6 @@ const KininaruButton = props => {
   return (
     <Button className={classes.ButtonCont} onClick={onClick}>
       <AddAlertIcon className={classes.IconCont} />
-      <Typography className={classes.KininaruCount}>{KininaruCount}</Typography>
     </Button>
   );
 };
