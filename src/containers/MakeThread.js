@@ -125,6 +125,9 @@ function MakeThread(props) {
     if (title.trim() === '') {
       setIsTitileFilled(false);
       return;
+    } else if (title.length > 12) {
+      setIsTitileFilled(false);
+      return;
     }
     addThread(url, user.uid, title.trim(), details.trim(), picture);
 
