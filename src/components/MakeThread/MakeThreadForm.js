@@ -28,6 +28,12 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     color: theme.error
   },
+  TextLabel: {
+    color: '#5F5F5F !important'
+  },
+  TextBox: {
+    borderColor: '#000000 !important'
+  },
   Margin: {
     margin: '6px 36px'
   },
@@ -74,12 +80,6 @@ const useStyles = makeStyles(theme => ({
   PaperPlane: {
     marginLeft: theme.spacing(2),
     color: '#FFFFFF'
-  },
-  TextLabel: {
-    color: '#5F5F5F !important'
-  },
-  TextBox: {
-    borderColor: '#000000 !important'
   }
 }));
 
