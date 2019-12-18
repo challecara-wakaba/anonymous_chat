@@ -137,8 +137,7 @@ export default function InputModal(props) {
     let Shuffled = post.Shuffled;
     //profileにuidがなければ追加
     if (profile[userUid]) {
-      console.log('ただのしかばねのようだ');
-    } else {
+      console.log('無視!');
       profile[userUid] = icons[Shuffled[Shuffledindex]];
       Shuffledindex += 1;
       //profileをアップロード
