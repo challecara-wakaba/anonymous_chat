@@ -138,6 +138,7 @@ export default function InputModal(props) {
     //profileにuidがなければ追加
     if (profile[userUid]) {
       console.log('無視!');
+    } else {
       profile[userUid] = icons[Shuffled[Shuffledindex]];
       Shuffledindex += 1;
       //profileをアップロード
