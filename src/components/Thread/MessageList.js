@@ -3,11 +3,13 @@ import { List } from '@material-ui/core';
 
 import Message from './Message';
 import FirstPost from './FirstPost';
+import icons from '../../icon';
 
 export default function MessageList(props) {
   const { post, replies, userUid } = props;
   const { onKininaruClick, onGoodClick, onViewerOpen } = props;
 
+  let Shuffled = post.Shuffled;
   // kininaruClickedUsersがない時のため
   let KininaruClickedUsers = post.KininaruClickedUsers
     ? post.KininaruClickedUsers
@@ -27,6 +29,7 @@ export default function MessageList(props) {
       details={post.details}
       timeStamp={post.timeStamp}
       pictureURL={post.pictureURL}
+      iconURL={icons[post.Shuffled[0]]}
       onViewerOpen={onViewerOpen}
       isKininaruClicked={isKininaruClicked}
       onKininaruClick={onKininaruClick}
@@ -54,7 +57,7 @@ export default function MessageList(props) {
       <Message
         key={item.id}
         name=''
-        icon=''
+        icon={post.profile[item.userUid]}
         text={item.text}
         pictureURL={item.pictureURL}
         timeStamp={item.timeStamp}

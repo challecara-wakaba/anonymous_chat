@@ -32,7 +32,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function FirstPost(props) {
   const classes = useStyles();
-  const { name, details, pictureURL, timeStamp, isKininaruClicked } = props;
+  const {
+    name,
+    details,
+    pictureURL,
+    timeStamp,
+    isKininaruClicked,
+    iconURL
+  } = props;
   const { onKininaruClick, onViewerOpen } = props;
 
   function convertDateFormat(timestamp) {
@@ -51,7 +58,7 @@ export default function FirstPost(props) {
     <div className={classes.root}>
       <ListItem alignItems='flex-start'>
         <ListItemAvatar>
-          <Avatar /* alt={} src={} */ />
+          <Avatar alt={iconURL} src={iconURL} />
         </ListItemAvatar>
         <div className={classes.middleContainer}>
           <ListItemText

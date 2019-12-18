@@ -90,8 +90,6 @@ export default function InputModal(props) {
     .doc(channelId)
     .collection('threads')
     .doc(threadId);
-  let profile = {};
-  let counticons = 0;
 
   // modal
   const [writingText, setWritingText] = useState('');
@@ -146,6 +144,15 @@ export default function InputModal(props) {
       //profileをアップロード
       ref
         .set({
+          // meta情報を格納
+          id: post.id,
+          userUid: post.userUid,
+          title: post.title,
+          details: post.details,
+          pictureURL: post.pictureURL,
+          timeStamp: post.timeStamp,
+          replyCount: post.replyCount,
+          Shuffled,
           profile,
           Shuffledindex
         })
