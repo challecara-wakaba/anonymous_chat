@@ -10,7 +10,7 @@ const mailTransport = nodemailer.createTransport({
     }
 })
 
-export default sendMail = functions.https.onCall((data, context) => {
+exports.sendMail = functions.https.onCall((data, context) => {
     let email = {
         from: gmailEmail,
         to: data.destination,
