@@ -186,6 +186,7 @@ const Thread = props => {
           onGoodClick={handleGoodClick}
           onKininaruClick={handleKininaruClick}
           onViewerOpen={handleViewerOpen}
+          profile={post.profile}
         />
       </div>
       <InputModal

@@ -90,8 +90,6 @@ export default function InputModal(props) {
     .doc(channelId)
     .collection('threads')
     .doc(threadId);
-  let profile = {};
-  let counticons = 0;
 
   // modal
   const [writingText, setWritingText] = useState('');
@@ -139,13 +137,21 @@ export default function InputModal(props) {
     let Shuffled = post.Shuffled;
     //profileにuidがなければ追加
     if (profile[userUid]) {
-      console.log('ただのしかばねのようだ');
-    } else {
+      console.log('無視!');
       profile[userUid] = icons[Shuffled[Shuffledindex]];
       Shuffledindex += 1;
       //profileをアップロード
       ref
         .set({
+          // meta情報を格納
+          id: post.id,
+          userUid: post.userUid,
+          title: post.title,
+          details: post.details,
+          pictureURL: post.pictureURL,
+          timeStamp: post.timeStamp,
+          replyCount: post.replyCount,
+          Shuffled,
           profile,
           Shuffledindex
         })
