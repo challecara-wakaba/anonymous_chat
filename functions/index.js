@@ -21,6 +21,6 @@ exports.sendMail = functions.https.onCall((data, context) => {
         if (err) {
             return console.log(err)
         }
-        return console.log('送信成功')
+        return console.log('送信成功byindex')
     })
 })

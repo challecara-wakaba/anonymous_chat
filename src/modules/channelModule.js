@@ -120,7 +120,7 @@ export function addThread(url, userUid, title, details, picture) {
     //メール送信
     var sendMail = firebase.functions().httpsCallable('sendMail');
     sendMail(data, context).then(function(result) {
-      console.log(result.data.text);
+      console.log('送信成功byChannelmodule');
     });
   }
   sendThread();
