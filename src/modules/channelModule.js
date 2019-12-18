@@ -1,6 +1,12 @@
 import extractId from '../functions/extractId';
 import firebase from '../Firebase';
 import icons from '../icon';
+//メール通知用
+require('firebase/functions');
+let data = {
+  destination: 'kosentaguri1@gmail.com'
+};
+let context = {};
 const db = firebase.firestore();
 
 // action type
@@ -110,6 +116,12 @@ export function addThread(url, userUid, title, details, picture) {
       .catch(error => {
         console.log('Error adding Thread: ', error);
       });
+
+    //メール送信
+    var sendMail = firebase.functions().httpsCallable('sendMail');
+    sendMail(data, context).then(function(result) {
+      console.log(result.data.text);
+    });
   }
   sendThread();
   return {
