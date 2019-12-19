@@ -30,8 +30,8 @@ const useStyles = makeStyles(theme => ({
     minHeight: '100vh'
   },
   tag: {
-    margin: '16px',
-    marginLeft: theme.spacing(3)
+    margin: '8px',
+    marginLeft: theme.spacing(4)
   },
   title: {
     margin: '36px'

@@ -56,7 +56,8 @@ const useStyles = makeStyles(theme => ({
   newsBar: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
-    background: theme.secondary
+    background: theme.secondary,
+    color: theme.text
   },
   divider: {
     height: 1
