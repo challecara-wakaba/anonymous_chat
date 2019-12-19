@@ -9,10 +9,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
 //アイコンの準備
 import icons from '../../icon';
-import { useRouteMatch } from 'react-router-dom';
-import firebase from 'firebase';
-import extractId from '../../functions/extractId';
-const db = firebase.firestore();
 
 const modalStyle = {
   overlay: {
@@ -82,14 +78,6 @@ ReactModal.setAppElement('#root');
 export default function InputModal(props) {
   const classes = useStyles();
   const { isOpen, onClose, onSubmit, userUid, post } = props;
-  //アイコン用
-  const { url } = useRouteMatch();
-  const [channelId, threadId] = extractId(url);
-  const ref = db
-    .collection('channels')
-    .doc(channelId)
-    .collection('threads')
-    .doc(threadId);
 
   // modal
   const [writingText, setWritingText] = useState('');
@@ -129,40 +117,15 @@ export default function InputModal(props) {
     if (writingText.trim() === '' && picture === null) {
       return;
     }
-    onSubmit(writingText.trim(), picture); // ストアに接続してないため上のコンポーネントに渡す
-    let profile = {};
 
-    profile = post.profile;
-    let Shuffledindex = post.Shuffledindex;
-    let Shuffled = post.Shuffled;
-    //profileにuidがなければ追加
-    if (profile[userUid]) {
-      console.log('無視!');
-    } else {
-      profile[userUid] = icons[Shuffled[Shuffledindex]];
-      Shuffledindex += 1;
-      //profileをアップロード
-      ref
-        .set({
-          // meta情報を格納
-          id: post.id,
-          userUid: post.userUid,
-          title: post.title,
-          details: post.details,
-          pictureURL: post.pictureURL,
-          timeStamp: post.timeStamp,
-          replyCount: post.replyCount,
-          Shuffled,
-          profile,
-          Shuffledindex
-        })
-        .catch(error => {
-          console.log(
-            'profileオブジェクトのアップロード中にエラーが発生',
-            error
-          );
-        });
+    // まだアイコンが登録されていなければ
+    const { profile, Shuffled } = post;
+    if (!profile[userUid]) {
+      const shuffledIndex = Object.keys(profile).length;
+      profile[userUid] = icons[Shuffled[shuffledIndex]];
     }
+
+    onSubmit(writingText.trim(), picture, profile); // ストアに接続してないため上のコンポーネントに渡す
 
     // stateを初期化する
     setWritingText('');

@@ -108,8 +108,8 @@ const Thread = props => {
   // --- modal window ---
   const handleModaleOpen = () => setIsModalOpen(true);
   const handleModaleClose = () => setIsModalOpen(false);
-  const submit = (text, picture) => {
-    addMessage(url, user.uid, text.trim(), picture);
+  const submit = (text, picture, profile) => {
+    addMessage(url, user.uid, text.trim(), picture, profile);
   };
   // --- --- --- ---
 
@@ -244,8 +244,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    addMessage: (url, userUid, text, picture) =>
-      dispatch(threadActions.addMessage(url, userUid, text, picture)),
+    addMessage: (url, userUid, text, picture, profile) =>
+      dispatch(threadActions.addMessage(url, userUid, text, picture, profile)),
     loadPost: post => dispatch(threadActions.loadPost(post)),
     loadMessage: replies => dispatch(threadActions.loadMessage(replies)),
     goodButtonClick: (url, messageKey, goodClickedUsers) =>
