@@ -103,7 +103,6 @@ export const addMessage = (url, userUid, text, picture, profile) => {
 
     // ランダムアイコンの設定の更新と
     // 返信の総数を管理するフィールドの更新
-    console.log(profile);
     await ref.update({
       profile: profile,
       replyCount: firebase.firestore.FieldValue.increment(1)
