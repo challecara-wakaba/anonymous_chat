@@ -89,7 +89,7 @@ export function addThread(url, userUid, title, details, picture) {
       Shuffled[r] = tmp;
     }
     profile[userUid] = icons[Shuffled[0]];
-    let Shuffledindex = 1;
+
     // threadsを管理するcollectionに
     // threadを表すドキュメントを追加
     ref
@@ -105,8 +105,7 @@ export function addThread(url, userUid, title, details, picture) {
         timeStamp: new Date(),
         replyCount: 0,
         Shuffled,
-        profile,
-        Shuffledindex
+        profile
       })
       .catch(error => {
         console.log('Error adding Thread: ', error);

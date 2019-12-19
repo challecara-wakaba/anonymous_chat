@@ -52,7 +52,7 @@ export function loadMessage(replies) {
   };
 }
 
-export const addMessage = (url, userUid, text, picture) => {
+export const addMessage = (url, userUid, text, picture, profile) => {
   // '/client/:channel/:thread'の:channelと:threadを取り出す
   const [channelId, threadId] = extractId(url);
   // urlで指定されたチャンネルのfirebase参照を取得
@@ -101,8 +101,11 @@ export const addMessage = (url, userUid, text, picture) => {
         console.log('Error adding document: ', error);
       });
 
-    // 返信の総数を管理するフィールドを更新
+    // ランダムアイコンの設定の更新と
+    // 返信の総数を管理するフィールドの更新
+    console.log(profile);
     await ref.update({
+      profile: profile,
       replyCount: firebase.firestore.FieldValue.increment(1)
     });
   }
