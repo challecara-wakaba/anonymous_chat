@@ -55,7 +55,11 @@ function AuthRoute({ children, user, ...rest }) {
   // ログインしているか判定する
   if (user.isCommunicated === false) {
     // firebaseとの非同期通信が終了していない場合
-    return <Route render={() => <p>通信中</p>} />;
+    return (
+      <Route
+        render={() => <style>{'body {background-color: #F7F3EF}'}</style>}
+      />
+    );
   } else {
     // ログインしていなければログイン画面にリダイレクトする
     // user.uidが存在するかで判定する
