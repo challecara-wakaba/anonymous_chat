@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import AddAlertIcon from '@material-ui/icons/AddAlert';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -98,9 +99,8 @@ const ThreadCard = props => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'][date.getDay()];
 
-    return `${year}年${month}月${day}日(${dayOfWeek})`;
+    return `${year}年${month}月${day}日`;
   };
 
   return (
@@ -154,6 +154,7 @@ const ThreadCard = props => {
         ) : (
           <Typography variant='body2'>{`${replyCount}件の返信`}</Typography>
         )}
+        <AddAlertIcon />
       </CardContent>
       <Divider className={classes.divider} />
     </Card>
