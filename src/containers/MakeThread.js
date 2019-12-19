@@ -69,16 +69,24 @@ function MakeThread(props) {
   const [blobURL, setBlobURL] = useState(null);
 
   useEffect(() => {
-    // '/client/:channel'の:channelを取り出す
-    const [channelId] = extractId(url);
-    // urlで指定されたチャンネルのfirebase参照を取得
-    const ref = db.collection('channels').doc(channelId);
+    // チャンネル名を取得
+    const subscribe = async () => {
+      // '/client/:channel'の:channelを取り出す
+      const [channelId] = extractId(url);
+      // urlで指定されたチャンネルのfirebase参照を取得
+      const ref = db.collection('channels').doc(channelId);
 
-    // 指定されたチャンネルが存在するか確認
-    ref.get().then(docSnapshot => {
-      // 表示するチャンネル名を更新
-      setChannelName(docSnapshot.data().name);
-    });
+      // 指定されたチャンネルが存在するか確認
+      const isExist = (await ref.get()).exists;
+      if (isExist) {
+        ref.get().then(docSnapshot => {
+          // 表示するチャンネル名を更新
+          setChannelName(docSnapshot.data().name);
+        });
+      } else {
+      }
+    };
+    subscribe();
   }, []);
 
   function handleTextChange(event) {
