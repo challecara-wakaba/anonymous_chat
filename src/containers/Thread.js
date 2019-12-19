@@ -12,6 +12,7 @@ import changeUpperDirectory from '../functions/changeUpperDirectory';
 import extractId from '../functions/extractId';
 //cloudfirestoreの初期化
 import firebase from '../Firebase';
+import SkeltonMessage from '../components/Thread/SkeletonMessage';
 var db = firebase.firestore();
 
 const useStyles = makeStyles(theme => ({
@@ -36,10 +37,15 @@ const Thread = props => {
   const [isvisiable, setIsVisiable] = useState(false);
   const [viweingPicture, setViewingPicture] = useState('');
 
+  const [isFetting, setIsFetting] = useState(false); // ローディングのスケルトンウィンドウを管理
+
   useEffect(
     () => {
       let metaUnsbscribe = null;
       let messagesUnsbscribe = null;
+
+      // スケルトンウィンドウを表示
+      setIsFetting(true);
 
       // スレッドのリスナーの設定
       const subscribe = async () => {
@@ -81,6 +87,9 @@ const Thread = props => {
               loadMessage(messages);
             });
         }
+
+        // スケルトンウィンドウを非表示
+        setIsFetting(false);
       };
       subscribe();
 
@@ -168,6 +177,17 @@ const Thread = props => {
       KininaruButtonClick(url, newClickedUsers);
     }
   };
+
+  const makeDummyArray = count => {
+    // firestoreからmessageを取得するまで表示するスケルトンウィンドウに用いる
+    // この配列の値がリストのkeyになる
+    let arr = [];
+    for (let i = 0; i < count; ++i) {
+      arr.push(i);
+    }
+    return arr;
+  };
+
   // --- --- --- ---
   return (
     <div>
@@ -179,15 +199,21 @@ const Thread = props => {
         label={post.title}
       />
       <div className={classes.list}>
-        <MessageList
-          userUid={user.uid}
-          post={post}
-          replies={replies}
-          onGoodClick={handleGoodClick}
-          onKininaruClick={handleKininaruClick}
-          onViewerOpen={handleViewerOpen}
-          profile={post.profile}
-        />
+        {isFetting ? (
+          makeDummyArray(10).map(value => <SkeltonMessage key={value} />)
+        ) : (
+          <div>
+            <MessageList
+              userUid={user.uid}
+              post={post}
+              replies={replies}
+              onGoodClick={handleGoodClick}
+              onKininaruClick={handleKininaruClick}
+              onViewerOpen={handleViewerOpen}
+              profile={post.profile}
+            />
+          </div>
+        )}
       </div>
       <InputModal
         isOpen={isModalOpen}
