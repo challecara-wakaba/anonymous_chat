@@ -58,9 +58,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     background: theme.secondary,
-    display: 'flex',
-    arignItems: 'center',
-    justifyContent: 'space-between'
+    color: theme.text
   },
   divider: {
     height: 1

@@ -26,12 +26,16 @@ const useStyles = makeStyles(theme => ({
     marginLeft: '12px'
   },
   button: {
-    width: '100%',
+    width: '42%',
     color: '#FF5F58',
     backgroundColor: '#F7F3EF',
-    fontSize: '16px',
+    fontSize: '14px',
     position: 'relative',
-    top: '6%'
+    top: '8%',
+    left: '52%',
+    border: 'solid thin #FF5F58',
+    borderRadius: 'unset',
+    padding: '6px 8px'
   }
 }));
 const listStyle = {
