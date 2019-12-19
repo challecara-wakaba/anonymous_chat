@@ -180,11 +180,7 @@ export default function InputModal(props) {
           <IconButton onClick={handleClose} className={classes.Cancel}>
             <CloseIcon />
           </IconButton>
-          <Button
-            variant='contined'
-            className={classes.Button}
-            onClick={handleSubmit}
-          >
+          <Button className={classes.Button} onClick={handleSubmit}>
             送信
             <SendIcon className={classes.Icon} />
           </Button>
