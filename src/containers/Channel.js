@@ -8,6 +8,7 @@ import Header from '../components/Header';
 import SideMenu from '../components/Channel/SideMenu';
 import ThreadCardList from '../components/Channel/ThreadCardList';
 import ThreadAddButton from '../components/Channel/ThreadAddButton';
+import SkeletonCard from '../components/Channel/SkeletonCard';
 import * as channelActions from '../modules/channelModule';
 import extractId from '../functions/extractId';
 
@@ -30,12 +31,17 @@ function Channel(props) {
     left: false
   });
   const [channelName, setChannelName] = React.useState('');
+  const [isFetting, setIsFetting] = React.useState('false'); // ローディングのスケルトンウィンドウを管理
 
   useEffect(
     () => {
       // threadsのmetaのリスナーの設定
 
       let unsbscribe = null;
+
+      // スケルトンウィンドウを表示
+      setIsFetting(true);
+
       const subscribe = async () => {
         // '/client/:channel'の:channelを取り出す
         const [channelId] = extractId(url);
@@ -61,6 +67,9 @@ function Channel(props) {
           setChannelName(`# ${docSnapshot.data().name}`); // ヘッダーに表示するチャンネル名を更新
         } else {
         }
+
+        // スケルトンウィンドウを非表示
+        setIsFetting(false);
       };
       subscribe();
 
@@ -106,6 +115,17 @@ function Channel(props) {
   const handletrue = () => setState({ left: true });
   //サイドメニューが閉じる
   const handlefalse = () => setState({ left: false });
+
+  const makeDummyArray = count => {
+    // firestoreからmessageを取得するまで表示するスケルトンウィンドウに用いる
+    // この配列の値がリストのkeyになる
+    let arr = [];
+    for (let i = 0; i < count; ++i) {
+      arr.push(i);
+    }
+    return arr;
+  };
+
   return (
     <div>
       <style>{`body {background-color: ${theme.threadBackground}}`}</style>
@@ -122,7 +142,11 @@ function Channel(props) {
         channels={channels}
       />
       <div className={classes.list}>
-        <ThreadCardList threads={threads} />
+        {isFetting ? (
+          makeDummyArray(10).map(value => <SkeletonCard key={value} />)
+        ) : (
+          <ThreadCardList threads={threads} />
+        )}
       </div>
       <Link to={`${url}/makeThread`}>
         <ThreadAddButton />
