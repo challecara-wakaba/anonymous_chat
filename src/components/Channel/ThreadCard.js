@@ -77,7 +77,15 @@ const useStyles = makeStyles(theme => ({
 const ThreadCard = props => {
   const classes = useStyles();
   const { url } = useRouteMatch();
-  const { threadId, timeStamp, title, details, pictureURL, replyCount } = props;
+  const {
+    threadId,
+    timeStamp,
+    title,
+    details,
+    pictureURL,
+    replyCount,
+    isKininaruClicked
+  } = props;
   const [anchorEl, setAnchorEl] = useState(null); // あくまで開いているボタンの場所のstateのためrリフトアップしてない
 
   let jumpURL = `${url}/${threadId}`;
@@ -168,7 +176,10 @@ const ThreadCard = props => {
             className={classes.replymsg}
           >{`${replyCount}件の返信`}</Typography>
         )}
-        <KininaruButton className={classes.kininaru} />
+        <KininaruButton
+          className={classes.kininaru}
+          isKininaruClicked={isKininaruClicked}
+        />
       </CardContent>
       <Divider className={classes.divider} />
     </Card>

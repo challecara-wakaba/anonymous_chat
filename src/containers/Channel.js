@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Channel(props) {
-  const { channels, threads } = props;
+  const { channels, threads, user } = props;
   const { loadChannel, loadThread } = props;
   const theme = useTheme();
   const classes = useStyles();
@@ -145,7 +145,7 @@ function Channel(props) {
         {isFetting ? (
           makeDummyArray(10).map(value => <SkeletonCard key={value} />)
         ) : (
-          <ThreadCardList threads={threads} />
+          <ThreadCardList threads={threads} user={user} />
         )}
       </div>
       <Link to={`${url}/makeThread`}>
@@ -158,7 +158,8 @@ function Channel(props) {
 function mapStateToProps(state) {
   return {
     channels: state.channel.channels,
-    threads: state.channel.threads
+    threads: state.channel.threads,
+    user: state.user.user
   };
 }
 function mapDispatchToProps(dispatch) {
