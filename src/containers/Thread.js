@@ -31,6 +31,7 @@ const Thread = props => {
   const [isvisiable, setIsVisiable] = useState(false);
   const [viweingPicture, setViewingPicture] = useState('');
   const [isMessageUpdate, setIsMessageUpdate] = useState(false); // 「新しい投稿があります！」の表示に使う
+  const [isSending, setIsSending] = useState(false); // 「投稿時のローディングに使う」
 
   const [isFetting, setIsFetting] = useState(false); // ローディングのスケルトンウィンドウを管理
 
@@ -102,7 +103,8 @@ const Thread = props => {
 
   useEffect(() => {
     // messageの変更を取得する
-    // 「新しいメッセージがあります！」などの表示に用いる
+    // 「新しいメッセージがあります！」などの表示や
+    // 送信時のローディングアニメーションの表示に用いる
 
     let unsbscribe = null;
     const subscribe = async () => {
@@ -123,7 +125,11 @@ const Thread = props => {
             let authorUid = change.doc.data().userUid;
             // 新しい投稿があり、投稿者ではなければ
             if (change.type === 'added' && authorUid !== user.uid) {
-              setIsMessageUpdate(true);
+              setIsMessageUpdate(true); // メッセージを表示
+            }
+            // 新しい投稿があり、投稿者であれば
+            if (change.type === 'added' && authorUid === user.uid) {
+              setIsSending(false); // ローディングアニメーションをオフ
             }
           });
         });
@@ -140,13 +146,16 @@ const Thread = props => {
   const handleModaleOpen = () => {
     setIsModalOpen(true);
     setIsMessageUpdate(false);
+    setIsSending(false);
   };
   const handleModaleClose = () => {
     setIsModalOpen(false);
     setIsMessageUpdate(false);
+    setIsSending(false);
   };
   const submit = (text, picture, profile) => {
     addMessage(url, user.uid, text.trim(), picture, profile);
+    setIsSending(true); // ローディングアニメーションをオン
   };
   // --- --- --- ---
 
@@ -237,6 +246,7 @@ const Thread = props => {
         userUid={user.uid}
         post={post}
         isMessageUpdate={isMessageUpdate}
+        isSending={isSending}
       />
       <Viewer
         visible={isvisiable}
