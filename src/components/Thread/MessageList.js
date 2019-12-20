@@ -21,10 +21,26 @@ export default function MessageList(props) {
     isKininaruClicked = false;
   }
 
+  //名前を抽出する関数
+  //%の位置と?の位置の間を抽出して16進数を日本語に変換し、配列namesに代入
+  const assignname = str => {
+    let percent = 0,
+      hatena = 0,
+      decoded;
+    for (let i = 0; i < str.length; i++) {
+      if (str[i] === '%' && percent === 0) percent = i;
+      if (str[i] === '?' && hatena === 0) hatena = i;
+      decoded = str.substring(percent + 3, hatena - 4);
+    }
+    percent = 0;
+    hatena = 0;
+    return decodeURI(decoded);
+  };
+
   const postDOM = Object.keys(post).length !== 0 && (
     <FirstPost
       key={post.id}
-      name={post.name}
+      name={assignname(icons[post.Shuffled[0]])}
       details={post.details}
       timeStamp={post.timeStamp}
       pictureURL={post.pictureURL}
@@ -53,25 +69,10 @@ export default function MessageList(props) {
       isGoodClicked = false;
     }
 
-    //名前を抽出する関数
-    //%の位置と?の位置の間を抽出して16進数を日本語に変換し、配列namesに代入
-    let percent = 0,
-      hatena = 0,
-      decoded;
-    for (let i = 0; i < post.profile[item.userUid].length; i++) {
-      if (post.profile[item.userUid][i] === '%' && percent === 0) percent = i;
-      if (post.profile[item.userUid][i] === '?' && hatena === 0) hatena = i;
-      decoded = post.profile[item.userUid].substring(percent + 3, hatena - 4);
-    }
-    percent = 0;
-    hatena = 0;
-    console.log(decoded);
-    decoded = decodeURI(decoded);
-
     return (
       <Message
         key={item.id}
-        name={decoded}
+        name={assignname(post.profile[item.userUid])}
         icon={post.profile[item.userUid]}
         text={item.text}
         pictureURL={item.pictureURL}
