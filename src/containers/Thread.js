@@ -36,6 +36,7 @@ const Thread = props => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isvisiable, setIsVisiable] = useState(false);
   const [viweingPicture, setViewingPicture] = useState('');
+  const [isMessageUpdate, setIsMessageUpdate] = useState(false); // 「新しい投稿があります！」の表示に使う
 
   const [isFetting, setIsFetting] = useState(false); // ローディングのスケルトンウィンドウを管理
 
@@ -51,14 +52,14 @@ const Thread = props => {
       const subscribe = async () => {
         // '/client/:channel/:thread'の:channelと:threadを取り出す
         const [channelId, threadId] = extractId(url);
-        // urlで指定されたチャンネルのfirebase参照を取得
+        // urlで指定されたスレッドfirebase参照を取得
         const ref = db
           .collection('channels')
           .doc(channelId)
           .collection('threads')
           .doc(threadId);
 
-        // 指定されたチャンネルが存在するか確認
+        // 指定されたスレッドが存在するか確認
         const isExist = (await ref.get()).exists;
         if (isExist) {
           let threadMeta = null;
@@ -105,9 +106,51 @@ const Thread = props => {
     [] /*useEffectをcomponentDidMountのように扱うためにから配列を渡している*/
   );
 
+  useEffect(() => {
+    // messageの変更を取得する
+    // 「新しいメッセージがあります！」などの表示に用いる
+
+    let unsbscribe = null;
+    const subscribe = async () => {
+      // '/client/:channel/:thread'の:channelと:threadを取り出す
+      const [channelId, threadId] = extractId(url);
+      // urlで指定されたチャンネルのfirebase参照を取得
+      const ref = db
+        .collection('channels')
+        .doc(channelId)
+        .collection('threads')
+        .doc(threadId);
+
+      // 指定されたスレッドが存在するか確認
+      const isExist = (await ref.get()).exists;
+      if (isExist) {
+        unsbscribe = ref.collection('messages').onSnapshot(snapshot => {
+          snapshot.docChanges().forEach(change => {
+            let authorUid = change.doc.data().userUid;
+            // 新しい投稿があり、投稿者ではなければ
+            if (change.type === 'added' && authorUid !== user.uid) {
+              setIsMessageUpdate(true);
+            }
+          });
+        });
+      }
+    };
+    subscribe();
+
+    return function cleanUp() {
+      if (unsbscribe) unsbscribe();
+    };
+  }, []);
+
   // --- modal window ---
-  const handleModaleOpen = () => setIsModalOpen(true);
-  const handleModaleClose = () => setIsModalOpen(false);
+  const handleModaleOpen = () => {
+    setIsModalOpen(true);
+    setIsMessageUpdate(false);
+  };
+  const handleModaleClose = () => {
+    setIsModalOpen(false);
+    setIsMessageUpdate(false);
+  };
   const submit = (text, picture, profile) => {
     addMessage(url, user.uid, text.trim(), picture, profile);
   };
@@ -221,6 +264,7 @@ const Thread = props => {
         onSubmit={submit}
         userUid={user.uid}
         post={post}
+        isMessageUpdate={isMessageUpdate}
       />
       <Viewer
         visible={isvisiable}
