@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
-        borderColor: '#000000'
+        borderColor: theme.text
       },
       '&.Mui-focused fieldset': {
         borderColor: '#000000'
