@@ -119,9 +119,13 @@ function Channel(props) {
   // kininaruButtonが押された時、フラグを逆にする
   const handleKininaruClick = threadId => {
     let kininaruClickedUsers = null;
+
     for (let item of threads) {
       if (item.id === threadId) {
-        kininaruClickedUsers = item.kininaruClickedUsers;
+        // kininaruCLickedUsersがなかった時のため
+        kininaruClickedUsers = item.kininaruClickedUsers
+          ? item.kininaruClickedUsers
+          : {};
       }
     }
 
