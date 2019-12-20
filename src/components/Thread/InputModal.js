@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between'
   },
   newMessage: {
-    color: theme.error
+    color: theme.primary
   },
   Cancel: {
     paddingLeft: 'unset'
