@@ -1,6 +1,11 @@
 import extractId from '../functions/extractId';
 import firebase from '../Firebase';
 import icons from '../icon';
+//メール通知用
+require('firebase/functions');
+const sendMail = firebase.functions().httpsCallable('sendMail');
+
+//データベース
 const db = firebase.firestore();
 
 // action type
@@ -110,6 +115,10 @@ export function addThread(url, userUid, title, details, picture) {
       .catch(error => {
         console.log('Error adding Thread: ', error);
       });
+    //メール送信
+    sendMail({
+      naiyou: '新しいスレッド「' + title + '」が作成されました。'
+    }).then(function(result) {});
   }
   sendThread();
   return {

@@ -9,7 +9,6 @@ export default function MessageList(props) {
   const { post, replies, userUid } = props;
   const { onKininaruClick, onGoodClick, onViewerOpen } = props;
 
-  let Shuffled = post.Shuffled;
   // kininaruClickedUsersがない時のため
   let KininaruClickedUsers = post.KininaruClickedUsers
     ? post.KininaruClickedUsers
