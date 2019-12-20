@@ -55,6 +55,9 @@ const useStyles = makeStyles(theme => ({
     width: 240
   },
   newsBar: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    arignItems: 'center',
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     background: theme.secondary,
