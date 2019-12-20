@@ -52,10 +52,26 @@ export default function MessageList(props) {
       // 押していなかった時
       isGoodClicked = false;
     }
+
+    //名前を抽出する関数
+    //%の位置と?の位置の間を抽出して16進数を日本語に変換し、配列namesに代入
+    let percent = 0,
+      hatena = 0,
+      decoded;
+    for (let i = 0; i < post.profile[item.userUid].length; i++) {
+      if (post.profile[item.userUid][i] === '%' && percent === 0) percent = i;
+      if (post.profile[item.userUid][i] === '?' && hatena === 0) hatena = i;
+      decoded = post.profile[item.userUid].substring(percent + 3, hatena - 4);
+    }
+    percent = 0;
+    hatena = 0;
+    console.log(decoded);
+    decoded = decodeURI(decoded);
+
     return (
       <Message
         key={item.id}
-        name=''
+        name={decoded}
         icon={post.profile[item.userUid]}
         text={item.text}
         pictureURL={item.pictureURL}
