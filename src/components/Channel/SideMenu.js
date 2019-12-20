@@ -8,14 +8,21 @@ import { Typography } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import { Virtuoso } from 'react-virtuoso';
 import extractId from '../../functions/extractId';
+import LaskLogo from '../../images/LaskLogo.png';
 
 import SideMenuItem from './SideMenuItem';
 
 //サイドメニューのcss
 const useStyles = makeStyles(theme => ({
-  tmp: {
-    // 本当はロゴが入るスペース
-    height: '140px'
+  menuTop: {
+    height: 140
+  },
+  logo: {
+    objectFit: 'contain',
+    height: 72,
+    position: 'relative',
+    top: 16,
+    left: 8
   },
   listPaper: {
     backgroundColor: theme.background,
@@ -31,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#F7F3EF',
     fontSize: '14px',
     position: 'relative',
-    top: '8%',
+    top: '6%',
     left: '52%',
     border: 'solid thin #FF5F58',
     borderRadius: 'unset',
@@ -68,7 +75,9 @@ export default function SideMenu(props) {
   //メニューの中身をdivタグに書く
   const Menu = (
     <React.Fragment>
-      <div className={classes.tmp}></div>
+      <div className={classes.menuTop}>
+        <img src={LaskLogo} alt='LaskLogo' className={classes.logo} />
+      </div>
       <Typography variant='subtitle2' className={classes.listTitle}>
         チャンネル
       </Typography>

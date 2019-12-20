@@ -145,7 +145,7 @@ function MakeThread(props) {
     if (title.trim() === '') {
       setIsTitileFilled(false);
       return;
-    } else if (title.bytes() > 20) {
+    } else if (title.bytes() > 28) {
       setIsTitileFilled(false);
       return;
     }

@@ -35,15 +35,12 @@ const useStyles = makeStyles(theme => ({
     },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
-        borderColor: '#000000'
+        borderColor: theme.text
       },
       '&.Mui-focused fieldset': {
         borderColor: '#000000'
       }
     }
-  },
-  FieldText: {
-    color: '#FFFFFF'
   },
   Text: {
     color: theme.text
@@ -71,20 +68,26 @@ const useStyles = makeStyles(theme => ({
     }
   },
   CancelButton: {
-    backgroundColor: theme.secondary,
-    '&:hover': {
-      backgroundColor: theme.secondary
-    }
-  },
-  SendButton: {
     backgroundColor: theme.primary,
     '&:hover': {
       backgroundColor: theme.primary
     }
   },
+  SendButton: {
+    backgroundColor: theme.secondary,
+    '&:hover': {
+      backgroundColor: theme.secondary
+    }
+  },
+  FieldText: {
+    color: '#FFFFFF'
+  },
+  Text: {
+    color: theme.text
+  },
   PaperPlane: {
     marginLeft: theme.spacing(2),
-    color: '#FFFFFF'
+    color: theme.text
   }
 }));
 
@@ -145,7 +148,7 @@ export function CancelButton() {
   const classes = useStyles();
   return (
     <Button className={classes.CancelButton} variant='contained' size='medium'>
-      <span className={classes.Fieldtext}>キャンセル</span>
+      <span className={classes.FieldText}>キャンセル</span>
     </Button>
   );
 }
@@ -160,8 +163,8 @@ export function SendButton(props) {
       variant='contained'
       size='medium'
     >
-      <span className={classes.FieldText}>送信</span>
-      <SendIcon className={classes.PaperPlane}></SendIcon>
+      <span className={classes.Text}>送信</span>
+      <SendIcon className={classes.PaperPlane} />
     </Button>
   );
 }
