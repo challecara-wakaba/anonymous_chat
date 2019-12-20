@@ -11,6 +11,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
+import KininaruButton from './KininaruButton';
+
 const useStyles = makeStyles(theme => ({
   root: {
     marginLeft: 'auto',
