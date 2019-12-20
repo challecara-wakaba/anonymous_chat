@@ -39,6 +39,9 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto',
     marginRight: 'unset'
   },
+  Icon: {
+    padding: '1%'
+  },
   Ver: {
     color: '#142471'
   },
@@ -143,7 +146,11 @@ const ThreadCard = props => {
           >
             {convertDateFormat(timeStamp)}
           </Typography>
-          <IconButton edge='end' onClick={handleMenuOpen}>
+          <IconButton
+            edge='end'
+            onClick={handleMenuOpen}
+            className={classes.Icon}
+          >
             <MoreVertIcon className={classes.Ver} />
           </IconButton>
           {renderMenu}

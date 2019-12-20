@@ -47,8 +47,12 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: theme.secondary
     }
   },
+  Text: {
+    color: theme.text
+  },
   Icon: {
-    paddingLeft: theme.spacing(1)
+    paddingLeft: theme.spacing(1),
+    color: theme.text
   },
   Field: {
     width: '100%',
@@ -152,7 +156,7 @@ export default function InputModal(props) {
             </Typography>
           )}
           <Button className={classes.Button} onClick={handleSubmit}>
-            送信
+            <span className={classes.Text}>送信</span>
             <SendIcon className={classes.Icon} />
           </Button>
         </div>
