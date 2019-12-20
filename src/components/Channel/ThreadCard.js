@@ -58,6 +58,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     arignItems: 'center',
+    height: '20px',
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     background: theme.secondary,
