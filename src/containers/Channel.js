@@ -119,6 +119,7 @@ function Channel(props) {
   // kininaruButtonが押された時、フラグを逆にする
   const handleKininaruClick = threadId => {
     let kininaruClickedUsers = null;
+    let Emails = null;
 
     for (let item of threads) {
       if (item.id === threadId) {
@@ -126,6 +127,7 @@ function Channel(props) {
         kininaruClickedUsers = item.kininaruClickedUsers
           ? item.kininaruClickedUsers
           : {};
+        Emails = item.Emails ? item.Emails : {};
       }
     }
 
@@ -134,13 +136,21 @@ function Channel(props) {
       const newClickedUsers = Object.assign({}, kininaruClickedUsers, {
         [user.uid]: false
       });
-      kininaruButtonClick(url, threadId, newClickedUsers);
+      //user同様Emailオブジェクトの更新を行う
+      const newEmails = Object.assign({}, Emails, {
+        [user.email]: false
+      });
+      kininaruButtonClick(url, threadId, newClickedUsers, newEmails);
     } else {
       // 押してなかった時
       const newClickedUsers = Object.assign({}, kininaruClickedUsers, {
         [user.uid]: true
       });
-      kininaruButtonClick(url, threadId, newClickedUsers);
+      //user同様Emailオブジェクトの更新を行う
+      const newEmails = Object.assign({}, Emails, {
+        [user.email]: true
+      });
+      kininaruButtonClick(url, threadId, newClickedUsers, newEmails);
     }
   };
 
@@ -198,9 +208,14 @@ function mapDispatchToProps(dispatch) {
   return {
     loadChannel: channels => dispatch(channelActions.loadChannel(channels)),
     loadThread: threads => dispatch(channelActions.loadThread(threads)),
-    kininaruButtonClick: (url, threadId, kininaruClickedUsers) =>
+    kininaruButtonClick: (url, threadId, kininaruClickedUsers, Emails) =>
       dispatch(
-        channelActions.kininaruButtonClick(url, threadId, kininaruClickedUsers)
+        channelActions.kininaruButtonClick(
+          url,
+          threadId,
+          kininaruClickedUsers,
+          Emails
+        )
       )
   };
 }
