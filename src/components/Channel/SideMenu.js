@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#F7F3EF',
     fontSize: '14px',
     position: 'relative',
-    top: '8%',
+    top: '6%',
     left: '52%',
     border: 'solid thin #FF5F58',
     borderRadius: 'unset',
