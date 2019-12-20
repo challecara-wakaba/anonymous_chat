@@ -28,14 +28,19 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(5),
     color: theme.error
   },
-  TextLabel: {
-    color: '#5F5F5F !important'
-  },
-  TextBox: {
-    borderColor: '#000000 !important'
-  },
-  Margin: {
-    margin: '6px 36px'
+  root: {
+    margin: '6px 36px',
+    '& label.Mui-focused': {
+      color: '#000000'
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#000000'
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#000000'
+      }
+    }
   },
   FieldText: {
     color: '#FFFFFF'
@@ -95,19 +100,11 @@ export function TextFields(props) {
         label='題名（必須）'
         placeholder='（例）過去問　[2]-(1) 力のモーメント'
         margin='normal'
-        className={classes.Margin}
+        className={classes.root}
         variant='outlined'
         name='title' // 入力をstateで管理するのに用いる
         value={title}
         onChange={onChange}
-        InputLabelProps={{
-          className: classes.TextLabel
-        }}
-        InputProps={{
-          classes: {
-            notchedOutline: classes.TextBox
-          }
-        }}
       />
       {!isTitleFilled && (
         <Typography className={classes.errorMessage} variant='body2'>
@@ -121,19 +118,11 @@ export function TextFields(props) {
         placeholder='(例)この問題の解き方がわかりません'
         rows='4'
         margin='normal'
-        className={classes.Margin}
+        className={classes.root}
         variant='outlined'
         name='details' // 入力をstataeで管理するのに用いる
         value={details}
         onChange={onChange}
-        InputLabelProps={{
-          className: classes.TextLabel
-        }}
-        InputProps={{
-          classes: {
-            notchedOutline: classes.TextBox
-          }
-        }}
       />
     </div>
   );
