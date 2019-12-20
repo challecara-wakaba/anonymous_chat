@@ -117,7 +117,7 @@ export function addThread(url, userUid, title, details, picture) {
       });
     //メール送信
     sendMail({
-      naiyou: '新しいスレッド「' + title + '」が作成されました。'
+      naiyou: '新しい質問「' + title + '」が作成されました。'
     }).then(function(result) {});
   }
   sendThread();
