@@ -63,6 +63,7 @@ function MakeThread(props) {
   const [title, setTitle] = useState('');
   const [details, setDetails] = useState('');
   const [isTitleFilled, setIsTitileFilled] = useState(true); // 訪問した最初にはエラーは出さない
+  const [isSending, setIsSending] = useState(false); // 投稿時のローディングに使う
 
   // UploadPicButtonに渡す
   const [picture, setPicture] = useState(null);
@@ -151,12 +152,15 @@ function MakeThread(props) {
     }
     addThread(url, user.uid, title.trim(), details.trim(), picture);
 
+    // ローディングアニメーションをオン
+    setIsSending(true);
+
     // 所得したブラウザ上でのオブジェクトURLを開放
     window.URL.revokeObjectURL(blobURL);
 
     // 送信したらチャンネル画面に戻る
     // sendButtonのpropsにhistoryが渡されている
-    props.history.push(changeUpperDirectory(url));
+    // props.history.push(changeUpperDirectory(url));
   }
 
   return (
@@ -187,7 +191,7 @@ function MakeThread(props) {
         </Link>
         <div style={{ marginRight: '36px' }}>
           {/* SendButtonはLinkを用いずonClick時にhistory.pushを発火する */}
-          <SendButton onClick={handleSubmit} />
+          <SendButton onClick={handleSubmit} isSending={isSending} />
         </div>
       </div>
     </div>
