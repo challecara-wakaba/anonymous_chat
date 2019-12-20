@@ -12,6 +12,7 @@ const db = firebase.firestore();
 const LOAD_CHANNEL = 'LOAD_CHANNEL';
 const LOAD_THREAD = 'LOAD_THREAD';
 const ADD_THREAD = 'ADD_THREAD';
+const KININARU_BUTTON_CLICK = 'KININARU_BUTTON_CLICK';
 
 const initialState = {
   channels: [],
@@ -31,6 +32,7 @@ export default function reducer(state = initialState, action) {
       });
 
     case ADD_THREAD:
+    case KININARU_BUTTON_CLICK:
     default:
       return state;
   }
@@ -123,5 +125,29 @@ export function addThread(url, userUid, title, details, picture) {
   sendThread();
   return {
     type: ADD_THREAD
+  };
+}
+
+export function kininaruButtonClick(url, threadId, kininaruClickedUsers) {
+  // 'client/:channel/:thread'から:clientと:channelを取り出す
+  const [channelId] = extractId(url);
+  // 更新したいmessageのfirebase参照を取得
+  const ref = db
+    .collection('channels')
+    .doc(channelId)
+    .collection('threads')
+    .doc(threadId);
+
+  // 更新
+  ref
+    .update({
+      kininaruClickedUsers: kininaruClickedUsers
+    })
+    .catch(error => {
+      console.log('Error updatin document: ', error);
+    });
+
+  return {
+    type: KININARU_BUTTON_CLICK
   };
 }

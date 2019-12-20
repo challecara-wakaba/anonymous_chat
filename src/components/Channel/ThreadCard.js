@@ -84,7 +84,8 @@ const ThreadCard = props => {
     details,
     pictureURL,
     replyCount,
-    isKininaruClicked
+    isKininaruClicked,
+    onKininaruClick
   } = props;
   const [anchorEl, setAnchorEl] = useState(null); // あくまで開いているボタンの場所のstateのためrリフトアップしてない
 
@@ -179,6 +180,7 @@ const ThreadCard = props => {
         <KininaruButton
           className={classes.kininaru}
           isKininaruClicked={isKininaruClicked}
+          onKininaruClick={onKininaruClick}
         />
       </CardContent>
       <Divider className={classes.divider} />

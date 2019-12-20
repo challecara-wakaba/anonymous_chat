@@ -13,10 +13,16 @@ const useStyle = makeStyles(theme => ({
 
 const KininaruButton = props => {
   const { className, isKininaruClicked } = props;
+  const { onKininaruClick } = props;
   const classes = useStyle({ isKininaruClicked });
   return (
     <div className={className}>
-      <IconButton size='small' edge='start' className={classes.ButtonCont}>
+      <IconButton
+        size='small'
+        edge='start'
+        className={classes.ButtonCont}
+        onClick={onKininaruClick}
+      >
         {isKininaruClicked ? (
           <NotificationsActiveIcon className={classes.IconCont} />
         ) : (

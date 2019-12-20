@@ -25,13 +25,7 @@ const Thread = props => {
   const classes = useStyles();
   const theme = useTheme();
   const { user, post, replies } = props;
-  const {
-    addMessage,
-    loadPost,
-    loadMessage,
-    goodButtonClick,
-    KininaruButtonClick
-  } = props;
+  const { addMessage, loadPost, loadMessage, goodButtonClick } = props;
   const { url } = useRouteMatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isvisiable, setIsVisiable] = useState(false);
@@ -199,27 +193,6 @@ const Thread = props => {
     }
   };
   // --- --- --- ---
-  // --- Kininaru ---
-  const handleKininaruClick = () => {
-    // KininaruClickedUsersが無い時のため
-    let KininaruClickedUsers = post.KininaruClickedUsers
-      ? post.KininaruClickedUsers
-      : {};
-
-    if (KininaruClickedUsers[user.uid] === true) {
-      // 押してあった時
-      const newClickedUsers = Object.assign({}, KininaruClickedUsers, {
-        [user.uid]: false
-      });
-      KininaruButtonClick(url, newClickedUsers);
-    } else {
-      // 押してなかった時
-      const newClickedUsers = Object.assign({}, KininaruClickedUsers, {
-        [user.uid]: true
-      });
-      KininaruButtonClick(url, newClickedUsers);
-    }
-  };
 
   const makeDummyArray = count => {
     // firestoreからmessageを取得するまで表示するスケルトンウィンドウに用いる
@@ -251,7 +224,6 @@ const Thread = props => {
               post={post}
               replies={replies}
               onGoodClick={handleGoodClick}
-              onKininaruClick={handleKininaruClick}
               onViewerOpen={handleViewerOpen}
               profile={post.profile}
             />
@@ -293,11 +265,7 @@ const mapDispatchToProps = dispatch => {
     loadPost: post => dispatch(threadActions.loadPost(post)),
     loadMessage: replies => dispatch(threadActions.loadMessage(replies)),
     goodButtonClick: (url, messageKey, goodClickedUsers) =>
-      dispatch(
-        threadActions.goodButtonClick(url, messageKey, goodClickedUsers)
-      ),
-    KininaruButtonClick: (url, KininaruClickedUsers) =>
-      dispatch(threadActions.KininaruButtonClick(url, KininaruClickedUsers))
+      dispatch(threadActions.goodButtonClick(url, messageKey, goodClickedUsers))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Thread);
