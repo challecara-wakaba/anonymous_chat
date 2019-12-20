@@ -130,6 +130,7 @@ const Thread = props => {
             // 新しい投稿があり、投稿者であれば
             if (change.type === 'added' && authorUid === user.uid) {
               setIsSending(false); // ローディングアニメーションをオフ
+              setIsModalOpen(false); // モーダルウィンドウを閉じる
             }
           });
         });
