@@ -16,7 +16,7 @@ function Login(props) {
   const classes = useStyles();
   const theme = useTheme();
   // ログインに成功したときの異動先
-  const DESTINATION = '/client/testChannel';
+  const DESTINATION = '/client/home';
 
   const { loggedIn } = props;
   const [email, setEmail] = useState('');
