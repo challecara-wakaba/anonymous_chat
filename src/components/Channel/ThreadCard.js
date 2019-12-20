@@ -58,11 +58,16 @@ const useStyles = makeStyles(theme => ({
   newsBar: {
     display: 'flex',
     justifyContent: 'space-between',
-    arignItems: 'center',
-    paddingTop: '6px',
-    paddingBottom: '6px',
+    alignItems: 'center',
     background: theme.secondary,
-    color: theme.text
+    color: theme.text,
+    padding: '4px'
+  },
+  replymsg: {
+    marginLeft: '12px'
+  },
+  kininaru: {
+    marginRight: '11px'
   },
   divider: {
     height: 1
@@ -154,10 +159,16 @@ const ThreadCard = props => {
       <Divider />
       <CardContent className={classes.newsBar}>
         {replyCount === 0 ? (
-          <Typography variant='caption'>{'まだ返信がありません'}</Typography>
+          <Typography variant='caption' className={classes.replymsg}>
+            {'まだ返信がありません'}
+          </Typography>
         ) : (
-          <Typography variant='caption'>{`${replyCount}件の返信`}</Typography>
+          <Typography
+            variant='caption'
+            className={classes.replymsg}
+          >{`${replyCount}件の返信`}</Typography>
         )}
+        <KininaruButton className={classes.kininaru} />
       </CardContent>
       <Divider className={classes.divider} />
     </Card>
