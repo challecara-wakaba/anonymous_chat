@@ -32,6 +32,9 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between'
   },
+  newMessage: {
+    color: theme.error
+  },
   Cancel: {
     paddingLeft: 'unset'
   },
@@ -145,7 +148,9 @@ export default function InputModal(props) {
             <CloseIcon />
           </IconButton>
           {isOpen && isMessageUpdate && (
-            <Typography variant='body2'>新しい投稿があります！</Typography>
+            <Typography variant='body2' className={classes.newMessage}>
+              新しい投稿があります！
+            </Typography>
           )}
           <Button className={classes.Button} onClick={handleSubmit}>
             送信
