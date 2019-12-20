@@ -92,7 +92,6 @@ export const addMessage = (url, userUid, text, picture, profile) => {
         text: text,
         timeStamp: new Date(),
         goodClickedUsers: {},
-        KininaruClickedUsers: {},
         pictureURL: pictureURL
       })
       .catch(function(error) {

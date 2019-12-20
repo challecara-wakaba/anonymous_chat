@@ -128,7 +128,12 @@ export function addThread(url, userUid, title, details, picture) {
   };
 }
 
-export function kininaruButtonClick(url, threadId, kininaruClickedUsers) {
+export function kininaruButtonClick(
+  url,
+  threadId,
+  kininaruClickedUsers,
+  Emails
+) {
   // 'client/:channel/:thread'から:clientと:channelを取り出す
   const [channelId] = extractId(url);
   // 更新したいmessageのfirebase参照を取得
@@ -141,7 +146,8 @@ export function kininaruButtonClick(url, threadId, kininaruClickedUsers) {
   // 更新
   ref
     .update({
-      kininaruClickedUsers: kininaruClickedUsers
+      kininaruClickedUsers: kininaruClickedUsers,
+      Emails: Emails
     })
     .catch(error => {
       console.log('Error updatin document: ', error);
