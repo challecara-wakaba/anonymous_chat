@@ -56,7 +56,15 @@ const useStyles = makeStyles(theme => ({
   },
   Field: {
     width: '100%',
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: theme.text
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#000000'
+      }
+    }
   },
   clickedModalBottom: {
     display: 'flex',
@@ -167,11 +175,6 @@ export default function InputModal(props) {
           value={writingText}
           className={classes.Field}
           onChange={handleTextChange}
-          InputProps={{
-            classes: {
-              notchedOutline: classes.TextBox
-            }
-          }}
         />
         {blobURL ? (
           <div className={classes.clickedModalBottom}>
