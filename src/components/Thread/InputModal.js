@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
+import { Typography } from '@material-ui/core';
 //アイコンの準備
 import icons from '../../icon';
 
@@ -30,6 +31,9 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+  newMessage: {
+    color: theme.primary
   },
   Cancel: {
     paddingLeft: 'unset'
@@ -77,7 +81,7 @@ ReactModal.setAppElement('#root');
 
 export default function InputModal(props) {
   const classes = useStyles();
-  const { isOpen, onClose, onSubmit, userUid, post } = props;
+  const { isOpen, onClose, onSubmit, userUid, post, isMessageUpdate } = props;
 
   // modal
   const [writingText, setWritingText] = useState('');
@@ -143,6 +147,11 @@ export default function InputModal(props) {
           <IconButton onClick={handleClose} className={classes.Cancel}>
             <CloseIcon />
           </IconButton>
+          {isOpen && isMessageUpdate && (
+            <Typography variant='body2' className={classes.newMessage}>
+              新しい投稿があります！
+            </Typography>
+          )}
           <Button className={classes.Button} onClick={handleSubmit}>
             送信
             <SendIcon className={classes.Icon} />
