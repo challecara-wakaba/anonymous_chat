@@ -128,9 +128,9 @@ export function Buttons(props) {
       >
         <span className={classes.FieldText}>ログイン</span>
       </Button>
-      <Link href='' variant='body2' className={classes.MesText}>
+      {/* <Link href='' variant='body2' className={classes.MesText}>
         パスワードを忘れた！
-      </Link>
+      </Link> */}
     </div>
   );
 }
