@@ -10,7 +10,6 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import AddAlertIcon from '@material-ui/icons/AddAlert';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,8 +57,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     arignItems: 'center',
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
+    paddingTop: '6px',
+    paddingBottom: '6px',
     background: theme.secondary,
     color: theme.text
   },
@@ -153,11 +152,10 @@ const ThreadCard = props => {
       <Divider />
       <CardContent className={classes.newsBar}>
         {replyCount === 0 ? (
-          <Typography variant='body2'>{'まだ返信がありません'}</Typography>
+          <Typography variant='caption'>{'まだ返信がありません'}</Typography>
         ) : (
-          <Typography variant='body2'>{`${replyCount}件の返信`}</Typography>
+          <Typography variant='caption'>{`${replyCount}件の返信`}</Typography>
         )}
-        <AddAlertIcon />
       </CardContent>
       <Divider className={classes.divider} />
     </Card>

@@ -21,8 +21,7 @@ const modalStyle = {
     margin: '12px',
     padding: '12px',
     height: '190px',
-    backgroundColor: '#FFDEDD',
-    zIndex: 3
+    backgroundColor: '#FFDEDD'
   }
 };
 
