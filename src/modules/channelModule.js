@@ -118,9 +118,7 @@ export function addThread(url, userUid, title, details, picture) {
     //メール送信
     sendMail({
       naiyou: '新しいスレッド「' + title + '」が作成されました。'
-    }).then(function(result) {
-      console.log('送信成功byChannelmodule');
-    });
+    }).then(function(result) {});
   }
   sendThread();
   return {
