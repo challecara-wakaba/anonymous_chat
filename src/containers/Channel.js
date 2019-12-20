@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Channel(props) {
-  const { channels, threads } = props;
-  const { loadChannel, loadThread } = props;
+  const { channels, threads, user } = props;
+  const { loadChannel, loadThread, kininaruButtonClick } = props;
   const theme = useTheme();
   const classes = useStyles();
   const { url } = useRouteMatch();
@@ -116,6 +116,34 @@ function Channel(props) {
   //サイドメニューが閉じる
   const handlefalse = () => setState({ left: false });
 
+  // kininaruButtonが押された時、フラグを逆にする
+  const handleKininaruClick = threadId => {
+    let kininaruClickedUsers = null;
+
+    for (let item of threads) {
+      if (item.id === threadId) {
+        // kininaruCLickedUsersがなかった時のため
+        kininaruClickedUsers = item.kininaruClickedUsers
+          ? item.kininaruClickedUsers
+          : {};
+      }
+    }
+
+    if (kininaruClickedUsers[user.uid] === true) {
+      // 押してあった時
+      const newClickedUsers = Object.assign({}, kininaruClickedUsers, {
+        [user.uid]: false
+      });
+      kininaruButtonClick(url, threadId, newClickedUsers);
+    } else {
+      // 押してなかった時
+      const newClickedUsers = Object.assign({}, kininaruClickedUsers, {
+        [user.uid]: true
+      });
+      kininaruButtonClick(url, threadId, newClickedUsers);
+    }
+  };
+
   const makeDummyArray = count => {
     // firestoreからmessageを取得するまで表示するスケルトンウィンドウに用いる
     // この配列の値がリストのkeyになる
@@ -145,7 +173,11 @@ function Channel(props) {
         {isFetting ? (
           makeDummyArray(10).map(value => <SkeletonCard key={value} />)
         ) : (
-          <ThreadCardList threads={threads} />
+          <ThreadCardList
+            threads={threads}
+            onKininaruClick={handleKininaruClick}
+            user={user}
+          />
         )}
       </div>
       <Link to={`${url}/makeThread`}>
@@ -158,13 +190,18 @@ function Channel(props) {
 function mapStateToProps(state) {
   return {
     channels: state.channel.channels,
-    threads: state.channel.threads
+    threads: state.channel.threads,
+    user: state.user.user
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
     loadChannel: channels => dispatch(channelActions.loadChannel(channels)),
-    loadThread: threads => dispatch(channelActions.loadThread(threads))
+    loadThread: threads => dispatch(channelActions.loadThread(threads)),
+    kininaruButtonClick: (url, threadId, kininaruClickedUsers) =>
+      dispatch(
+        channelActions.kininaruButtonClick(url, threadId, kininaruClickedUsers)
+      )
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Channel);

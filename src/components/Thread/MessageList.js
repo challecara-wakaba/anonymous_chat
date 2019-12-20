@@ -7,19 +7,7 @@ import icons from '../../icon';
 
 export default function MessageList(props) {
   const { post, replies, userUid } = props;
-  const { onKininaruClick, onGoodClick, onViewerOpen } = props;
-
-  // kininaruClickedUsersがない時のため
-  let KininaruClickedUsers = post.KininaruClickedUsers
-    ? post.KininaruClickedUsers
-    : {};
-  // kininaruButtonを押したか判断する処理
-  let isKininaruClicked = false;
-  if (KininaruClickedUsers[userUid] === true) {
-    isKininaruClicked = true;
-  } else {
-    isKininaruClicked = false;
-  }
+  const { onGoodClick, onViewerOpen } = props;
 
   //名前を抽出する関数
   //%の位置と?の位置の間を抽出して16進数を日本語に変換し、配列namesに代入
@@ -46,8 +34,6 @@ export default function MessageList(props) {
       pictureURL={post.pictureURL}
       iconURL={icons[post.Shuffled[0]]}
       onViewerOpen={onViewerOpen}
-      isKininaruClicked={isKininaruClicked}
-      onKininaruClick={onKininaruClick}
     />
   );
 

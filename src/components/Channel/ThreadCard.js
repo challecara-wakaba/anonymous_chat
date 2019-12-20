@@ -11,6 +11,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
+import KininaruButton from './KininaruButton';
+
 const useStyles = makeStyles(theme => ({
   root: {
     marginLeft: 'auto',
@@ -56,11 +58,16 @@ const useStyles = makeStyles(theme => ({
   newsBar: {
     display: 'flex',
     justifyContent: 'space-between',
-    arignItems: 'center',
-    paddingTop: '6px',
-    paddingBottom: '6px',
+    alignItems: 'center',
     background: theme.secondary,
-    color: theme.text
+    color: theme.text,
+    padding: '4px'
+  },
+  replymsg: {
+    marginLeft: '12px'
+  },
+  kininaru: {
+    marginRight: '11px'
   },
   divider: {
     height: 1
@@ -70,7 +77,16 @@ const useStyles = makeStyles(theme => ({
 const ThreadCard = props => {
   const classes = useStyles();
   const { url } = useRouteMatch();
-  const { threadId, timeStamp, title, details, pictureURL, replyCount } = props;
+  const {
+    threadId,
+    timeStamp,
+    title,
+    details,
+    pictureURL,
+    replyCount,
+    isKininaruClicked,
+    onKininaruClick
+  } = props;
   const [anchorEl, setAnchorEl] = useState(null); // あくまで開いているボタンの場所のstateのためrリフトアップしてない
 
   let jumpURL = `${url}/${threadId}`;
@@ -152,10 +168,20 @@ const ThreadCard = props => {
       <Divider />
       <CardContent className={classes.newsBar}>
         {replyCount === 0 ? (
-          <Typography variant='caption'>{'まだ返信がありません'}</Typography>
+          <Typography variant='caption' className={classes.replymsg}>
+            {'まだ返信がありません'}
+          </Typography>
         ) : (
-          <Typography variant='caption'>{`${replyCount}件の返信`}</Typography>
+          <Typography
+            variant='caption'
+            className={classes.replymsg}
+          >{`${replyCount}件の返信`}</Typography>
         )}
+        <KininaruButton
+          className={classes.kininaru}
+          isKininaruClicked={isKininaruClicked}
+          onKininaruClick={onKininaruClick}
+        />
       </CardContent>
       <Divider className={classes.divider} />
     </Card>
