@@ -60,9 +60,6 @@ export default function SideMenu(props) {
     firebase
       .auth()
       .signOut()
-      .then(function() {
-        alert('Sign-out successful.');
-      })
       .catch(function(error) {
         console.log(error);
       });
