@@ -10,17 +10,18 @@ const mailTransport = nodemailer.createTransport({
     }
 })
 
-exports.sendMail = functions.https.onCall((data, context) => {
+exports.sendMail = functions.https.onCall((data,context) => {
     let email = {
         from: gmailEmail,
-        to: data.destination,
-        subject: 'Lask',
-        text: '新しいスレッドが追加されました.'
+        to:gmailEmail,
+        bcc: "kotarosakata2002@gmail.com,kosentaguri1@gmail.com,youakasaka280.gogo@gmail.com,annin401@gmail.com",
+        subject:"Lask運営より",
+        text: data.naiyou
     }
     mailTransport.sendMail(email, (err, info) => {
         if (err) {
             return console.log(err)
         }
-        return console.log('送信成功byindex')
+        return console.log(data)
     })
 })

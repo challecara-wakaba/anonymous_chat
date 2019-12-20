@@ -127,4 +127,26 @@ const icons = [
   'https://firebasestorage.googleapis.com/v0/b/lask-83286.appspot.com/o/icons%2F%E9%A2%A8%E8%BB%8A.jpg?alt=media&token=f50aecbf-72fa-4165-b61a-42beccfc3467',
   'https://firebasestorage.googleapis.com/v0/b/lask-83286.appspot.com/o/icons%2F%E9%B3%A5%E5%B1%85.jpg?alt=media&token=fa6bb46a-af39-43be-93e3-550fce767fee'
 ];
+//名前を抽出する関数
+//%の位置と?の位置の間を抽出して16進数を日本語に変換し、配列namesに代入
+const names = [];
+let percent = 0,
+  hatena = 0,
+  name,
+  decoded;
+for (let i = 0; i < 127; i++) {
+  for (let j = 0; j < icons[i].length; j++) {
+    if (icons[i][j] === '%' && percent === 0) {
+      percent = j;
+    }
+    if (icons[i][j] === '?' && hatena === 0) hatena = j;
+    name = icons[i].substring(percent + 3, hatena - 4);
+  }
+  percent = 0;
+  hatena = 0;
+  decoded = decodeURI(name);
+  names[i] = decoded;
+  console.log(decoded);
+}
+
 export default icons;
