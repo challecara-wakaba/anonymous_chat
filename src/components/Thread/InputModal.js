@@ -12,6 +12,11 @@ import { Typography } from '@material-ui/core';
 //アイコンの準備
 import icons from '../../icon';
 
+//メール通知用
+import firebase from 'firebase';
+require('firebase/functions');
+const sendMail = firebase.functions().httpsCallable('sendMail');
+
 const modalStyle = {
   overlay: {
     backgroundColor: '#808080',
@@ -154,6 +159,25 @@ export default function InputModal(props) {
     }
 
     onSubmit(writingText.trim(), picture, profile); // ストアに接続してないため上のコンポーネントに渡す
+
+    let sender = [];
+    let a = 0;
+    if (post.Emails) {
+      for (let i = 0; i < Object.keys(post.Emails).length; i++) {
+        if (Object.keys(post.Emails)[i]) {
+          sender.push(Object.keys(post.Emails)[i]);
+        }
+      }
+      for (let i = 0; i < sender.length; i++) {
+        a += sender[i] + ',';
+      }
+
+      //メール送信
+      sendMail({
+        sousinsaki: a,
+        naiyou: post.title + 'に新しいメッセージが来ています。'
+      }).then(function(result) {});
+    }
 
     // stateを初期化する
     setWritingText('');
