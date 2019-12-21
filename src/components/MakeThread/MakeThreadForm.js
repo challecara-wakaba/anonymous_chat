@@ -91,7 +91,7 @@ const useStyles = makeStyles(theme => ({
   },
   PaperPlane: {
     marginLeft: theme.spacing(2),
-    color: theme.text
+    color: '#FFFFFF'
   }
 }));
 
