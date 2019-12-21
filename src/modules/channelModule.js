@@ -4,6 +4,18 @@ import icons from '../icon';
 //メール通知用
 require('firebase/functions');
 const sendMail = firebase.functions().httpsCallable('sendMail');
+let sender;
+let Mails = [
+  'kotarosakata2002@gmail.com',
+  'kosentaguri1@gmail.com',
+  'youakasaka280.gogo@gmail.com',
+  'annin401@gmail.com',
+  'bluesky19591@gmail.com',
+  'you.miya4126@gmail.com'
+];
+for (let i = 0; i < Mails.length; i++) {
+  sender += Mails[i] + ',';
+}
 
 //データベース
 const db = firebase.firestore();
@@ -119,6 +131,7 @@ export function addThread(url, userUid, title, details, picture) {
       });
     //メール送信
     sendMail({
+      sousinsaki: sender,
       naiyou: '新しい質問「' + title + '」が作成されました。'
     }).then(function(result) {});
   }

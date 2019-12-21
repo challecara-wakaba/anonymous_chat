@@ -14,7 +14,7 @@ exports.sendMail = functions.https.onCall((data,context) => {
     let email = {
         from: gmailEmail,
         to:gmailEmail,
-        bcc: "kotarosakata2002@gmail.com,kosentaguri1@gmail.com,youakasaka280.gogo@gmail.com,annin401@gmail.com",
+        bcc: data.sousinsaki,
         subject:"Lask運営より",
         text: data.naiyou
     }
