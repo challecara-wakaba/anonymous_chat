@@ -104,7 +104,7 @@ export function TextFields(props) {
       <TextField
         error={!isTitleFilled}
         id='outlined-required'
-        label='題名（必須）'
+        label='題名（必須、14文字まで）'
         placeholder='（例）過去問　[2]-(1) 力のモーメント'
         margin='normal'
         className={classes.root}
@@ -115,7 +115,7 @@ export function TextFields(props) {
       />
       {!isTitleFilled && (
         <Typography className={classes.errorMessage} variant='body2'>
-          この項目の入力は必須です
+          このタイトルでは投稿できません
         </Typography>
       )}
       <TextField
