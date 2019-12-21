@@ -12,6 +12,7 @@ export default function MessageList(props) {
   //名前を抽出する関数
   //%の位置と?の位置の間を抽出して16進数を日本語に変換し、配列namesに代入
   const assignname = str => {
+    if (!str) return '';
     let percent = 0,
       hatena = 0,
       decoded;
