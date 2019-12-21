@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { Typography } from '@material-ui/core';
 //アイコンの準備
 import icons from '../../icon';
@@ -50,6 +51,10 @@ const useStyles = makeStyles(theme => ({
   Text: {
     color: theme.text
   },
+  circle: {
+    height: '16px',
+    width: '16px'
+  },
   Icon: {
     paddingLeft: theme.spacing(1),
     color: theme.text
@@ -92,7 +97,15 @@ ReactModal.setAppElement('#root');
 
 export default function InputModal(props) {
   const classes = useStyles();
-  const { isOpen, onClose, onSubmit, userUid, post, isMessageUpdate } = props;
+  const {
+    isOpen,
+    onClose,
+    onSubmit,
+    userUid,
+    post,
+    isMessageUpdate,
+    isSending
+  } = props;
 
   // modal
   const [writingText, setWritingText] = useState('');
@@ -164,8 +177,14 @@ export default function InputModal(props) {
             </Typography>
           )}
           <Button className={classes.Button} onClick={handleSubmit}>
-            <span className={classes.Text}>送信</span>
-            <SendIcon className={classes.Icon} />
+            {isOpen && isSending ? (
+              <CircularProgress style={{ height: '16px', width: '16px' }} />
+            ) : (
+              <React.Fragment>
+                <span className={classes.Text}>送信</span>
+                <SendIcon className={classes.Icon} />
+              </React.Fragment>
+            )}
           </Button>
         </div>
         <TextField

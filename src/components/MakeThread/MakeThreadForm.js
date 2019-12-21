@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import SendIcon from '@material-ui/icons/Send';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 const useStyles = makeStyles(theme => ({
   FirstCont: {
     display: 'flex',
@@ -75,6 +77,8 @@ const useStyles = makeStyles(theme => ({
   },
   SendButton: {
     backgroundColor: theme.secondary,
+    height: '36px',
+    width: '103px',
     '&:hover': {
       backgroundColor: theme.secondary
     }
@@ -155,6 +159,7 @@ export function CancelButton() {
 
 export function SendButton(props) {
   const classes = useStyles();
+  const { isSending } = props;
   const { onClick } = props;
   return (
     <Button
@@ -163,8 +168,16 @@ export function SendButton(props) {
       variant='contained'
       size='medium'
     >
-      <span className={classes.Text}>送信</span>
-      <SendIcon className={classes.PaperPlane} />
+      {/* <span className={classes.FieldText}>送信</span>
+      <SendIcon className={classes.PaperPlane}></SendIcon> */}
+      {isSending ? (
+        <CircularProgress style={{ height: '16px', width: '16px' }} />
+      ) : (
+        <React.Fragment>
+          <span className={classes.FieldText}>送信</span>
+          <SendIcon className={classes.PaperPlane}></SendIcon>
+        </React.Fragment>
+      )}
     </Button>
   );
 }

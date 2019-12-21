@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { TextFields, Buttons } from '../components/Login/LoginForm';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import firebase from '../Firebase';
 import 'firebase/auth';
 
@@ -10,10 +11,14 @@ import * as userModules from '../modules/userModule';
 const useStyles = makeStyles(theme => ({
   root: {
     minHeight: '100vh'
-  }
+  },
+  progress: ({ isSending }) => ({
+    zIndex: 1,
+    display: isSending ? 'block' : 'none'
+  })
 }));
+
 function Login(props) {
-  const classes = useStyles();
   const theme = useTheme();
   // ログインに成功したときの異動先
   const DESTINATION = '/client/home';
@@ -23,6 +28,9 @@ function Login(props) {
   const [password, setPassword] = useState('');
   const [isUserFound, setIsUserFound] = useState(true);
   const [isCorrectPassword, setIsCorrectPassword] = useState(true);
+  const [isSending, setIsSending] = useState(false); // ローディングアニメーションに用いる
+
+  const classes = useStyles({ isSending });
 
   function handleTextChange(event) {
     const targetName = event.target.name;
@@ -44,6 +52,8 @@ function Login(props) {
     // これをしないと一度エラーが出ると消えなくなる
     setIsUserFound(true);
     setIsCorrectPassword(true);
+
+    setIsSending(true); // ローディングアニメーションをオン
 
     firebase
       .auth()
@@ -74,11 +84,14 @@ function Login(props) {
           alert(errorMessage);
         }
         console.log(error);
+
+        setIsSending(false); // アニメーションをオフ
       });
   }
   return (
     <div className={classes.root}>
       <style>{`body {background-color: ${theme.background}}`}</style>
+      <LinearProgress className={classes.progress} />
       <TextFields
         email={email}
         password={password}
