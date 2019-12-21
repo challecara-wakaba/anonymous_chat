@@ -53,6 +53,8 @@ function Login(props) {
     setIsUserFound(true);
     setIsCorrectPassword(true);
 
+    setIsSending(true); // ローディングアニメーションをオン
+
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -82,6 +84,8 @@ function Login(props) {
           alert(errorMessage);
         }
         console.log(error);
+
+        setIsSending(false); // アニメーションをオフ
       });
   }
   return (
