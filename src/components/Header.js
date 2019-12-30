@@ -61,13 +61,15 @@ export default function Header(props) {
         <Typography className={classes.label} variant='h6'>
           {label}
         </Typography>
-        <IconButton
-          edge='end'
-          className={classes.IconButton}
-          onClick={onRightClick}
-        >
-          {rightButton}
-        </IconButton>
+        {rightButton && onRightClick && (
+          <IconButton
+            edge='end'
+            className={classes.IconButton}
+            onClick={onRightClick}
+          >
+            {rightButton}
+          </IconButton>
+        )}
       </Toolbar>
     </AppBar>
   );

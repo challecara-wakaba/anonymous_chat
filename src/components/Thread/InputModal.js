@@ -7,8 +7,15 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Typography } from '@material-ui/core';
 //アイコンの準備
 import icons from '../../icon';
+
+//メール通知用
+import firebase from 'firebase';
+require('firebase/functions');
+const sendMail = firebase.functions().httpsCallable('sendMail');
 
 const modalStyle = {
   overlay: {
@@ -20,8 +27,7 @@ const modalStyle = {
     margin: '12px',
     padding: '12px',
     height: '190px',
-    backgroundColor: '#FFDEDD',
-    zIndex: 3
+    backgroundColor: '#FFDEDD'
   }
 };
 
@@ -30,6 +36,9 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+  newMessage: {
+    color: theme.primary
   },
   Cancel: {
     paddingLeft: 'unset'
@@ -44,12 +53,28 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: theme.secondary
     }
   },
+  Text: {
+    color: theme.text
+  },
+  circle: {
+    height: '16px',
+    width: '16px'
+  },
   Icon: {
-    paddingLeft: theme.spacing(1)
+    paddingLeft: theme.spacing(1),
+    color: theme.text
   },
   Field: {
     width: '100%',
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: theme.text
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#000000'
+      }
+    }
   },
   clickedModalBottom: {
     display: 'flex',
@@ -77,7 +102,15 @@ ReactModal.setAppElement('#root');
 
 export default function InputModal(props) {
   const classes = useStyles();
-  const { isOpen, onClose, onSubmit, userUid, post } = props;
+  const {
+    isOpen,
+    onClose,
+    onSubmit,
+    userUid,
+    post,
+    isMessageUpdate,
+    isSending
+  } = props;
 
   // modal
   const [writingText, setWritingText] = useState('');
@@ -127,6 +160,25 @@ export default function InputModal(props) {
 
     onSubmit(writingText.trim(), picture, profile); // ストアに接続してないため上のコンポーネントに渡す
 
+    let sender = [];
+    let a = 0;
+    if (post.Emails) {
+      for (let i = 0; i < Object.keys(post.Emails).length; i++) {
+        if (Object.keys(post.Emails)[i]) {
+          sender.push(Object.keys(post.Emails)[i]);
+        }
+      }
+      for (let i = 0; i < sender.length; i++) {
+        a += sender[i] + ',';
+      }
+
+      //メール送信
+      sendMail({
+        sousinsaki: a,
+        naiyou: post.title + 'に新しいメッセージが来ています。'
+      }).then(function(result) {});
+    }
+
     // stateを初期化する
     setWritingText('');
     setPicture(null);
@@ -143,9 +195,20 @@ export default function InputModal(props) {
           <IconButton onClick={handleClose} className={classes.Cancel}>
             <CloseIcon />
           </IconButton>
+          {isOpen && isMessageUpdate && (
+            <Typography variant='body2' className={classes.newMessage}>
+              新しい投稿があります！
+            </Typography>
+          )}
           <Button className={classes.Button} onClick={handleSubmit}>
-            送信
-            <SendIcon className={classes.Icon} />
+            {isOpen && isSending ? (
+              <CircularProgress style={{ height: '16px', width: '16px' }} />
+            ) : (
+              <React.Fragment>
+                <span className={classes.Text}>送信</span>
+                <SendIcon className={classes.Icon} />
+              </React.Fragment>
+            )}
           </Button>
         </div>
         <TextField
@@ -155,11 +218,6 @@ export default function InputModal(props) {
           value={writingText}
           className={classes.Field}
           onChange={handleTextChange}
-          InputProps={{
-            classes: {
-              notchedOutline: classes.TextBox
-            }
-          }}
         />
         {blobURL ? (
           <div className={classes.clickedModalBottom}>

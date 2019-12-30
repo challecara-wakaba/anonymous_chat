@@ -25,17 +25,13 @@ const Thread = props => {
   const classes = useStyles();
   const theme = useTheme();
   const { user, post, replies } = props;
-  const {
-    addMessage,
-    loadPost,
-    loadMessage,
-    goodButtonClick,
-    KininaruButtonClick
-  } = props;
+  const { addMessage, loadPost, loadMessage, goodButtonClick } = props;
   const { url } = useRouteMatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isvisiable, setIsVisiable] = useState(false);
   const [viweingPicture, setViewingPicture] = useState('');
+  const [isMessageUpdate, setIsMessageUpdate] = useState(false); // 「新しい投稿があります！」の表示に使う
+  const [isSending, setIsSending] = useState(false); // 「投稿時のローディングに使う」
 
   const [isFetting, setIsFetting] = useState(false); // ローディングのスケルトンウィンドウを管理
 
@@ -51,14 +47,14 @@ const Thread = props => {
       const subscribe = async () => {
         // '/client/:channel/:thread'の:channelと:threadを取り出す
         const [channelId, threadId] = extractId(url);
-        // urlで指定されたチャンネルのfirebase参照を取得
+        // urlで指定されたスレッドfirebase参照を取得
         const ref = db
           .collection('channels')
           .doc(channelId)
           .collection('threads')
           .doc(threadId);
 
-        // 指定されたチャンネルが存在するか確認
+        // 指定されたスレッドが存在するか確認
         const isExist = (await ref.get()).exists;
         if (isExist) {
           let threadMeta = null;
@@ -105,11 +101,62 @@ const Thread = props => {
     [] /*useEffectをcomponentDidMountのように扱うためにから配列を渡している*/
   );
 
+  useEffect(() => {
+    // messageの変更を取得する
+    // 「新しいメッセージがあります！」などの表示や
+    // 送信時のローディングアニメーションの表示に用いる
+
+    let unsbscribe = null;
+    const subscribe = async () => {
+      // '/client/:channel/:thread'の:channelと:threadを取り出す
+      const [channelId, threadId] = extractId(url);
+      // urlで指定されたチャンネルのfirebase参照を取得
+      const ref = db
+        .collection('channels')
+        .doc(channelId)
+        .collection('threads')
+        .doc(threadId);
+
+      // 指定されたスレッドが存在するか確認
+      const isExist = (await ref.get()).exists;
+      if (isExist) {
+        unsbscribe = ref.collection('messages').onSnapshot(snapshot => {
+          snapshot.docChanges().forEach(change => {
+            let authorUid = change.doc.data().userUid;
+            // 新しい投稿があり、投稿者ではなければ
+            if (change.type === 'added' && authorUid !== user.uid) {
+              setIsMessageUpdate(true); // メッセージを表示
+            }
+            // 新しい投稿があり、投稿者であれば
+            if (change.type === 'added' && authorUid === user.uid) {
+              setIsSending(false); // ローディングアニメーションをオフ
+              setIsModalOpen(false); // モーダルウィンドウを閉じる
+            }
+          });
+        });
+      }
+    };
+    subscribe();
+
+    return function cleanUp() {
+      if (unsbscribe) unsbscribe();
+    };
+  }, []);
+
   // --- modal window ---
-  const handleModaleOpen = () => setIsModalOpen(true);
-  const handleModaleClose = () => setIsModalOpen(false);
+  const handleModaleOpen = () => {
+    setIsModalOpen(true);
+    setIsMessageUpdate(false);
+    setIsSending(false);
+  };
+  const handleModaleClose = () => {
+    setIsModalOpen(false);
+    setIsMessageUpdate(false);
+    setIsSending(false);
+  };
   const submit = (text, picture, profile) => {
     addMessage(url, user.uid, text.trim(), picture, profile);
+    setIsSending(true); // ローディングアニメーションをオン
   };
   // --- --- --- ---
 
@@ -156,27 +203,6 @@ const Thread = props => {
     }
   };
   // --- --- --- ---
-  // --- Kininaru ---
-  const handleKininaruClick = () => {
-    // KininaruClickedUsersが無い時のため
-    let KininaruClickedUsers = post.KininaruClickedUsers
-      ? post.KininaruClickedUsers
-      : {};
-
-    if (KininaruClickedUsers[user.uid] === true) {
-      // 押してあった時
-      const newClickedUsers = Object.assign({}, KininaruClickedUsers, {
-        [user.uid]: false
-      });
-      KininaruButtonClick(url, newClickedUsers);
-    } else {
-      // 押してなかった時
-      const newClickedUsers = Object.assign({}, KininaruClickedUsers, {
-        [user.uid]: true
-      });
-      KininaruButtonClick(url, newClickedUsers);
-    }
-  };
 
   const makeDummyArray = count => {
     // firestoreからmessageを取得するまで表示するスケルトンウィンドウに用いる
@@ -208,7 +234,6 @@ const Thread = props => {
               post={post}
               replies={replies}
               onGoodClick={handleGoodClick}
-              onKininaruClick={handleKininaruClick}
               onViewerOpen={handleViewerOpen}
               profile={post.profile}
             />
@@ -221,6 +246,8 @@ const Thread = props => {
         onSubmit={submit}
         userUid={user.uid}
         post={post}
+        isMessageUpdate={isMessageUpdate}
+        isSending={isSending}
       />
       <Viewer
         visible={isvisiable}
@@ -249,11 +276,7 @@ const mapDispatchToProps = dispatch => {
     loadPost: post => dispatch(threadActions.loadPost(post)),
     loadMessage: replies => dispatch(threadActions.loadMessage(replies)),
     goodButtonClick: (url, messageKey, goodClickedUsers) =>
-      dispatch(
-        threadActions.goodButtonClick(url, messageKey, goodClickedUsers)
-      ),
-    KininaruButtonClick: (url, KininaruClickedUsers) =>
-      dispatch(threadActions.KininaruButtonClick(url, KininaruClickedUsers))
+      dispatch(threadActions.goodButtonClick(url, messageKey, goodClickedUsers))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Thread);

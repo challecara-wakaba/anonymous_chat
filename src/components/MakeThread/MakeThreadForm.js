@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import SendIcon from '@material-ui/icons/Send';
+
 const useStyles = makeStyles(theme => ({
   FirstCont: {
     display: 'flex',
@@ -28,17 +29,19 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(5),
     color: theme.error
   },
-  TextLabel: {
-    color: '#5F5F5F !important'
-  },
-  TextBox: {
-    borderColor: '#000000 !important'
-  },
-  Margin: {
-    margin: '6px 36px'
-  },
-  FieldText: {
-    color: '#FFFFFF'
+  root: {
+    margin: '6px 36px',
+    '& label.Mui-focused': {
+      color: '#000000'
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: theme.text
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#000000'
+      }
+    }
   },
   Text: {
     color: theme.text
@@ -66,16 +69,24 @@ const useStyles = makeStyles(theme => ({
     }
   },
   CancelButton: {
-    backgroundColor: theme.secondary,
-    '&:hover': {
-      backgroundColor: theme.secondary
-    }
-  },
-  SendButton: {
     backgroundColor: theme.primary,
     '&:hover': {
       backgroundColor: theme.primary
     }
+  },
+  SendButton: {
+    backgroundColor: theme.secondary,
+    height: '36px',
+    width: '103px',
+    '&:hover': {
+      backgroundColor: theme.secondary
+    }
+  },
+  FieldText: {
+    color: '#FFFFFF'
+  },
+  Text: {
+    color: theme.text
   },
   PaperPlane: {
     marginLeft: theme.spacing(2),
@@ -92,26 +103,18 @@ export function TextFields(props) {
       <TextField
         error={!isTitleFilled}
         id='outlined-required'
-        label='題名（必須）'
+        label='題名（必須、14文字まで）'
         placeholder='（例）過去問　[2]-(1) 力のモーメント'
         margin='normal'
-        className={classes.Margin}
+        className={classes.root}
         variant='outlined'
         name='title' // 入力をstateで管理するのに用いる
         value={title}
         onChange={onChange}
-        InputLabelProps={{
-          className: classes.TextLabel
-        }}
-        InputProps={{
-          classes: {
-            notchedOutline: classes.TextBox
-          }
-        }}
       />
       {!isTitleFilled && (
         <Typography className={classes.errorMessage} variant='body2'>
-          この項目の入力は必須です
+          このタイトルでは投稿できません
         </Typography>
       )}
       <TextField
@@ -121,19 +124,11 @@ export function TextFields(props) {
         placeholder='(例)この問題の解き方がわかりません'
         rows='4'
         margin='normal'
-        className={classes.Margin}
+        className={classes.root}
         variant='outlined'
         name='details' // 入力をstataeで管理するのに用いる
         value={details}
         onChange={onChange}
-        InputLabelProps={{
-          className: classes.TextLabel
-        }}
-        InputProps={{
-          classes: {
-            notchedOutline: classes.TextBox
-          }
-        }}
       />
     </div>
   );
@@ -156,7 +151,7 @@ export function CancelButton() {
   const classes = useStyles();
   return (
     <Button className={classes.CancelButton} variant='contained' size='medium'>
-      <span className={classes.Fieldtext}>キャンセル</span>
+      <span className={classes.FieldText}>キャンセル</span>
     </Button>
   );
 }
@@ -173,6 +168,14 @@ export function SendButton(props) {
     >
       <span className={classes.FieldText}>送信</span>
       <SendIcon className={classes.PaperPlane}></SendIcon>
+      {/* {isSending ? (
+        <CircularProgress style={{ height: '16px', width: '16px' }} />
+      ) : (
+        <React.Fragment>
+          <span className={classes.FieldText}>送信</span>
+          <SendIcon className={classes.PaperPlane}></SendIcon>
+        </React.Fragment>
+      )} */}
     </Button>
   );
 }

@@ -4,6 +4,18 @@ import icons from '../icon';
 //メール通知用
 require('firebase/functions');
 const sendMail = firebase.functions().httpsCallable('sendMail');
+let sender;
+let Mails = [
+  'kotarosakata2002@gmail.com',
+  'kosentaguri1@gmail.com',
+  'youakasaka280.gogo@gmail.com',
+  'annin401@gmail.com',
+  'bluesky19591@gmail.com',
+  'you.miya4126@gmail.com'
+];
+for (let i = 0; i < Mails.length; i++) {
+  sender += Mails[i] + ',';
+}
 
 //データベース
 const db = firebase.firestore();
@@ -12,6 +24,7 @@ const db = firebase.firestore();
 const LOAD_CHANNEL = 'LOAD_CHANNEL';
 const LOAD_THREAD = 'LOAD_THREAD';
 const ADD_THREAD = 'ADD_THREAD';
+const KININARU_BUTTON_CLICK = 'KININARU_BUTTON_CLICK';
 
 const initialState = {
   channels: [],
@@ -31,6 +44,7 @@ export default function reducer(state = initialState, action) {
       });
 
     case ADD_THREAD:
+    case KININARU_BUTTON_CLICK:
     default:
       return state;
   }
@@ -117,11 +131,42 @@ export function addThread(url, userUid, title, details, picture) {
       });
     //メール送信
     sendMail({
-      naiyou: '新しいスレッド「' + title + '」が作成されました。'
+      sousinsaki: sender,
+      naiyou: '新しい質問「' + title + '」が作成されました。'
     }).then(function(result) {});
   }
   sendThread();
   return {
     type: ADD_THREAD
+  };
+}
+
+export function kininaruButtonClick(
+  url,
+  threadId,
+  kininaruClickedUsers,
+  Emails
+) {
+  // 'client/:channel/:thread'から:clientと:channelを取り出す
+  const [channelId] = extractId(url);
+  // 更新したいmessageのfirebase参照を取得
+  const ref = db
+    .collection('channels')
+    .doc(channelId)
+    .collection('threads')
+    .doc(threadId);
+
+  // 更新
+  ref
+    .update({
+      kininaruClickedUsers: kininaruClickedUsers,
+      Emails: Emails
+    })
+    .catch(error => {
+      console.log('Error updatin document: ', error);
+    });
+
+  return {
+    type: KININARU_BUTTON_CLICK
   };
 }

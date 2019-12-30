@@ -10,7 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import AddAlertIcon from '@material-ui/icons/AddAlert';
+
+import KininaruButton from './KininaruButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,6 +39,9 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto',
     marginRight: 'unset'
   },
+  Icon: {
+    padding: '1%'
+  },
   Ver: {
     color: '#142471'
   },
@@ -57,11 +61,16 @@ const useStyles = makeStyles(theme => ({
   newsBar: {
     display: 'flex',
     justifyContent: 'space-between',
-    arignItems: 'center',
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
+    alignItems: 'center',
     background: theme.secondary,
-    color: theme.text
+    color: theme.text,
+    padding: '4px'
+  },
+  replymsg: {
+    marginLeft: '12px'
+  },
+  kininaru: {
+    marginRight: '11px'
   },
   divider: {
     height: 1
@@ -71,7 +80,16 @@ const useStyles = makeStyles(theme => ({
 const ThreadCard = props => {
   const classes = useStyles();
   const { url } = useRouteMatch();
-  const { threadId, timeStamp, title, details, pictureURL, replyCount } = props;
+  const {
+    threadId,
+    timeStamp,
+    title,
+    details,
+    pictureURL,
+    replyCount,
+    isKininaruClicked,
+    onKininaruClick
+  } = props;
   const [anchorEl, setAnchorEl] = useState(null); // あくまで開いているボタンの場所のstateのためrリフトアップしてない
 
   let jumpURL = `${url}/${threadId}`;
@@ -128,7 +146,11 @@ const ThreadCard = props => {
           >
             {convertDateFormat(timeStamp)}
           </Typography>
-          <IconButton edge='end' onClick={handleMenuOpen}>
+          <IconButton
+            edge='end'
+            onClick={handleMenuOpen}
+            className={classes.Icon}
+          >
             <MoreVertIcon className={classes.Ver} />
           </IconButton>
           {renderMenu}
@@ -153,11 +175,20 @@ const ThreadCard = props => {
       <Divider />
       <CardContent className={classes.newsBar}>
         {replyCount === 0 ? (
-          <Typography variant='body2'>{'まだ返信がありません'}</Typography>
+          <Typography variant='caption' className={classes.replymsg}>
+            {'まだ返信がありません'}
+          </Typography>
         ) : (
-          <Typography variant='body2'>{`${replyCount}件の返信`}</Typography>
+          <Typography
+            variant='caption'
+            className={classes.replymsg}
+          >{`${replyCount}件の返信`}</Typography>
         )}
-        <AddAlertIcon />
+        <KininaruButton
+          className={classes.kininaru}
+          isKininaruClicked={isKininaruClicked}
+          onKininaruClick={onKininaruClick}
+        />
       </CardContent>
       <Divider className={classes.divider} />
     </Card>

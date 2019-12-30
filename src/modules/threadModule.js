@@ -7,7 +7,6 @@ const LOAD_POST = 'LOAD_POST';
 const LOAD_MESSAGE = 'LOAD_MESSAGE';
 const ADD_MESSAGE = 'ADD_MESSAGE';
 const GOOD_BUTTON_CLICK = 'GOOD_BUTTON_CLICK';
-const KININARU_BUTTON_CLICK = 'KININARU_BUTTON_CLICK';
 
 const initialState = {
   post: {},
@@ -28,7 +27,6 @@ const reducer = (state = initialState, action) => {
 
     case ADD_MESSAGE:
     case GOOD_BUTTON_CLICK:
-    case KININARU_BUTTON_CLICK:
     default:
       return state;
   }
@@ -94,7 +92,6 @@ export const addMessage = (url, userUid, text, picture, profile) => {
         text: text,
         timeStamp: new Date(),
         goodClickedUsers: {},
-        KininaruClickedUsers: {},
         pictureURL: pictureURL
       })
       .catch(function(error) {
@@ -103,7 +100,6 @@ export const addMessage = (url, userUid, text, picture, profile) => {
 
     // ランダムアイコンの設定の更新と
     // 返信の総数を管理するフィールドの更新
-    console.log(profile);
     await ref.update({
       profile: profile,
       replyCount: firebase.firestore.FieldValue.increment(1)
@@ -138,29 +134,5 @@ export function goodButtonClick(url, messageId, goodClickedUsers) {
 
   return {
     type: GOOD_BUTTON_CLICK
-  };
-}
-
-export function KininaruButtonClick(url, KininaruClickedUsers) {
-  // 'client/:channel/:thread'から:clientと:channelを取り出す
-  const [channelId, threadId] = extractId(url);
-  // 更新したいmessageのfirebase参照を取得
-  const ref = db
-    .collection('channels')
-    .doc(channelId)
-    .collection('threads')
-    .doc(threadId);
-
-  // 更新
-  ref
-    .update({
-      KininaruClickedUsers: KininaruClickedUsers
-    })
-    .catch(error => {
-      console.log('Error updatin document: ', error);
-    });
-
-  return {
-    type: KININARU_BUTTON_CLICK
   };
 }

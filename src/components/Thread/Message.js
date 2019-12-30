@@ -13,7 +13,13 @@ const useStyles = makeStyles(theme => ({
     // ListItemAvatorのmin-widthが56pxのため56px引く
     minWidth: 'calc(100% - 56px)'
   },
-  inline: {
+  inlineName: {
+    display: 'inline',
+    color: '#142471',
+    whiteSpace: 'pre-wrap',
+    overflowWrap: 'break-word'
+  },
+  inlineText: {
     display: 'inline',
     color: '#000000',
     whiteSpace: 'pre-wrap',
@@ -62,7 +68,7 @@ const Message = props => {
               <Typography
                 component='span'
                 variant='subtitle1'
-                className={classes.inline}
+                className={classes.inlineName}
               >
                 {name}
               </Typography>
@@ -83,7 +89,7 @@ const Message = props => {
                 <Typography
                   component='span'
                   variant='body2'
-                  className={classes.inline}
+                  className={classes.inlineText}
                 >
                   {text}
                 </Typography>

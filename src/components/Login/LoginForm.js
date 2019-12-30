@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
@@ -16,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   SecondCont: {
     display: 'flex',
     flexDirection: 'column',
-    margin: '32px 24px'
+    margin: '40px 24px'
   },
   Title: {
     marginLeft: theme.spacing(2),
@@ -27,8 +26,18 @@ const useStyles = makeStyles(theme => ({
     fontSize: theme.spacing(5),
     color: theme.primary
   },
-  Margin: {
-    marginBottom: 'unset'
+  root: {
+    '& label.Mui-focused': {
+      color: '#000000'
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: theme.text
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#000000'
+      }
+    }
   },
   Button: {
     marginBottom: theme.spacing(1),
@@ -48,12 +57,6 @@ const useStyles = makeStyles(theme => ({
   },
   errorMessage: {
     color: theme.error
-  },
-  TextLabel: {
-    color: '#5F5F5F !important'
-  },
-  TextBox: {
-    borderColor: '#000000 !important'
   }
 }));
 
@@ -76,20 +79,13 @@ export function TextFields(props) {
         label='Email'
         type='email'
         name='email' // onTextChangeで使う
+        className={classes.root}
         autoComplete='email'
         margin='normal'
         variant='outlined'
         error={!isUserFound} // tureの時赤枠にする
         value={email}
         onChange={onTextChange}
-        InputLabelProps={{
-          className: classes.TextLabel
-        }}
-        InputProps={{
-          classes: {
-            notchedOutline: classes.TextBox
-          }
-        }}
       />
       {!isUserFound && (
         <Typography className={classes.errorMessage} variant='body2'>
@@ -101,21 +97,13 @@ export function TextFields(props) {
         label='Password'
         type='password'
         name='password' // onTextChangeで使う
-        className={classes.Margin}
+        className={classes.root}
         autoComplete='current-password'
         margin='normal'
         variant='outlined'
         error={!isCorrectPassword} // tureの時赤枠にする
         value={password}
         onChange={onTextChange}
-        InputLabelProps={{
-          className: classes.TextLabel
-        }}
-        InputProps={{
-          classes: {
-            notchedOutline: classes.TextBox
-          }
-        }}
       />
       {!isCorrectPassword && (
         <Typography className={classes.errorMessage} variant='body2'>
@@ -139,9 +127,9 @@ export function Buttons(props) {
       >
         <span className={classes.FieldText}>ログイン</span>
       </Button>
-      <Link href='' variant='body2' className={classes.MesText}>
+      {/* <Link href='' variant='body2' className={classes.MesText}>
         パスワードを忘れた！
-      </Link>
+      </Link> */}
     </div>
   );
 }

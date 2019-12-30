@@ -120,9 +120,7 @@ function MakeThread(props) {
   }
 
   function handleSubmit() {
-    // タイトルの入力欄が空だったりホワイトスペースばっかりだったら送信しない
-    // String.tirm() で文字列の銭湯と最後にある改行は空白を取り除
-
+    // 文字数を計算
     String.prototype.bytes = function() {
       var length = 0;
       for (var i = 0; i < this.length; i++) {
@@ -141,10 +139,13 @@ function MakeThread(props) {
       return length;
     };
 
+    // タイトルの入力欄が空だったりホワイトスペースばっかりだったら送信しない
+    // String.tirm() で文字列の銭湯と最後にある改行は空白を取り除
+
     if (title.trim() === '') {
       setIsTitileFilled(false);
       return;
-    } else if (title.bytes() > 20) {
+    } else if (title.bytes() > 28) {
       setIsTitileFilled(false);
       return;
     }
